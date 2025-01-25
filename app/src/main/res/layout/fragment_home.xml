@@ -16,7 +16,8 @@
             android:background="#3B4FD6"
             android:orientation="vertical"
             app:layout_constraintTop_toTopOf="parent"
-            tools:layout_editor_absoluteX="-6dp">
+            tools:layout_editor_absoluteX="-6dp"
+            tools:ignore="MissingConstraints">
 
             <ImageView
                 android:id="@+id/imageView10"
@@ -27,14 +28,15 @@
         </TableRow>
 
         <TableRow
-            android:id="@+id/tableRow"
+            android:id="@+id/tableRow2"
             android:layout_width="414dp"
             android:layout_height="78dp"
             android:background="#3B4FD6"
             android:backgroundTint="#3B4FD6"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            tools:layout_editor_absoluteY="773dp">
+            tools:layout_editor_absoluteY="773dp"
+            tools:ignore="MissingConstraints">
 
             <ImageButton
                 android:id="@+id/btnHTH"
@@ -51,14 +53,14 @@
                 android:src="@drawable/__2025_01_25_201903" />
 
             <ImageButton
-                android:id="@+id/btnHtHt"
+                android:id="@+id/btnHTHt"
                 android:layout_width="90dp"
                 android:layout_height="match_parent"
                 android:background="#3B4FD6"
                 android:src="@drawable/__2025_01_25_201910" />
 
             <ImageButton
-                android:id="@+id/btnHTTS"
+                android:id="@+id/btnHTS"
                 android:layout_width="90dp"
                 android:layout_height="match_parent"
                 android:background="#3B4FD6"
@@ -72,8 +74,8 @@
                 android:layout_marginBottom="16dp"
                 android:background="#3B4FD6"
                 android:backgroundTint="#3B4FD6"
-                android:src="@drawable/__2025_01_25_201923"
-                android:tint="#00F2ECEC" />
+                android:src="@drawable/__2025_01_25_201923"/>
+
 
         </TableRow>
 

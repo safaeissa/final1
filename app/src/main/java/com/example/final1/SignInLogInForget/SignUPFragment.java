@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.final1.FirebaseServices;
+import com.example.final1.MainPages.HomeFragment;
 import com.example.final1.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -120,6 +121,10 @@ public class SignUPFragment extends Fragment {
                     @Override
                     public void onSuccess (AuthResult authResult){
                         Toast.makeText(getActivity(), "Successfully signed up!", Toast.LENGTH_SHORT).show();
+                        FragmentTransaction transaction= getParentFragmentManager().beginTransaction();
+                        transaction.replace(R.id.main ,new HomeFragment());
+                        transaction.commit();
+                        return;
                     }
 
                 }).addOnFailureListener(new OnFailureListener() {

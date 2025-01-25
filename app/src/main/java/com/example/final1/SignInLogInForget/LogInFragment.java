@@ -15,6 +15,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.final1.FirebaseServices;
+import com.example.final1.MainPages.FoodFragment;
+import com.example.final1.MainPages.HomeFragment;
 import com.example.final1.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -116,7 +118,12 @@ public class LogInFragment extends Fragment {
                 if (Email.isEmpty()&&password.isEmpty())
                 {
                     Toast.makeText(getActivity(), "Some fields are empty!", Toast.LENGTH_SHORT).show();
-                    return;
+
+                            FragmentTransaction transaction= getParentFragmentManager().beginTransaction();
+                            transaction.replace(R.id.main ,new HomeFragment());
+                            transaction.commit();
+                        return;
+
                 }
                 //Login procedure
                 fbs.getAuth().signInWithEmailAndPassword(Email,password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
