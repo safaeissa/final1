@@ -3,10 +3,12 @@ package com.example.final1.MainPages;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 
 import com.example.final1.R;
 
@@ -16,6 +18,7 @@ import com.example.final1.R;
  * create an instance of this fragment.
  */
 public class FoodFragment extends Fragment {
+    private ImageButton btnHt,btnF,btnA,btnS,btnH;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -63,4 +66,58 @@ public class FoodFragment extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_food, container, false);
     }
+    @Override
+    public void onStart() {
+        super.onStart();
+        connect();
+    }
+    public void connect ()
+    {
+        btnH=getView().findViewById(R.id.btnH);
+        btnF=getView().findViewById(R.id.btnF);
+        btnA=getView().findViewById(R.id.btnA);
+        btnHt=getView().findViewById(R.id.btnHt);
+        btnS=getView().findViewById(R.id.btnS);
+        btnH.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction transaction= getParentFragmentManager().beginTransaction();
+                transaction.replace(R.id.main ,new  HomeFragment());
+                transaction.commit();
+            }
+        });
+        btnF.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction transaction= getParentFragmentManager().beginTransaction();
+                transaction.replace(R.id.main ,new FoodFragment());
+                transaction.commit();
+            }
+        });
+        btnA.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction transaction= getParentFragmentManager().beginTransaction();
+                transaction.replace(R.id.main ,new AIFragment());
+                transaction.commit();
+            }
+        });
+        btnHt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction transaction= getParentFragmentManager().beginTransaction();
+                transaction.replace(R.id.main ,new HealthFragment());
+                transaction.commit();
+            }
+        });
+        btnS.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction transaction= getParentFragmentManager().beginTransaction();
+                transaction.replace(R.id.main ,new SportFragment());
+                transaction.commit();
+            }
+        });
+    }
+
 }

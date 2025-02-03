@@ -3,12 +3,81 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".MainPages.AIFragment">
-
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="857dp">
+
+        <TableRow
+            android:layout_width="515dp"
+            android:layout_height="67dp"
+            android:background="#3B4FD6"
+            android:orientation="vertical"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_editor_absoluteX="-6dp"
+            tools:ignore="MissingConstraints">
+
+            <ImageView
+                android:id="@+id/imageView10"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@drawable/__2025_01_25_192707" />
+
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow2"
+            android:layout_width="414dp"
+            android:layout_height="78dp"
+            android:background="#3B4FD6"
+            android:backgroundTint="#3B4FD6"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteY="773dp"
+            tools:ignore="MissingConstraints">
+
+            <ImageButton
+                android:id="@+id/btnH"
+                android:layout_width="65dp"
+                android:layout_height="match_parent"
+                android:background="#3B4FD6"
+                android:src="@drawable/__2025_01_25_201917" />
+
+            <ImageButton
+                android:id="@+id/btnF"
+                android:layout_width="69dp"
+                android:layout_height="64dp"
+                android:background="#3B4FD6"
+                android:src="@drawable/__2025_01_25_201903" />
+
+            <ImageButton
+                android:id="@+id/btnHt"
+                android:layout_width="90dp"
+                android:layout_height="match_parent"
+                android:background="#3B4FD6"
+                android:src="@drawable/__2025_01_25_201910" />
+
+            <ImageButton
+                android:id="@+id/btnS"
+                android:layout_width="90dp"
+                android:layout_height="match_parent"
+                android:background="#3B4FD6"
+                android:src="@drawable/__2025_01_25_201930" />
+
+            <ImageButton
+                android:id="@+id/btnA"
+                style="@style/Widget.AppCompat.ImageButton"
+                android:layout_width="81dp"
+                android:layout_height="79dp"
+                android:layout_marginBottom="16dp"
+                android:background="#3B4FD6"
+                android:backgroundTint="#3B4FD6"
+                android:src="@drawable/__2025_01_25_201923"/>
+
+
+        </TableRow>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

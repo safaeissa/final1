@@ -15,30 +15,32 @@
             android:id="@+id/imageView6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="196dp"
             android:layout_marginTop="93dp"
+            android:layout_marginEnd="55dp"
             android:layout_marginBottom="155dp"
             android:src="@drawable/__2025_01_24_172259"
             app:layout_constraintBottom_toTopOf="@+id/EtEmailForget"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/imageView7"
-            android:layout_width="332dp"
-            android:layout_height="0dp"
-            android:layout_marginBottom="212dp"
+            android:layout_width="327dp"
+            android:layout_height="338dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginBottom="41dp"
             android:src="@android:drawable/screen_background_light_transparent"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/etGotoLoginfromPass"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/et" />
 
         <EditText
             android:id="@+id/EtEmailForget"
-            android:layout_width="255dp"
+            android:layout_width="249dp"
             android:layout_height="0dp"
-            android:layout_marginBottom="35dp"
+            android:layout_marginBottom="28dp"
             android:background="#FAF3FB"
             android:ems="10"
             android:hint="Email"
@@ -50,70 +52,56 @@
 
         <EditText
             android:id="@+id/etPasswordLogin"
-            android:layout_width="257dp"
+            android:layout_width="255dp"
             android:layout_height="0dp"
-            android:layout_marginBottom="102dp"
+            android:layout_marginBottom="50dp"
             android:background="#FCF5FD"
             android:ems="10"
             android:hint="Password"
             android:inputType="textPassword"
-            app:layout_constraintBottom_toTopOf="@+id/textView2"
+            app:layout_constraintBottom_toTopOf="@+id/btnforget"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/EtEmailForget" />
 
         <TextView
             android:id="@+id/et"
-            android:layout_width="149dp"
-            android:layout_height="45dp"
-            android:layout_marginBottom="14dp"
+            android:layout_width="117dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="87dp"
+            android:layout_marginEnd="89dp"
+            android:layout_marginBottom="20dp"
             android:text="Sign Up"
             android:textColor="#F4F1F1"
             android:textSize="20sp"
             app:layout_constraintBottom_toTopOf="@+id/imageView7"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/imageView7"
+            app:layout_constraintStart_toStartOf="@+id/imageView6"
             app:layout_constraintTop_toBottomOf="@+id/imageView6" />
 
         <Button
             android:id="@+id/btnforget"
-            android:layout_width="116dp"
-            android:layout_height="53dp"
-            android:layout_marginTop="211dp"
-            android:layout_marginBottom="212dp"
-            android:foreground="@drawable/__2025_01_24_172307"
+            android:layout_width="106dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="192dp"
+            android:foreground="@drawable/__2025_01_26_122101"
             android:text="Sign iUp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/EtEmailForget" />
-
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="99dp"
-            android:layout_height="66dp"
-            android:layout_marginStart="104dp"
-            android:layout_marginEnd="106dp"
-            android:layout_marginBottom="210dp"
-            android:text="Sign Up"
-            android:textColor="#F4F1F1"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/imageView7"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="@+id/etPasswordLogin"
             app:layout_constraintTop_toBottomOf="@+id/etPasswordLogin" />
 
         <TextView
             android:id="@+id/etGotoLoginfromPass"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="14dp"
-            android:layout_marginBottom="175dp"
+            android:layout_marginBottom="108dp"
             android:text="Login "
             android:textColor="#F2F0F0"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/textView2" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView7" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

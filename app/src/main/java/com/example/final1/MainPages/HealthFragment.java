@@ -18,7 +18,7 @@ import com.example.final1.R;
  * create an instance of this fragment.
  */
 public class HealthFragment extends Fragment {
-    private ImageButton btnHtH,btnHtF,btnHtA,btnHtS;
+    private ImageButton btnHt,btnF,btnA,btnS,btnH;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -74,11 +74,20 @@ public class HealthFragment extends Fragment {
     }
     public void coneect()
     {
-        btnHtF=getView().findViewById(R.id.btnHTF);
-        btnHA=getView().findViewById(R.id.btnHtTA);
-        btnHHT=getView().findViewById(R.id.btnHTHt);
-        btnHS=getView().findViewById(R.id.btnHTS);
-        btnHF.setOnClickListener(new View.OnClickListener() {
+        btnH=getView().findViewById(R.id.btnH);
+        btnF=getView().findViewById(R.id.btnF);
+        btnA=getView().findViewById(R.id.btnA);
+        btnHt=getView().findViewById(R.id.btnHt);
+        btnS=getView().findViewById(R.id.btnS);
+        btnH.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction transaction= getParentFragmentManager().beginTransaction();
+                transaction.replace(R.id.main ,new  HomeFragment());
+                transaction.commit();
+            }
+        });
+        btnF.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FragmentTransaction transaction= getParentFragmentManager().beginTransaction();
@@ -86,7 +95,7 @@ public class HealthFragment extends Fragment {
                 transaction.commit();
             }
         });
-        btnHA.setOnClickListener(new View.OnClickListener() {
+        btnA.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FragmentTransaction transaction= getParentFragmentManager().beginTransaction();
@@ -94,7 +103,7 @@ public class HealthFragment extends Fragment {
                 transaction.commit();
             }
         });
-        btnHHT.setOnClickListener(new View.OnClickListener() {
+        btnHt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FragmentTransaction transaction= getParentFragmentManager().beginTransaction();
@@ -102,7 +111,7 @@ public class HealthFragment extends Fragment {
                 transaction.commit();
             }
         });
-        btnHS.setOnClickListener(new View.OnClickListener() {
+        btnS.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FragmentTransaction transaction= getParentFragmentManager().beginTransaction();

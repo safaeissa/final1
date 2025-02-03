@@ -119,17 +119,16 @@ public class LogInFragment extends Fragment {
                 {
                     Toast.makeText(getActivity(), "Some fields are empty!", Toast.LENGTH_SHORT).show();
 
-                            FragmentTransaction transaction= getParentFragmentManager().beginTransaction();
-                            transaction.replace(R.id.main ,new HomeFragment());
-                            transaction.commit();
-                        return;
-
                 }
                 //Login procedure
                 fbs.getAuth().signInWithEmailAndPassword(Email,password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                     @Override
                     public void onSuccess(AuthResult authResult) {
-                        Toast.makeText(getActivity(), "Successfully signed up!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Successfully Login !", Toast.LENGTH_SHORT).show();
+                        FragmentTransaction transaction= getParentFragmentManager().beginTransaction();
+                        transaction.replace(R.id.main ,new HomeFragment());
+                        transaction.commit();
+                        return;
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
