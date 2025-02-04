@@ -9,13 +9,11 @@ import androidx.fragment.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.final1.FirebaseServices;
-import com.example.final1.MainPages.FoodFragment;
 import com.example.final1.MainPages.HomeFragment;
 import com.example.final1.R;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -30,7 +28,7 @@ import com.google.firebase.auth.AuthResult;
 public class LogInFragment extends Fragment {
     private EditText etEmail, etPassword;
     private TextView textView4;
-    private Button btnlogin;
+    private TextView btnlogin;
     private FirebaseServices fbs;
     private TextView signup;
     private TextView forget;
@@ -89,9 +87,9 @@ public class LogInFragment extends Fragment {
     public void connect(){
         //connecting components
         fbs=FirebaseServices.getInstance();
-        etEmail=getView().findViewById(R.id.EtEmailForget);
+        etEmail=getView().findViewById(R.id.EtEmailLogin);
         etPassword=getView().findViewById(R.id.etPasswordLogin);
-        btnlogin=getView().findViewById(R.id.btnforget);
+        btnlogin=getView().findViewById(R.id.btnLogin);
         signup=getView().findViewById(R.id.etGotoLoginfromPass);
         forget=getView().findViewById(R.id.etGoToSigUpFromPass);
         signup.setOnClickListener(new View.OnClickListener() {

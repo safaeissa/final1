@@ -8,147 +8,106 @@
     tools:context=".MainPages.HomeFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="857dp"
-        android:background="@color/Blue">
+        android:layout_width="442dp"
+        android:layout_height="match_parent"
+        android:background="@drawable/__2025_02_04_182841">
 
         <ImageButton
-            android:id="@+id/btnS"
-            android:layout_width="127dp"
-            android:layout_height="123dp"
-            android:layout_marginStart="52dp"
-            android:layout_marginBottom="304dp"
-            android:background="@color/Blue"
-            android:backgroundTint="@color/Blue"
-            android:src="@drawable/__2025_01_25_201930"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:id="@+id/goToAi"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginStart="31dp"
+            android:layout_marginEnd="39dp"
+            android:layout_marginBottom="109dp"
+            android:background="@color/white"
+            android:src="@drawable/__2025_02_04_190002"
+            app:layout_constraintBottom_toTopOf="@+id/GotoSport"
+            app:layout_constraintEnd_toStartOf="@+id/GotoFood"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textNameUser" />
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="121dp"
-            android:layout_height="121dp"
-            android:layout_marginTop="44dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="55dp"
+            android:layout_marginBottom="70dp"
+            app:layout_constraintBottom_toTopOf="@+id/GotoFood"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textNameUser"
             app:layout_constraintTop_toTopOf="parent"
-            tools:layout_editor_absoluteX="256dp"
             tools:src="@tools:sample/avatars" />
-
-        <ImageButton
-            android:id="@+id/btnHt"
-            android:layout_width="127dp"
-            android:layout_height="123dp"
-            android:layout_marginStart="220dp"
-            android:background="#4054D7"
-            android:backgroundTint="#3B4FD6"
-            android:src="@drawable/__2025_01_25_201910"
-            android:tint="#07FCF5FD"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:layout_editor_absoluteY="678dp" />
-
-        <ImageButton
-            android:id="@+id/btnA"
-            style="@style/Widget.AppCompat.ImageButton"
-            android:layout_width="127dp"
-            android:layout_height="123dp"
-            android:layout_marginEnd="216dp"
-            android:layout_marginBottom="128dp"
-            android:background="#3B4FD6"
-            android:backgroundTint="#3B4FD6"
-            android:src="@drawable/__2025_01_25_201923"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
-
-        <ImageButton
-            android:id="@+id/btnF"
-            android:layout_width="127dp"
-            android:layout_height="123dp"
-            android:layout_marginStart="228dp"
-            android:layout_marginBottom="276dp"
-            android:background="#3B4FD6"
-            android:src="@drawable/__2025_01_25_201903"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/textWelcom"
-            android:layout_width="183dp"
+            android:layout_width="170dp"
             android:layout_height="38dp"
+            android:layout_marginStart="4dp"
             android:layout_marginTop="32dp"
+            android:layout_marginEnd="52dp"
             android:text="Welcome back "
-            android:textColor="@color/white"
+            android:textColor="@color/BtnColor"
             android:textSize="24sp"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:layout_editor_absoluteX="22dp" />
-
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Sport"
-            android:textColor="#F6F3F3"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.637"
-            tools:layout_editor_absoluteX="95dp" />
-
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Recipes"
-            android:textColor="#F6F3F3"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.734"
+            app:layout_constraintBottom_toTopOf="@+id/textNameUser"
+            app:layout_constraintEnd_toStartOf="@+id/imageView"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.67" />
-
-        <TextView
-            android:id="@+id/textView5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Health"
-            android:textColor="#FAF7F7"
-            tools:layout_editor_absoluteX="266dp"
-            tools:layout_editor_absoluteY="782dp" />
-
-        <TextView
-            android:id="@+id/textView6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Ask Ai"
-            android:textColor="#F8F6F6"
-            tools:layout_editor_absoluteX="108dp"
-            tools:layout_editor_absoluteY="710dp" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/textNameUser"
-            android:layout_width="103dp"
-            android:layout_height="28dp"
-            android:layout_marginStart="36dp"
+            android:layout_width="156dp"
+            android:layout_height="84dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="27dp"
+            android:layout_marginBottom="67dp"
             android:text="User "
-            android:textColor="@color/white"
-            android:textSize="20sp"
+            android:textColor="@color/BtnColor"
+            android:textSize="34sp"
+            app:layout_constraintBottom_toTopOf="@+id/goToAi"
+            app:layout_constraintEnd_toStartOf="@+id/imageView"
             app:layout_constraintStart_toStartOf="parent"
-            tools:layout_editor_absoluteY="79dp" />
+            app:layout_constraintTop_toBottomOf="@+id/textWelcom" />
 
-        <EditText
-            android:id="@+id/editTextText"
-            android:layout_width="425dp"
-            android:layout_height="40dp"
-            android:layout_marginStart="4dp"
-            android:drawableTint="#FAF8F8"
-            android:ems="10"
-            android:inputType="text"
-            android:outlineAmbientShadowColor="#FDFCFC"
-            android:scrollbarSize="8dp"
-            android:shadowColor="@color/white"
-            android:text="Health Mate "
-            android:textColor="@color/white"
-            android:textColorHighlight="@color/white"
+        <ImageButton
+            android:id="@+id/GotoFood"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginEnd="66dp"
+            android:layout_marginBottom="113dp"
+            android:background="@color/white"
+            android:src="@drawable/__2025_02_04_190230"
+            app:layout_constraintBottom_toTopOf="@+id/GoToHealth"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/goToAi"
+            app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+        <ImageButton
+            android:id="@+id/GotoSport"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginStart="29dp"
+            android:layout_marginEnd="31dp"
+            android:layout_marginBottom="209dp"
+            android:background="@color/white"
+            android:src="@drawable/__2025_02_04_190326"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/GoToHealth"
             app:layout_constraintStart_toStartOf="parent"
-            tools:layout_editor_absoluteY="210dp" />
+            app:layout_constraintTop_toBottomOf="@+id/goToAi" />
+
+        <ImageButton
+            android:id="@+id/GoToHealth"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginEnd="75dp"
+            android:layout_marginBottom="209dp"
+            android:background="@color/white"
+            android:src="@drawable/__2025_02_04_190623"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/GotoSport"
+            app:layout_constraintTop_toBottomOf="@+id/GotoFood" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

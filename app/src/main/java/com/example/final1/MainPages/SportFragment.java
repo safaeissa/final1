@@ -66,57 +66,9 @@ public class SportFragment extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_sport, container, false);
     }
-    @Override
-    public void onStart() {
-        super.onStart();
-        connect();
-    }
+
     public void connect ()
     {
-        btnH=getView().findViewById(R.id.btnH);
-        btnF=getView().findViewById(R.id.btnF);
-        btnA=getView().findViewById(R.id.btnA);
-        btnHt=getView().findViewById(R.id.btnHt);
-        btnS=getView().findViewById(R.id.btnS);
-        btnH.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentTransaction transaction= getParentFragmentManager().beginTransaction();
-                transaction.replace(R.id.main ,new  HomeFragment());
-                transaction.commit();
-            }
-        });
-        btnF.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentTransaction transaction= getParentFragmentManager().beginTransaction();
-                transaction.replace(R.id.main ,new FoodFragment());
-                transaction.commit();
-            }
-        });
-        btnA.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentTransaction transaction= getParentFragmentManager().beginTransaction();
-                transaction.replace(R.id.main ,new AIFragment());
-                transaction.commit();
-            }
-        });
-        btnHt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentTransaction transaction= getParentFragmentManager().beginTransaction();
-                transaction.replace(R.id.main ,new HealthFragment());
-                transaction.commit();
-            }
-        });
-        btnS.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentTransaction transaction= getParentFragmentManager().beginTransaction();
-                transaction.replace(R.id.main ,new SportFragment());
-                transaction.commit();
-            }
-        });
+
     }
 }

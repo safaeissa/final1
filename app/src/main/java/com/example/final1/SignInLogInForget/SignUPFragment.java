@@ -9,7 +9,6 @@ import androidx.fragment.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,7 +29,7 @@ public class SignUPFragment extends Fragment {
     private EditText etEmail;
     private EditText etPassword;
     private EditText etId;
-    private Button btnSignUp;
+    private TextView btnSignUp;
     private FirebaseServices fbs;
 
 
@@ -92,10 +91,10 @@ public class SignUPFragment extends Fragment {
     public void connect() {
         //connecting components
         fbs=FirebaseServices.getInstance();
-        etEmail = getView().findViewById(R.id.EtEmailForget);
-        etPassword = getView().findViewById(R.id.etPasswordLogin);
-        btnSignUp = getView().findViewById(R.id.btnforget);
-        Login = getView().findViewById(R.id.etGotoLoginfromPass);
+        etEmail = getView().findViewById(R.id.etemailSigup);
+        etPassword = getView().findViewById(R.id.etPassSign);
+        btnSignUp = getView().findViewById(R.id. btnSignUp);
+        Login = getView().findViewById(R.id.goToLoginFRomSig);
         Login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

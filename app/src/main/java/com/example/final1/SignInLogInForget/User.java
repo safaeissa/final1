@@ -6,7 +6,8 @@ public class User {
 
    private Image photo;
    private String Name ;
-    Integer Weight ;
-    Integer  Length ;
+    private Integer Weight ;
+  private  Integer  Length ;
+  private Integer Age ;
 
 }

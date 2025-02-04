@@ -9,7 +9,6 @@ import androidx.fragment.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,7 +25,7 @@ import com.google.android.gms.tasks.Task;
  */
 public class ForgetPasswordFragment extends Fragment {
     private EditText etF;
-    private Button btnR;
+    private TextView btnR;
     private FirebaseServices fbs;
     private TextView signupf;
     private TextView LoginF;
@@ -83,7 +82,7 @@ public class ForgetPasswordFragment extends Fragment {
         connect();
     }
     public void connect() {
-        etF=getView().findViewById(R.id.EtEmailForget);
+        etF=getView().findViewById(R.id.etEmailForget);
         fbs = FirebaseServices.getInstance();
         btnR = getView().findViewById(R.id.btnforget);
         LoginF=getView().findViewById(R.id.etGotoLoginfromPass);

@@ -18,7 +18,7 @@ import com.example.final1.R;
  * create an instance of this fragment.
  */
 public class HomeFragment extends Fragment {
-    private ImageButton btnHt,btnF,btnA,btnS,btnH;
+    private ImageButton btnF,btnA,btnS,btnH;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -71,19 +71,19 @@ public class HomeFragment extends Fragment {
     public void onStart() {
         super.onStart();
         connect();
+
     }
     public void connect ()
     {
-        btnH=getView().findViewById(R.id.btnH);
-    btnF=getView().findViewById(R.id.btnF);
-    btnA=getView().findViewById(R.id.btnA);
-    btnHt=getView().findViewById(R.id.btnHt);
-    btnS=getView().findViewById(R.id.btnS);
+        btnH=getView().findViewById(R.id.GoToHealth);
+    btnF=getView().findViewById(R.id.GotoFood);
+    btnA=getView().findViewById(R.id.goToAi);
+    btnS=getView().findViewById(R.id.GotoSport);
     btnH.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             FragmentTransaction transaction= getParentFragmentManager().beginTransaction();
-            transaction.replace(R.id.main ,new  HomeFragment());
+            transaction.replace(R.id.main ,new HealthFragment());
             transaction.commit();
         }
     });
@@ -100,14 +100,6 @@ public class HomeFragment extends Fragment {
             public void onClick(View v) {
                 FragmentTransaction transaction= getParentFragmentManager().beginTransaction();
                 transaction.replace(R.id.main ,new AIFragment());
-                transaction.commit();
-            }
-        });
-        btnHt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentTransaction transaction= getParentFragmentManager().beginTransaction();
-                transaction.replace(R.id.main ,new HealthFragment());
                 transaction.commit();
             }
         });

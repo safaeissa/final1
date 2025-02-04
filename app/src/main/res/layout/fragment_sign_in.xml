@@ -4,104 +4,100 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#01112A"
     tools:context=".SignInLogInForget.SignUPFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#3B4FD6">
-
-        <ImageView
-            android:id="@+id/imageView6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="93dp"
-            android:layout_marginEnd="55dp"
-            android:layout_marginBottom="155dp"
-            android:src="@drawable/__2025_01_24_172259"
-            app:layout_constraintBottom_toTopOf="@+id/EtEmailForget"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        android:background="@drawable/download_premium_vector_of_medical_technology_science_background_vector_in_blue_with_blank_space_by_wit_about_wallpaper__iphone_wallpaper__backgrounds__border__and_blue_backgrounds_3577453">
 
         <ImageView
             android:id="@+id/imageView7"
-            android:layout_width="327dp"
-            android:layout_height="338dp"
-            android:layout_marginStart="40dp"
-            android:layout_marginEnd="40dp"
-            android:layout_marginBottom="41dp"
-            android:src="@android:drawable/screen_background_light_transparent"
-            app:layout_constraintBottom_toTopOf="@+id/etGotoLoginfromPass"
+            android:layout_width="328dp"
+            android:layout_height="348dp"
+            android:src="?android:attr/listDivider"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/et" />
 
-        <EditText
-            android:id="@+id/EtEmailForget"
-            android:layout_width="249dp"
-            android:layout_height="0dp"
-            android:layout_marginBottom="28dp"
-            android:background="#FAF3FB"
-            android:ems="10"
-            android:hint="Email"
-            android:inputType="textEmailAddress"
-            app:layout_constraintBottom_toTopOf="@+id/etPasswordLogin"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView6" />
-
-        <EditText
-            android:id="@+id/etPasswordLogin"
-            android:layout_width="255dp"
-            android:layout_height="0dp"
-            android:layout_marginBottom="50dp"
-            android:background="#FCF5FD"
-            android:ems="10"
-            android:hint="Password"
-            android:inputType="textPassword"
-            app:layout_constraintBottom_toTopOf="@+id/btnforget"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/EtEmailForget" />
-
         <TextView
             android:id="@+id/et"
-            android:layout_width="117dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="87dp"
-            android:layout_marginEnd="89dp"
-            android:layout_marginBottom="20dp"
+            android:layout_width="96dp"
+            android:layout_height="33dp"
+            android:layout_marginBottom="22dp"
             android:text="Sign Up"
             android:textColor="#F4F1F1"
             android:textSize="20sp"
             app:layout_constraintBottom_toTopOf="@+id/imageView7"
-            app:layout_constraintEnd_toEndOf="@+id/imageView7"
-            app:layout_constraintStart_toStartOf="@+id/imageView6"
-            app:layout_constraintTop_toBottomOf="@+id/imageView6" />
-
-        <Button
-            android:id="@+id/btnforget"
-            android:layout_width="106dp"
-            android:layout_height="0dp"
-            android:layout_marginBottom="192dp"
-            android:foreground="@drawable/__2025_01_26_122101"
-            android:text="Sign iUp"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/etPasswordLogin" />
+            app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
         <TextView
-            android:id="@+id/etGotoLoginfromPass"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="108dp"
-            android:text="Login "
-            android:textColor="#F2F0F0"
+            android:id="@+id/btnSignUp"
+            android:layout_width="93dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="221dp"
+            android:background="#06162C"
+            android:text="        Sign Up "
+            android:textAlignment="viewStart"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.506"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="252dp"
+            android:layout_height="51dp"
+            android:layout_marginTop="82dp"
+            android:layout_marginEnd="68dp"
+            android:layout_marginBottom="37dp"
+            android:text="Health Mate"
+            android:textColor="@color/white"
+            android:textSize="34sp"
+            app:layout_constraintBottom_toTopOf="@+id/et"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/etemailSigup"
+            android:layout_width="219dp"
+            android:layout_height="40dp"
+            android:background="@color/white"
+            android:ems="10"
+            android:hint="Email"
+            android:inputType="textEmailAddress"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteY="267dp" />
+
+        <EditText
+            android:id="@+id/etPassSign"
+            android:layout_width="219dp"
+            android:layout_height="40dp"
+            android:background="@color/white"
+            android:ems="10"
+            android:hint="Password"
+            android:inputType="numberPassword"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView7" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.499" />
+
+        <TextView
+            android:id="@+id/goToLoginFRomSig"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Login "
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteY="571dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

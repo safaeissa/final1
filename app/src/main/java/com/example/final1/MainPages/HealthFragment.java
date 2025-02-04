@@ -72,52 +72,6 @@ public class HealthFragment extends Fragment {
         super.onStart();
         coneect();
     }
-    public void coneect()
-    {
-        btnH=getView().findViewById(R.id.btnH);
-        btnF=getView().findViewById(R.id.btnF);
-        btnA=getView().findViewById(R.id.btnA);
-        btnHt=getView().findViewById(R.id.btnHt);
-        btnS=getView().findViewById(R.id.btnS);
-        btnH.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentTransaction transaction= getParentFragmentManager().beginTransaction();
-                transaction.replace(R.id.main ,new  HomeFragment());
-                transaction.commit();
-            }
-        });
-        btnF.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentTransaction transaction= getParentFragmentManager().beginTransaction();
-                transaction.replace(R.id.main ,new FoodFragment());
-                transaction.commit();
-            }
-        });
-        btnA.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentTransaction transaction= getParentFragmentManager().beginTransaction();
-                transaction.replace(R.id.main ,new AIFragment());
-                transaction.commit();
-            }
-        });
-        btnHt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentTransaction transaction= getParentFragmentManager().beginTransaction();
-                transaction.replace(R.id.main ,new HealthFragment());
-                transaction.commit();
-            }
-        });
-        btnS.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentTransaction transaction= getParentFragmentManager().beginTransaction();
-                transaction.replace(R.id.main ,new SportFragment());
-                transaction.commit();
-            }
-        });
+    public void coneect() {
     }
 }

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SignInLogInForget.AddDataFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/download_premium_vector_of_medical_technology_science_background_vector_in_blue_with_blank_space_by_wit_about_wallpaper__iphone_wallpaper__backgrounds__border__and_blue_backgrounds_3577453">
+
+        <TextView
+            android:id="@+id/textName"
+            android:layout_width="206dp"
+            android:layout_height="45dp"
+            android:background="@color/white"
+            android:hint="Name "
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteY="136dp" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="198dp"
+            android:layout_height="37dp"
+            android:text="TextView"
+            tools:layout_editor_absoluteX="113dp"
+            tools:layout_editor_absoluteY="238dp" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            tools:layout_editor_absoluteX="117dp"
+            tools:layout_editor_absoluteY="330dp" />
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            tools:layout_editor_absoluteX="123dp"
+            tools:layout_editor_absoluteY="445dp" />
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            tools:layout_editor_absoluteX="127dp"
+            tools:layout_editor_absoluteY="509dp" />
+
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            tools:layout_editor_absoluteX="167dp"
+            tools:layout_editor_absoluteY="593dp" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

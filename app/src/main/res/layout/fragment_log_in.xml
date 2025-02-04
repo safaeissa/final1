@@ -9,93 +9,72 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#3B4FD6">
-
-        <ImageView
-            android:id="@+id/imageView6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="93dp"
-            android:layout_marginBottom="141dp"
-            android:src="@drawable/__2025_01_24_172259"
-            app:layout_constraintBottom_toTopOf="@+id/EtEmailForget"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        android:background="@drawable/download_premium_vector_of_medical_technology_science_background_vector_in_blue_with_blank_space_by_wit_about_wallpaper__iphone_wallpaper__backgrounds__border__and_blue_backgrounds_3577453">
 
         <ImageView
             android:id="@+id/imageView7"
-            android:layout_width="365dp"
-            android:layout_height="326dp"
-            android:layout_marginBottom="16dp"
-            android:src="@android:drawable/screen_background_light_transparent"
+            android:layout_width="328dp"
+            android:layout_height="348dp"
+            android:layout_marginBottom="18dp"
+            android:src="?android:attr/listDivider"
             app:layout_constraintBottom_toTopOf="@+id/etGotoLoginfromPass"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.493"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/et" />
+            app:layout_constraintTop_toBottomOf="@+id/et"
+            app:layout_constraintVertical_bias="0.527" />
 
         <EditText
-            android:id="@+id/EtEmailForget"
-            android:layout_width="0dp"
+            android:id="@+id/EtEmailLogin"
+            android:layout_width="268dp"
             android:layout_height="0dp"
-            android:layout_marginStart="76dp"
-            android:layout_marginEnd="76dp"
-            android:layout_marginBottom="56dp"
+            android:layout_marginTop="259dp"
+            android:layout_marginBottom="66dp"
             android:background="#FAF3FB"
             android:ems="10"
             android:hint="Email"
             android:inputType="textEmailAddress"
             app:layout_constraintBottom_toTopOf="@+id/etPasswordLogin"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.482"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView6" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
             android:id="@+id/etPasswordLogin"
-            android:layout_width="256dp"
+            android:layout_width="273dp"
             android:layout_height="0dp"
-            android:layout_marginBottom="37dp"
+            android:layout_marginBottom="21dp"
             android:background="#FCF5FD"
             android:ems="10"
             android:hint="Password"
             android:inputType="textPassword"
-            app:layout_constraintBottom_toTopOf="@+id/btnforget"
+            app:layout_constraintBottom_toTopOf="@+id/btnLogin"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.503"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/EtEmailForget" />
+            app:layout_constraintTop_toBottomOf="@+id/EtEmailLogin"
+            app:layout_constraintVertical_bias="0.559" />
 
         <TextView
             android:id="@+id/et"
-            android:layout_width="129dp"
-            android:layout_height="0dp"
-            android:layout_marginEnd="62dp"
+            android:layout_width="77dp"
+            android:layout_height="26dp"
             android:layout_marginBottom="29dp"
             android:text="LogIn"
             android:textColor="#F4F1F1"
             android:textSize="20sp"
             app:layout_constraintBottom_toTopOf="@+id/imageView7"
-            app:layout_constraintEnd_toEndOf="@+id/imageView6"
-            app:layout_constraintTop_toBottomOf="@+id/imageView6" />
-
-        <Button
-            android:id="@+id/btnforget"
-            android:layout_width="104dp"
-            android:layout_height="0dp"
-            android:layout_marginEnd="65dp"
-            android:layout_marginBottom="194dp"
-            android:foreground="@drawable/__2025_01_26_121243"
-            android:text="Sign iUp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/etPasswordLogin"
-            app:layout_constraintTop_toBottomOf="@+id/etPasswordLogin" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
 
         <TextView
             android:id="@+id/etGotoLoginfromPass"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="21dp"
-            android:layout_marginBottom="25dp"
+            android:layout_marginBottom="26dp"
             android:text="SignUp"
             android:textColor="#F2F0F0"
             app:layout_constraintBottom_toTopOf="@+id/etGoToSigUpFromPass"
@@ -106,13 +85,43 @@
             android:id="@+id/etGoToSigUpFromPass"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="142dp"
-            android:layout_marginBottom="91dp"
+            android:layout_marginBottom="99dp"
             android:text="Forget Password"
             android:textColor="#F2F1F1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/etGotoLoginfromPass" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="221dp"
+            android:layout_height="52dp"
+            android:layout_marginTop="78dp"
+            android:layout_marginBottom="14dp"
+            android:text="Health Mate"
+            android:textColor="@color/white"
+            android:textSize="34sp"
+            app:layout_constraintBottom_toTopOf="@+id/et"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.589"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/btnLogin"
+            android:layout_width="107dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="238dp"
+            android:background="@color/BtnColor"
+            android:text="     Login"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etPasswordLogin" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
