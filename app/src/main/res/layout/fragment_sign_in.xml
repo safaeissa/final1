@@ -15,11 +15,14 @@
         <ImageView
             android:id="@+id/imageView7"
             android:layout_width="328dp"
-            android:layout_height="348dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="203dp"
+            android:layout_marginBottom="20dp"
             android:src="?android:attr/listDivider"
+            app:layout_constraintBottom_toTopOf="@+id/goToLoginFRomSig"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/et" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/et"
@@ -52,28 +55,30 @@
         <TextView
             android:id="@+id/textView7"
             android:layout_width="252dp"
-            android:layout_height="51dp"
+            android:layout_height="0dp"
             android:layout_marginTop="82dp"
             android:layout_marginEnd="68dp"
-            android:layout_marginBottom="37dp"
+            android:layout_marginBottom="134dp"
             android:text="Health Mate"
             android:textColor="@color/white"
             android:textSize="34sp"
-            app:layout_constraintBottom_toTopOf="@+id/et"
+            app:layout_constraintBottom_toTopOf="@+id/etemailSigup"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
             android:id="@+id/etemailSigup"
             android:layout_width="219dp"
-            android:layout_height="40dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="424dp"
             android:background="@color/white"
             android:ems="10"
             android:hint="Email"
             android:inputType="textEmailAddress"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            tools:layout_editor_absoluteY="267dp" />
+            app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
         <EditText
             android:id="@+id/etPassSign"
@@ -93,11 +98,13 @@
             android:id="@+id/goToLoginFRomSig"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="141dp"
             android:text="Login "
             android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            tools:layout_editor_absoluteY="571dp" />
+            app:layout_constraintTop_toBottomOf="@+id/imageView7" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

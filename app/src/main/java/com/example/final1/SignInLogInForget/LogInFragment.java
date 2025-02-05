@@ -90,8 +90,8 @@ public class LogInFragment extends Fragment {
         etEmail=getView().findViewById(R.id.EtEmailLogin);
         etPassword=getView().findViewById(R.id.etPasswordLogin);
         btnlogin=getView().findViewById(R.id.btnLogin);
-        signup=getView().findViewById(R.id.etGotoLoginfromPass);
-        forget=getView().findViewById(R.id.etGoToSigUpFromPass);
+        signup=getView().findViewById(R.id.goToSignfromLogin);
+        forget=getView().findViewById(R.id.goToForgetfromLogin);
         signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

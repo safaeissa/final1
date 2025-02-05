@@ -13,16 +13,16 @@
 
         <ImageView
             android:id="@+id/imageView7"
-            android:layout_width="328dp"
-            android:layout_height="348dp"
-            android:layout_marginBottom="18dp"
+            android:layout_width="339dp"
+            android:layout_height="304dp"
+            android:layout_marginTop="170dp"
+            android:layout_marginBottom="9dp"
             android:src="?android:attr/listDivider"
-            app:layout_constraintBottom_toTopOf="@+id/etGotoLoginfromPass"
+            app:layout_constraintBottom_toTopOf="@+id/goToSignfromLogin"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.493"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/et"
-            app:layout_constraintVertical_bias="0.527" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
             android:id="@+id/EtEmailLogin"
@@ -70,30 +70,6 @@
             app:layout_constraintTop_toBottomOf="@+id/textView" />
 
         <TextView
-            android:id="@+id/etGotoLoginfromPass"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="21dp"
-            android:layout_marginBottom="26dp"
-            android:text="SignUp"
-            android:textColor="#F2F0F0"
-            app:layout_constraintBottom_toTopOf="@+id/etGoToSigUpFromPass"
-            app:layout_constraintStart_toStartOf="@+id/etGoToSigUpFromPass"
-            app:layout_constraintTop_toBottomOf="@+id/imageView7" />
-
-        <TextView
-            android:id="@+id/etGoToSigUpFromPass"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="99dp"
-            android:text="Forget Password"
-            android:textColor="#F2F1F1"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/etGotoLoginfromPass" />
-
-        <TextView
             android:id="@+id/textView"
             android:layout_width="221dp"
             android:layout_height="52dp"
@@ -122,6 +98,31 @@
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/etPasswordLogin" />
+
+        <TextView
+            android:id="@+id/goToSignfromLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="17dp"
+            android:text="Sign up "
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toTopOf="@+id/goToForgetfromLogin"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView7" />
+
+        <TextView
+            android:id="@+id/goToForgetfromLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="149dp"
+            android:text="Forget Password"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/goToSignfromLogin" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

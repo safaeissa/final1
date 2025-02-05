@@ -11,54 +11,86 @@
         android:layout_height="match_parent"
         android:background="@drawable/download_premium_vector_of_medical_technology_science_background_vector_in_blue_with_blank_space_by_wit_about_wallpaper__iphone_wallpaper__backgrounds__border__and_blue_backgrounds_3577453">
 
-        <TextView
-            android:id="@+id/textName"
-            android:layout_width="206dp"
-            android:layout_height="45dp"
+        <EditText
+            android:id="@+id/etWeight"
+            android:layout_width="233dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="51dp"
             android:background="@color/white"
-            android:hint="Name "
+            android:ems="10"
+            android:hint="weight"
+            android:inputType="number"
+            app:layout_constraintBottom_toTopOf="@+id/etHeight"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            tools:layout_editor_absoluteY="136dp" />
+            app:layout_constraintTop_toBottomOf="@+id/textName" />
 
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="198dp"
-            android:layout_height="37dp"
-            android:text="TextView"
-            tools:layout_editor_absoluteX="113dp"
-            tools:layout_editor_absoluteY="238dp" />
+        <EditText
+            android:id="@+id/etHeight"
+            android:layout_width="233dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="38dp"
+            android:background="@color/white"
+            android:ems="10"
+            android:hint="height"
+            android:inputType="number"
+            app:layout_constraintBottom_toTopOf="@+id/etage"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etWeight" />
 
-        <TextView
-            android:id="@+id/textView5"
+        <EditText
+            android:id="@+id/etage"
+            android:layout_width="233dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="20dp"
+            android:background="@color/white"
+            android:ems="10"
+            android:hint="Age"
+            android:inputType="date"
+            app:layout_constraintBottom_toTopOf="@+id/btnStart"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etHeight" />
+
+        <ImageView
+            android:id="@+id/imageView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView"
-            tools:layout_editor_absoluteX="117dp"
-            tools:layout_editor_absoluteY="330dp" />
+            android:layout_marginStart="131dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="60dp"
+            app:layout_constraintBottom_toTopOf="@+id/textName"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@tools:sample/avatars" />
 
         <TextView
-            android:id="@+id/textView6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="TextView"
-            tools:layout_editor_absoluteX="123dp"
-            tools:layout_editor_absoluteY="445dp" />
+            android:id="@+id/btnStart"
+            android:layout_width="85dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="59dp"
+            android:layout_marginBottom="152dp"
+            android:background="@color/BtnColor"
+            android:text="        Start"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/etage"
+            app:layout_constraintTop_toBottomOf="@+id/etage" />
 
-        <TextView
-            android:id="@+id/textView8"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="TextView"
-            tools:layout_editor_absoluteX="127dp"
-            tools:layout_editor_absoluteY="509dp" />
+        <EditText
+            android:id="@+id/textName"
+            android:layout_width="233dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="24dp"
+            android:background="@color/white"
+            android:ems="10"
+            android:hint="Name"
+            android:inputType="text"
+            app:layout_constraintBottom_toTopOf="@+id/etWeight"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
-        <TextView
-            android:id="@+id/textView9"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="TextView"
-            tools:layout_editor_absoluteX="167dp"
-            tools:layout_editor_absoluteY="593dp" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

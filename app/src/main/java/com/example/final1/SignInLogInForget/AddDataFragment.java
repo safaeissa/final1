@@ -1,14 +1,24 @@
 package com.example.final1.SignInLogInForget;
 
+import android.media.Image;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.final1.FirebaseServices;
 import com.example.final1.R;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentReference;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -16,7 +26,13 @@ import com.example.final1.R;
  * create an instance of this fragment.
  */
 public class AddDataFragment extends Fragment {
-
+    private ImageView photo;
+    private TextView Name;
+    private TextView Weight;
+    private TextView height;
+    private TextView Age;
+    private FirebaseServices fbs;
+    private TextView Start;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -63,4 +79,60 @@ public class AddDataFragment extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_add_data, container, false);
     }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+         conect();
+    }
+    public void conect ()
+    {
+        photo=getView().findViewById(R.id.imageView2);
+        fbs=FirebaseServices.getInstance();
+        Name=getView().findViewById(R.id.textName);
+        Weight=getView().findViewById(R.id.etWeight);
+        height=getView().findViewById(R.id.etHeight);
+        Age=getView().findViewById(R.id.etage);
+        Start=getView().findViewById(R.id.btnStart);
+        Start.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AddUser();
+            }
+        });
+    }
+    public void AddUser()
+    {
+        String name1, weight1, height1, age1;
+        ImageView photo11 ;
+        name1 = Name.getText().toString();
+        weight1 = Weight.getText().toString();
+        height1 = height.getText().toString();
+        age1 = Age.getText().toString();
+        photo11=photo;
+        if (name1.isEmpty() || weight1.isEmpty() || height1.isEmpty() || age1.isEmpty()) {
+            Toast.makeText(getActivity(), " something is wrong", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        User user = new User(photo11,name1,weight1,height1,age1 );
+        fbs.getFire().collection("user").add(user).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+            @Override
+            public void onSuccess(DocumentReference documentReference) {
+                Toast.makeText(getActivity(), "Welcome!!", Toast.LENGTH_SHORT).show();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(getActivity(), "something is wrong", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
+
+
+
+
+
+
+
 }
