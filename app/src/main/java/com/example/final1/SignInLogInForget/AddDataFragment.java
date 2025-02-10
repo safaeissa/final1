@@ -1,11 +1,16 @@
 package com.example.final1.SignInLogInForget;
 
-import android.media.Image;
+import android.content.Intent;
 import android.os.Bundle;
-
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Bundle;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,12 +31,14 @@ import com.google.firebase.firestore.DocumentReference;
  * create an instance of this fragment.
  */
 public class AddDataFragment extends Fragment {
+
+    private static final int GALLERY_REQUEST_CODE =123 ;
     private ImageView photo;
-    private TextView Name;
-    private TextView Weight;
-    private TextView height;
-    private TextView Age;
-    private FirebaseServices fbs;
+    private EditText Name;
+    private EditText Weight;
+    private EditText height;
+    private EditText Age;
+    private FirebaseServices auth;
     private TextView Start;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -87,8 +94,15 @@ public class AddDataFragment extends Fragment {
     }
     public void conect ()
     {
-        photo=getView().findViewById(R.id.imageView2);
-        fbs=FirebaseServices.getInstance();
+        photo=getView().findViewById(R.id.imageViewProfile);
+        photo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+             openGallery();
+
+            }
+        });
+        auth=FirebaseServices.getInstance();
         Name=getView().findViewById(R.id.textName);
         Weight=getView().findViewById(R.id.etWeight);
         height=getView().findViewById(R.id.etHeight);
@@ -110,12 +124,14 @@ public class AddDataFragment extends Fragment {
         height1 = height.getText().toString();
         age1 = Age.getText().toString();
         photo11=photo;
+
         if (name1.isEmpty() || weight1.isEmpty() || height1.isEmpty() || age1.isEmpty()) {
             Toast.makeText(getActivity(), " something is wrong", Toast.LENGTH_SHORT).show();
             return;
         }
-        User user = new User(photo11,name1,weight1,height1,age1 );
-        fbs.getFire().collection("user").add(user).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+        User user ;
+        if (auth.getSelectedImageURL())
+       auth.getFire().collection("user").add(user).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override
             public void onSuccess(DocumentReference documentReference) {
                 Toast.makeText(getActivity(), "Welcome!!", Toast.LENGTH_SHORT).show();
@@ -127,12 +143,12 @@ public class AddDataFragment extends Fragment {
             }
         });
 
+
     }
-
-
-
-
-
+    private void openGallery() {
+        Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(galleryIntent, GALLERY_REQUEST_CODE);
+    }
 
 
 }

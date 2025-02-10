@@ -7,14 +7,14 @@ public class User {
 
    private ImageView photo;
    private String Name ;
-    private String Weight ;
-  private  String  Length ;
-  private String Age ;
+    private double Weight ;
+  private  double  Length ;
+  private int Age ;
 public User()
 {
 
 }
-    public User(ImageView photo, String name, String weight, String length, String age) {
+    public User(ImageView photo, String name, double weight, double length, int age) {
         this.photo = photo;
        this.Name = name;
         this.Weight = weight;
@@ -38,27 +38,27 @@ public User()
         Name = name;
     }
 
-    public String getWeight() {
+    public double getWeight() {
         return Weight;
     }
 
-    public void setWeight(String weight) {
+    public void setWeight(double weight) {
         Weight = weight;
     }
 
-    public String getLength() {
+    public double getLength() {
         return Length;
     }
 
-    public void setLength(String length) {
+    public void setLength(double length) {
         Length = length;
     }
 
-    public String getAge() {
+    public int getAge() {
         return Age;
     }
 
-    public void setAge(String age) {
+    public void setAge(int age) {
         Age = age;
     }
 
