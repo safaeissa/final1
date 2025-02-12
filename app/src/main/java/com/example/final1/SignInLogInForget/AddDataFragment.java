@@ -2,11 +2,7 @@ package com.example.final1.SignInLogInForget;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.content.Intent;
-import android.net.Uri;
-import android.os.Bundle;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
@@ -21,6 +17,8 @@ import android.widget.Toast;
 
 import com.example.final1.FirebaseServices;
 import com.example.final1.R;
+import com.example.final1.Users.User;
+import com.example.final1.Utils.Utils;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
@@ -33,13 +31,15 @@ import com.google.firebase.firestore.DocumentReference;
 public class AddDataFragment extends Fragment {
 
     private static final int GALLERY_REQUEST_CODE =123 ;
-    private ImageView photo;
+     ImageView img;
+     private String imagestr ;
     private EditText Name;
     private EditText Weight;
     private EditText height;
     private EditText Age;
     private FirebaseServices auth;
     private TextView Start;
+    private Utils utils ;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -94,14 +94,7 @@ public class AddDataFragment extends Fragment {
     }
     public void conect ()
     {
-        photo=getView().findViewById(R.id.imageViewProfile);
-        photo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-             openGallery();
-
-            }
-        });
+        img=getView().findViewById(R.id.imageViewProfile);
         auth=FirebaseServices.getInstance();
         Name=getView().findViewById(R.id.textName);
         Weight=getView().findViewById(R.id.etWeight);
@@ -112,6 +105,12 @@ public class AddDataFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 AddUser();
+            }
+        });
+        img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public  void onClick(View v) {
+              openGallery();
             }
         });
     }
@@ -131,7 +130,7 @@ public class AddDataFragment extends Fragment {
         }
         User user ;
         if (auth.getSelectedImageURL())
-       auth.getFire().collection("user").add(user).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+       auth.getFire().collection("user").add(User).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override
             public void onSuccess(DocumentReference documentReference) {
                 Toast.makeText(getActivity(), "Welcome!!", Toast.LENGTH_SHORT).show();

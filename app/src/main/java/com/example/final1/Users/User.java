@@ -1,20 +1,19 @@
-package com.example.final1.SignInLogInForget;
+package com.example.final1.Users;
 
-import android.media.Image;
 import android.widget.ImageView;
 
 public class User {
 
-   private ImageView photo;
+   private String photo;
    private String Name ;
-    private double Weight ;
-  private  double  Length ;
-  private int Age ;
+    private String Weight ;
+  private  String  Length ;
+  private String Age ;
 public User()
 {
 
 }
-    public User(ImageView photo, String name, double weight, double length, int age) {
+    public User(String photo, String name, String weight, String length, String age) {
         this.photo = photo;
        this.Name = name;
         this.Weight = weight;
@@ -22,11 +21,11 @@ public User()
         this.Age = age;
     }
 
-    public ImageView getPhoto() {
+    public String getPhoto() {
         return photo;
     }
 
-    public void setPhoto(ImageView photo) {
+    public void setPhoto(String photo) {
         this.photo = photo;
     }
 
@@ -38,27 +37,27 @@ public User()
         Name = name;
     }
 
-    public double getWeight() {
+    public String getWeight() {
         return Weight;
     }
 
-    public void setWeight(double weight) {
+    public void setWeight(String weight) {
         Weight = weight;
     }
 
-    public double getLength() {
+    public String getLength() {
         return Length;
     }
 
-    public void setLength(double length) {
+    public void setLength(String length) {
         Length = length;
     }
 
-    public int getAge() {
+    public String getAge() {
         return Age;
     }
 
-    public void setAge(int age) {
+    public void setAge(String age) {
         Age = age;
     }
 
