@@ -1,10 +1,14 @@
 package com.example.final1.SignInLogInForget;
 
+import static android.app.Activity.RESULT_OK;
+
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
@@ -16,6 +20,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.final1.FirebaseServices;
+import com.example.final1.MainActivity;
+import com.example.final1.MainPages.HomeFragment;
 import com.example.final1.R;
 import com.example.final1.Users.User;
 import com.example.final1.Utils.Utils;
@@ -32,14 +38,13 @@ public class AddDataFragment extends Fragment {
 
     private static final int GALLERY_REQUEST_CODE =123 ;
      ImageView img;
-     private String imagestr ;
     private EditText Name;
     private EditText Weight;
     private EditText height;
     private EditText Age;
     private FirebaseServices auth;
     private TextView Start;
-    private Utils utils ;
+    private Utils msg ;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -94,6 +99,7 @@ public class AddDataFragment extends Fragment {
     }
     public void conect ()
     {
+        msg=Utils.getInstance();
         img=getView().findViewById(R.id.imageViewProfile);
         auth=FirebaseServices.getInstance();
         Name=getView().findViewById(R.id.textName);
@@ -104,7 +110,7 @@ public class AddDataFragment extends Fragment {
         Start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AddUser();
+               addToFirestore();
             }
         });
         img.setOnClickListener(new View.OnClickListener() {
@@ -113,27 +119,34 @@ public class AddDataFragment extends Fragment {
               openGallery();
             }
         });
+        ((MainActivity)getActivity()).pushFragment(new AddDataFragment());
     }
-    public void AddUser()
+    public void addToFirestore()
     {
         String name1, weight1, height1, age1;
-        ImageView photo11 ;
+
         name1 = Name.getText().toString();
         weight1 = Weight.getText().toString();
         height1 = height.getText().toString();
         age1 = Age.getText().toString();
-        photo11=photo;
+
 
         if (name1.isEmpty() || weight1.isEmpty() || height1.isEmpty() || age1.isEmpty()) {
             Toast.makeText(getActivity(), " something is wrong", Toast.LENGTH_SHORT).show();
             return;
         }
-        User user ;
-        if (auth.getSelectedImageURL())
-       auth.getFire().collection("user").add(User).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+        Uri selectedImageURL = auth.getSelectedImageURL();
+        String imgUrl = "";
+        if( selectedImageURL!=null)
+        imgUrl=selectedImageURL.toString();
+
+       User user =new User(imgUrl, name1, weight1, height1, age1);
+       auth.getFire().collection("user").add(user).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override
             public void onSuccess(DocumentReference documentReference) {
                 Toast.makeText(getActivity(), "Welcome!!", Toast.LENGTH_SHORT).show();
+                gotohome();
+
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -141,13 +154,29 @@ public class AddDataFragment extends Fragment {
                 Toast.makeText(getActivity(), "something is wrong", Toast.LENGTH_SHORT).show();
             }
         });
-
-
     }
     private void openGallery() {
         Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(galleryIntent, GALLERY_REQUEST_CODE);
     }
-
-
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == GALLERY_REQUEST_CODE && resultCode == RESULT_OK) {
+            Uri selectedImageUri = data.getData();
+            img.setImageURI(selectedImageUri);
+            Utils.getInstance().uploadImage(getActivity(), selectedImageUri);
+        }
+    }
+private void gotohome()
+{
+    FragmentTransaction transaction= getParentFragmentManager().beginTransaction();
+    transaction.replace(R.id.main ,new HomeFragment());
+    transaction.commit();
+    setNavigationBarVisible();
+}
+private void setNavigationBarVisible ()
+{
+    ((MainActivity)getActivity()).getBottomNavigationView().setVisibility(View.VISIBLE);
+}
 }

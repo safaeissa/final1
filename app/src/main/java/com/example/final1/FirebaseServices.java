@@ -1,6 +1,7 @@
 package com.example.final1;
 
 import android.net.Uri;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 
@@ -117,7 +118,7 @@ public class FirebaseServices {
         String usernameFieldName = "username";
         String usernameValue = user.getName();
         String photoFieldName = "photo";
-        String photoValue = user.getPhoto();
+   String photoValue = user.getPhoto();
 
 
         // Create a query for documents based on a specific field

@@ -7,13 +7,22 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.final1.SignInLogInForget.AddDataFragment;
 import com.example.final1.SignInLogInForget.LogInFragment;
 import com.example.final1.SignInLogInForget.SignUPFragment;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import java.util.Stack;
 
 public class MainActivity extends AppCompatActivity {
+    private Stack<Fragment> fragmentStack = new Stack<>();
+    private BottomNavigationView bottomNavigationView;
+    public BottomNavigationView getBottomNavigationView() {
+        return bottomNavigationView;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,5 +42,8 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.main, new AddDataFragment());
         ft.commit();
+    }
+    public void pushFragment(Fragment fragment) {
+       fragmentStack.push(fragment);
     }
 }

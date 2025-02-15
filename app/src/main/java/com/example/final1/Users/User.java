@@ -64,11 +64,11 @@ public User()
     @Override
     public String toString() {
         return "User{" +
-                "photo='" + photo + '\'' +
+                "photo=" + photo +
                 ", Name='" + Name + '\'' +
-                ", Weight=" + Weight +
-                ", Length=" + Length +
-                ", Age=" + Age +
+                ", Weight='" + Weight + '\'' +
+                ", Length='" + Length + '\'' +
+                ", Age='" + Age + '\'' +
                 '}';
     }
 }
