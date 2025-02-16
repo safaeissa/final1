@@ -14,8 +14,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.final1.FirebaseServices;
-import com.example.final1.MainPages.HomeFragment;
 import com.example.final1.R;
+import com.example.final1.Users.AddDataFragment;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
@@ -26,8 +26,8 @@ import com.google.firebase.auth.AuthResult;
  * create an instance of this fragment.
  */
 public class SignUPFragment extends Fragment {
-    private EditText etEmail;
-    private EditText etPassword;
+    public EditText etEmail;
+    public EditText etPassword;
     private EditText etId;
     private TextView btnSignUp;
     private FirebaseServices fbs;
@@ -121,7 +121,7 @@ public class SignUPFragment extends Fragment {
                     public void onSuccess (AuthResult authResult){
                         Toast.makeText(getActivity(), "Successfully signed up!", Toast.LENGTH_SHORT).show();
                         FragmentTransaction transaction= getParentFragmentManager().beginTransaction();
-                        transaction.replace(R.id.main ,new HomeFragment());
+                        transaction.replace(R.id.main ,new AddDataFragment());
                         transaction.commit();
                         return;
                     }

@@ -13,11 +13,11 @@
 
         <ImageButton
             android:id="@+id/goToAi"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_marginStart="31dp"
-            android:layout_marginEnd="39dp"
-            android:layout_marginBottom="109dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="33dp"
+            android:layout_marginEnd="41dp"
+            android:layout_marginBottom="110dp"
             android:background="@color/white"
             android:src="@drawable/__2025_02_04_190002"
             app:layout_constraintBottom_toTopOf="@+id/GotoSport"
@@ -25,70 +25,57 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textNameUser" />
 
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginTop="32dp"
-            android:layout_marginEnd="55dp"
-            android:layout_marginBottom="70dp"
-            app:layout_constraintBottom_toTopOf="@+id/GotoFood"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/textNameUser"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:src="@tools:sample/avatars" />
-
         <TextView
             android:id="@+id/textWelcom"
-            android:layout_width="170dp"
-            android:layout_height="38dp"
+            android:layout_width="165dp"
+            android:layout_height="61dp"
             android:layout_marginStart="4dp"
-            android:layout_marginTop="32dp"
-            android:layout_marginEnd="52dp"
+            android:layout_marginTop="33dp"
+            android:layout_marginEnd="54dp"
+            android:layout_marginBottom="2dp"
             android:text="Welcome back "
             android:textColor="@color/BtnColor"
             android:textSize="24sp"
             app:layout_constraintBottom_toTopOf="@+id/textNameUser"
-            app:layout_constraintEnd_toStartOf="@+id/imageView"
-            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintEnd_toStartOf="@+id/imageView2"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/textNameUser"
-            android:layout_width="156dp"
-            android:layout_height="84dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginEnd="27dp"
-            android:layout_marginBottom="67dp"
+            android:layout_width="148dp"
+            android:layout_height="42dp"
+            android:layout_marginStart="37dp"
+            android:layout_marginEnd="35dp"
+            android:layout_marginBottom="68dp"
             android:text="User "
             android:textColor="@color/BtnColor"
             android:textSize="34sp"
             app:layout_constraintBottom_toTopOf="@+id/goToAi"
-            app:layout_constraintEnd_toStartOf="@+id/imageView"
+            app:layout_constraintEnd_toStartOf="@+id/imageView2"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textWelcom" />
 
         <ImageButton
             android:id="@+id/GotoFood"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_marginEnd="66dp"
-            android:layout_marginBottom="113dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="68dp"
+            android:layout_marginBottom="114dp"
             android:background="@color/white"
             android:src="@drawable/__2025_02_04_190230"
             app:layout_constraintBottom_toTopOf="@+id/GoToHealth"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/goToAi"
-            app:layout_constraintTop_toBottomOf="@+id/imageView" />
+            app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
         <ImageButton
             android:id="@+id/GotoSport"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_marginStart="29dp"
-            android:layout_marginEnd="31dp"
-            android:layout_marginBottom="209dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="31dp"
+            android:layout_marginEnd="34dp"
+            android:layout_marginBottom="211dp"
             android:background="@color/white"
             android:src="@drawable/__2025_02_04_190326"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -98,9 +85,9 @@
 
         <ImageButton
             android:id="@+id/GoToHealth"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_marginEnd="75dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="77dp"
             android:layout_marginBottom="209dp"
             android:background="@color/white"
             android:src="@drawable/__2025_02_04_190623"
@@ -108,6 +95,19 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/GotoSport"
             app:layout_constraintTop_toBottomOf="@+id/GotoFood" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="33dp"
+            android:layout_marginEnd="68dp"
+            android:layout_marginBottom="57dp"
+            android:src="@drawable/blank_profile_picture_973460_1280"
+            app:layout_constraintBottom_toTopOf="@+id/GotoFood"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textNameUser"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

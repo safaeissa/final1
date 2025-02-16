@@ -1,15 +1,17 @@
 package com.example.final1.Users;
 
+import android.net.Uri;
 import android.widget.ImageView;
 
 public class User {
-
    private String photo;
    private String Name ;
     private String Weight ;
   private  String  Length ;
   private String Age ;
-public User()
+
+
+    public User()
 {
 
 }
@@ -19,6 +21,7 @@ public User()
         this.Weight = weight;
         this.Length = length;
         this.Age = age;
+
     }
 
     public String getPhoto() {

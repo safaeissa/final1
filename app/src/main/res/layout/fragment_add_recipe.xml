@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/BtnColor"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#D3D3D3"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/titleEditText"
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:background="#00FFFFFF"
+            android:hint="Recipe Name"
+            android:lineSpacingExtra="8sp" />
+
+        <EditText
+            android:id="@+id/descriptionEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Recipe Description" />
+
+        <EditText
+            android:id="@+id/ingredientsEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Recipe Ingredients" />
+
+        <ImageView
+            android:id="@+id/recipeImageView"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center"
+            android:src="@android:drawable/ic_menu_camera" />
+
+        <Button
+            android:id="@+id/addRecipeButton"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#433F51B5"
+            android:backgroundTint="@color/black"
+            android:text="Add Recipe" />
+
+        <Button
+            android:id="@+id/chooseImageButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#43AD00DB"
+            android:text="chose a photo " />
+
+    </LinearLayout>
+</ScrollView>

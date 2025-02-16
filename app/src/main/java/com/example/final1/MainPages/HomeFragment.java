@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 
-import com.example.final1.MainPages.Food.FoodFragment;
 import com.example.final1.R;
 
 /**
@@ -92,7 +91,7 @@ public class HomeFragment extends Fragment {
         @Override
         public void onClick(View v) {
             FragmentTransaction transaction= getParentFragmentManager().beginTransaction();
-            transaction.replace(R.id.main ,new FoodFragment());
+            transaction.replace(R.id.main ,new RecipeListFragment());
             transaction.commit();
         }
     });

@@ -5,11 +5,17 @@ import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 
+import com.example.final1.MainPages.RecipePage.Recipe;
 import com.example.final1.Users.User;
 import com.example.final1.Users.UserCallback;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -17,10 +23,14 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class FirebaseServices {
+    private StorageReference storageReference;
+    private DatabaseReference databaseReference;
     private static FirebaseServices instance;
     private FirebaseAuth auth;
     private FirebaseFirestore fire;
@@ -31,10 +41,50 @@ public class FirebaseServices {
 
 
     public FirebaseServices() {
+        storageReference = FirebaseStorage.getInstance().getReference("recipe_images");
+        databaseReference = FirebaseDatabase.getInstance().getReference("recipes");
         auth = FirebaseAuth.getInstance();
         fire = FirebaseFirestore.getInstance();
         storage = FirebaseStorage.getInstance();
 
+    }
+    public void getRecipes(final RecipeCallback callback) {
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                List<Recipe> recipes = new ArrayList<>();
+                for (DataSnapshot data : snapshot.getChildren()) {
+                    Recipe recipe = data.getValue(Recipe.class);
+                    recipes.add(recipe);
+                }
+                callback.onRecipesLoaded(recipes);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {}
+        });
+    }
+
+    public void uploadRecipe(String title, String description, String ingredients, Uri imageUri, final UploadCallback callback) {
+        String recipeId = databaseReference.push().getKey();
+        StorageReference fileRef = storageReference.child(recipeId + ".jpg");
+
+        fileRef.putFile(imageUri).addOnSuccessListener(taskSnapshot -> fileRef.getDownloadUrl().addOnSuccessListener(uri -> {
+            Recipe recipe = new Recipe(recipeId, title, description, uri.toString(), FirebaseAuth.getInstance().getCurrentUser().getUid(), false, Arrays.asList(ingredients.split(",")), "عام");
+            databaseReference.child(recipeId).setValue(recipe)
+                    .addOnSuccessListener(aVoid -> callback.onSuccess())
+                    .addOnFailureListener(e -> callback.onFailure(e.getMessage()));
+        })).addOnFailureListener(e -> callback.onFailure(e.getMessage()));
+    }
+
+    public interface UploadCallback {
+        void onSuccess();
+        void onFailure(String errorMessage);
+    }
+
+
+    public interface RecipeCallback {
+        void onRecipesLoaded(List<Recipe> recipes);
     }
     public Uri getSelectedImageURL() {
         return selectedImageURL;
@@ -117,10 +167,6 @@ public class FirebaseServices {
         String collectionName = "users";
         String usernameFieldName = "username";
         String usernameValue = user.getName();
-        String photoFieldName = "photo";
-   String photoValue = user.getPhoto();
-
-
         // Create a query for documents based on a specific field
         Query query = fire.collection(collectionName).
                 whereEqualTo(usernameFieldName, usernameValue);
@@ -135,9 +181,7 @@ public class FirebaseServices {
                         // Update specific fields of the document
                         documentRef.update(
 
-                                        usernameFieldName, usernameValue,
-
-                                        photoFieldName, photoValue
+                                        usernameFieldName, usernameValue
 
                                 )
                                 .addOnSuccessListener(aVoid -> {
