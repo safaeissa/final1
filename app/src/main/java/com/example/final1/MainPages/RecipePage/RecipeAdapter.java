@@ -18,7 +18,7 @@ import com.example.final1.R;
 
 import java.util.List;
 
-package com.example.final1.Adapters;
+//*package com.example.final1.Adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -53,7 +53,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Recipe recipe = recipeList.get(position);
         holder.title.setText(recipe.getTitle());
-        Glide.with(context).load(recipe.getImageUrl()).into(holder.image);
+
 
         // تعيين مستمع للنقرات
         holder.itemView.setOnClickListener(v -> {

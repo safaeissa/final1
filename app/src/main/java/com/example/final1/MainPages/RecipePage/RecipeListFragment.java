@@ -24,7 +24,7 @@ import java.util.List;
  */
 public class RecipeListFragment extends Fragment {
     private RecyclerView recyclerView;
-    private RecipeAdapter adapter;
+    //*private RecipeAdapter adapter;
     private FirebaseFirestore db;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -71,7 +71,7 @@ public class RecipeListFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_recipe_list, container, false);
-        recyclerView = view.findViewById(R.id.recuclerview);
+        //*recyclerView = view.findViewById(R.id.recuclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         db = FirebaseFirestore.getInstance();
         loadRecipes();
@@ -90,8 +90,8 @@ public class RecipeListFragment extends Fragment {
                     Recipe recipe = document.toObject(Recipe.class);
                     recipes.add(recipe);
                 }
-                adapter = new RecipeAdapter(recipes,getContext());
-                recyclerView.setAdapter(adapter);
+               //* adapter = new RecipeAdapter(recipes,getContext());
+               //* recyclerView.setAdapter(adapter);
             }
         });
     }

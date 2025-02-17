@@ -26,6 +26,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
 
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link AddDataFragment#newInstance} factory method to
@@ -38,7 +39,7 @@ public class AddDataFragment extends Fragment {
     private TextView Start;
     private ImageView img;
     private Utils msg ;
-    private Uri imageUri;
+
 
 
 
@@ -96,7 +97,7 @@ public class AddDataFragment extends Fragment {
     }
 
     public void conect() {
-
+        fbs=new FirebaseServices().getInstance();
         img = getView().findViewById(R.id.imageViewProfile);
         name = getView().findViewById(R.id.textName);
         Weight = getView().findViewById(R.id.etWeight);
@@ -126,7 +127,7 @@ public class AddDataFragment extends Fragment {
                 String imageUri = "";
                 if(selectedImageUri!=null)
                     imageUri=selectedImageUri.toString();
-                User user = new User(name1, weight1, height1, age1, imageUri);
+                User user = new User(imageUri.toString(),name1, weight1, height1, age1);
                 fbs.getFire().collection("Users").add(user).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
