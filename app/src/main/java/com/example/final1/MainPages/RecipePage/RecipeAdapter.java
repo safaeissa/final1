@@ -3,6 +3,7 @@ import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -17,9 +18,24 @@ import com.example.final1.R;
 
 import java.util.List;
 
+package com.example.final1.Adapters;
+
+import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
+
 public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder> {
+
     private Context context;
     private List<Recipe> recipeList;
+    private OnItemClickListener itemClickListener;
 
     public RecipeAdapter(Context context, List<Recipe> recipeList) {
         this.context = context;
@@ -29,7 +45,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_recipe, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_recipe, parent, false);
         return new ViewHolder(view);
     }
 
@@ -38,6 +54,13 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
         Recipe recipe = recipeList.get(position);
         holder.title.setText(recipe.getTitle());
         Glide.with(context).load(recipe.getImageUrl()).into(holder.image);
+
+        // تعيين مستمع للنقرات
+        holder.itemView.setOnClickListener(v -> {
+            if (itemClickListener != null) {
+                itemClickListener.onItemClick(position);
+            }
+        });
     }
 
     @Override
@@ -45,9 +68,20 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
         return recipeList.size();
     }
 
+    // تحديث القائمة عند البحث أو التصفية
     public void updateList(List<Recipe> filteredList) {
         recipeList = filteredList;
         notifyDataSetChanged();
+    }
+
+    // تعريف الواجهة لمستمع النقرات
+    public interface OnItemClickListener {
+        void onItemClick(int position);
+    }
+
+    // دالة لتحديد المستمع للنقرات من الخارج
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.itemClickListener = listener;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -61,5 +95,4 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
         }
     }
 }
-
 
