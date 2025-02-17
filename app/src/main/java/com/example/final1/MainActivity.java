@@ -10,6 +10,7 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.final1.SignInLogInForget.SignUPFragment;
 import com.example.final1.Users.AddDataFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -38,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.main, new AddDataFragment());
+        ft.replace(R.id.main, new SignUPFragment());
         ft.commit();
     }
 
