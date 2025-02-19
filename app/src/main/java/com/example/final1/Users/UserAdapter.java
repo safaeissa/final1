@@ -5,20 +5,26 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
+import android.content.Context;
 import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
 import java.util.List;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.final1.FirebaseServices;
 import com.example.final1.R;
-import com.google.api.Context;
+
 
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder>{
       Context context;
-    private List<User> userList;
+   ArrayList<User> userList;
+    private FirebaseServices firebaseServices;
 
-    public UserAdapter(Context context, List<User> userList) {
+    public UserAdapter(Context context, ArrayList<User> userList) {
         this.context = context;
         this.userList = userList;
+        this.firebaseServices = new FirebaseServices().getInstance();
     }
 
     @NonNull
