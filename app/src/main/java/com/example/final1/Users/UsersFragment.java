@@ -17,6 +17,9 @@ import com.example.final1.FirebaseServices;
 import com.example.final1.MainActivity;
 import com.example.final1.R;
 import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +29,7 @@ import java.util.List;
  * Use the {@link UsersFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class UsersFragment extends Fragment {
+public class UsersFragment extends Fragment{
     private RecyclerView recyclerView;
     private ArrayList<User> userList;
    private UserAdapter userAdapter;
@@ -93,6 +96,7 @@ public class UsersFragment extends Fragment {
        recyclerView =getView().findViewById(R.id.recuclerviewUser);
         userAdapter = new UserAdapter(getActivity(), userList);
         recyclerView.setHasFixedSize(true);
+        recyclerView.setAdapter(userAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         firebaseServices.getFire().collection("users").get().addOnFailureListener(new OnFailureListener() {
             @Override
@@ -100,25 +104,16 @@ public class UsersFragment extends Fragment {
                 Toast.makeText(getActivity(), "erorr " + e.getMessage(), Toast.LENGTH_SHORT).show();
                 Log.e("TAG", "onFailure: " + e.getMessage());
             }
-        })
-
-
-        fetchUsers();
-
-    }
-    private void fetchUsers() {
-        firebaseServices.getUsersList(new FirebaseServices.DataStatus() {
+        }).addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
-            public void onSuccess(List<User> users) {
-                userList.clear();
-                userList.addAll(users);
-                userAdapter.notifyDataSetChanged();
-            }
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                for (DocumentSnapshot snapshot : queryDocumentSnapshots.getDocuments()) {
 
-            @Override
-            public void onFailure(String error) {
-                Toast.makeText(requireContext(), "erorr " + error, Toast.LENGTH_SHORT).show();
+                }
             }
         });
+
+
+
     }
 }
