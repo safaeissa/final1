@@ -49,6 +49,25 @@ public class FirebaseServices {
         storage = FirebaseStorage.getInstance();
 
     }
+    public void getUsersList(final DataStatus dataStatus) {
+        fire.collection("users").get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    List<User> users = new ArrayList<>();
+                    for (DocumentSnapshot document : queryDocumentSnapshots) {
+                        User user = document.toObject(User.class);
+                        users.add(user);
+                    }
+                    dataStatus.onSuccess(users);
+                })
+                .addOnFailureListener(e -> dataStatus.onFailure(e.getMessage()));
+    }
+
+    public interface DataStatus {
+        void onSuccess(List<User> users);
+        void onFailure(String error);
+    }
+
+
     public void getRecipes(final RecipeCallback callback) {
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -200,5 +219,7 @@ public class FirebaseServices {
 
         return flag[0];
     }
+
+
 }
 

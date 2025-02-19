@@ -12,6 +12,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.final1.SignInLogInForget.SignUPFragment;
 import com.example.final1.Users.AddDataFragment;
+import com.example.final1.Users.UsersFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.Stack;
@@ -39,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.main, new SignUPFragment());
+        ft.replace(R.id.main, new UsersFragment());
         ft.commit();
     }
 
