@@ -81,6 +81,7 @@ public class AddDataFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
     }
 
     @Override
@@ -94,6 +95,7 @@ public class AddDataFragment extends Fragment {
     public void onStart() {
         super.onStart();
         conect();
+
     }
 
     public void conect() {

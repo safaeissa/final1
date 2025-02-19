@@ -1,4 +1,5 @@
 package com.example.final1.Users;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -6,12 +7,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import android.content.Context;
+//import com.squareup.picasso.Picasso;
 import androidx.recyclerview.widget.RecyclerView;
-
 import java.util.ArrayList;
-import java.util.List;
-import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.final1.FirebaseServices;
 import com.example.final1.R;
 
@@ -40,7 +38,8 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
 User user = userList.get(position);
 holder.nameTextView.setText(user.getName());
 holder.ageTextView.setText(user.getAge());
-
+       if (!(user.getPhoto() == null || user.getPhoto().isEmpty()))
+          holder.profileImageView.setImageURI(Uri.parse(user.getPhoto()));
     }
 
     @Override

@@ -43,6 +43,7 @@ dependencies {
     implementation(libs.firebase.firestore)
     implementation(libs.firebase.database)
     testImplementation(libs.junit)
+    implementation ("com.squareup.picasso:picasso:2.8")
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
 

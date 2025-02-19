@@ -92,13 +92,13 @@ public class UsersFragment extends Fragment{
     }
     public void conect ()
     {
-        firebaseServices = new FirebaseServices().getInstance();
+        firebaseServices =  FirebaseServices.getInstance();
         userList = new ArrayList<>();
-       recyclerView =getView().findViewById(R.id.recuclerviewUser);
-        userAdapter = new UserAdapter(getActivity(), userList);
+        recyclerView =getView().findViewById(R.id.recuclerviewUser);
         recyclerView.setHasFixedSize(true);
-        recyclerView.setAdapter(userAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        userAdapter = new UserAdapter(getActivity(), userList);
+        recyclerView.setAdapter(userAdapter);
         firebaseServices.getFire().collection("Users").get().addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
@@ -115,6 +115,7 @@ public class UsersFragment extends Fragment{
                 userAdapter.notifyDataSetChanged();
             }
         });
+
 
 
 
