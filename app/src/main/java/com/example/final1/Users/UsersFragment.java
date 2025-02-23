@@ -3,9 +3,11 @@ package com.example.final1.Users;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.content.Context;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,8 +33,8 @@ import java.util.List;
  */
 public class UsersFragment extends Fragment{
     Context context;
- RecyclerView recyclerView;
-  ArrayList<User> userList;
+private RecyclerView recyclerView;
+ private ArrayList<User> userList;
    private UserAdapter userAdapter;
    private  FirebaseServices firebaseServices;
 
@@ -92,13 +94,30 @@ public class UsersFragment extends Fragment{
     }
     public void conect ()
     {
-        firebaseServices =  FirebaseServices.getInstance();
-        userList = new ArrayList<>();
         recyclerView =getView().findViewById(R.id.recuclerviewUser);
-        recyclerView.setHasFixedSize(true);
+        firebaseServices =  FirebaseServices.getInstance();
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        userAdapter = new UserAdapter(getActivity(), userList);
+        recyclerView.setHasFixedSize(true);
+        userList = new ArrayList<>();
+        userAdapter = new UserAdapter( getActivity(),userList);
         recyclerView.setAdapter(userAdapter);
+
+        userAdapter.setOnItemClickListener(new UserAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                String selectedItem = userList.get(position).getName();
+                Toast.makeText(getActivity(), "Clicked: " + selectedItem, Toast.LENGTH_SHORT).show();
+                Bundle args = new Bundle();
+                args.putParcelable("Users", (Parcelable) userList.get(position)); // or use Parcelable for better performance
+                FragmentTransaction ft=getActivity().getSupportFragmentManager().beginTransaction();
+                Fragment fragment = new AddDataFragment();
+                fragment.setArguments(args);
+                ft.replace(R.id.main, fragment);
+                ft.addToBackStack(null);
+                ft.commit();
+
+            }
+        });
         firebaseServices.getFire().collection("Users").get().addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {

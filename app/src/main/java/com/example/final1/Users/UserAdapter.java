@@ -17,12 +17,11 @@ import com.example.final1.R;
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder>{
       Context context;
    ArrayList<User> userList;
-    private FirebaseServices firebaseServices;
+    private OnItemClickListener itemClickListener;
 
-    public UserAdapter(Context context, ArrayList<User> userList) {
-        this.context = context;
+    public UserAdapter( Context context ,ArrayList<User> userList) {
+this.context = context;
         this.userList = userList;
-        this.firebaseServices = new FirebaseServices().getInstance();
     }
 
     @NonNull
@@ -38,8 +37,14 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
 User user = userList.get(position);
 holder.nameTextView.setText(user.getName());
 holder.ageTextView.setText(user.getAge());
-       if (!(user.getPhoto() == null || user.getPhoto().isEmpty()))
+       if (user.getPhoto() == null || user.getPhoto().isEmpty())
           holder.profileImageView.setImageURI(Uri.parse(user.getPhoto()));
+        holder.nameTextView.setOnClickListener(v -> {
+            if (itemClickListener != null) {
+                itemClickListener.onItemClick(position);
+            }
+        });
+
     }
 
     @Override
@@ -55,6 +60,13 @@ holder.ageTextView.setText(user.getAge());
             ageTextView = itemView.findViewById(R.id.AgeTextView);
             profileImageView = itemView.findViewById(R.id.profileImageView);
         }
+    }
+    public interface OnItemClickListener {
+        void onItemClick(int position);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.itemClickListener = listener;
     }
 }
 
