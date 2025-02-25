@@ -1,91 +1,100 @@
 package com.example.final1.MainPages.RecipePage;
 
+import com.example.final1.Users.User;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class Recipe {
-    private String id;
     private String title;
-    private String description;
+    private String method;
     private String imageUrl;
-    private String userId;
+    private String userName;
+    private String ueserImg;
     private boolean isFavorite;
-    private List<String> ingredients;
-    private String category;
+    private ArrayList<String> ingredients;
 
-    public Recipe() {}
+    public Recipe() {
+    }
 
-    public Recipe(String id, String title, String description, String imageUrl, String userId, boolean isFavorite, List<String> ingredients, String category) {
-        this.id = id;
+    public Recipe(String title, String method, String imageUrl, String userName,String  ueserImg, boolean isFavorite, ArrayList<String> ingredients) {
         this.title = title;
-        this.description = description;
+        this.method = method;
         this.imageUrl = imageUrl;
-        this.userId = userId;
+        this.userName = userName;
         this.isFavorite = isFavorite;
         this.ingredients = ingredients;
-        this.category = category;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
+        this. ueserImg=  ueserImg;
     }
 
     public void setTitle(String title) {
         this.title = title;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getImageUrl() {
-        return imageUrl;
+    public void setMethod(String method) {
+        this.method = method;
     }
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
 
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
-    public boolean isFavorite() {
-        return isFavorite;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public void setFavorite(boolean favorite) {
         isFavorite = favorite;
     }
 
-    public List<String> getIngredients() {
-        return ingredients;
+    public void setUeserImg(String ueserImg) {
+        this.ueserImg = ueserImg;
     }
 
-    public void setIngredients(List<String> ingredients) {
+    public void setIngredients(ArrayList<String> ingredients) {
         this.ingredients = ingredients;
     }
 
-    public String getCategory() {
-        return category;
+    public String getUeserImg() {
+        return ueserImg;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
+    public String getTitle() {
+        return title;
     }
+
+    public String getMethod() {
+        return method;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public boolean isFavorite() {
+        return isFavorite;
+    }
+
+    public ArrayList<String> getIngredients() {
+        return ingredients;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+    @Override
+    public String toString() {
+        return "Recipe{" +
+                "title='" + title + '\'' +
+                ", method='" + method + '\'' +
+                ", imageUrl='" + imageUrl + '\'' +
+                ", userName='" + userName + '\'' +
+                ", ueserImg='" + ueserImg + '\'' +
+                ", isFavorite=" + isFavorite +
+                ", ingredients=" + ingredients +
+                '}';
+    }
+
+
 }
+

@@ -10,14 +10,22 @@
         android:id="@+id/recipeImage"
         android:layout_width="match_parent"
         android:layout_height="108dp"
-        android:background="#D3D3D3"
+        android:background="@color/BtnColor"
         app:srcCompat="@android:drawable/ic_menu_camera" />
 
     <TextView
         android:id="@+id/recipeTitle"
         android:layout_width="match_parent"
         android:layout_height="47dp"
-        android:background="#D3D3D3"
-        android:text="name of recipe" />
+        android:background="@color/BtnColor"
+        android:text="name of recipe"
+        android:textColor="@color/white" />
+
+    <TextView
+        android:id="@+id/TextR"
+        android:layout_width="match_parent"
+        android:layout_height="575dp"
+        android:text="TextView"
+        android:textColor="@color/white" />
 
 </LinearLayout>

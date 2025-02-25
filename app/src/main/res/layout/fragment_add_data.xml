@@ -9,86 +9,79 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/download_premium_vector_of_medical_technology_science_background_vector_in_blue_with_blank_space_by_wit_about_wallpaper__iphone_wallpaper__backgrounds__border__and_blue_backgrounds_3577453">
+        android:background="@drawable/__2025_02_25_145540">
 
         <EditText
             android:id="@+id/etWeight"
-            android:layout_width="230dp"
-            android:layout_height="60dp"
-            android:layout_marginBottom="44dp"
+            android:layout_width="240dp"
+            android:layout_height="59dp"
+            android:layout_marginTop="52dp"
             android:background="@color/white"
             android:ems="10"
             android:hint="weight"
             android:inputType="number"
-            app:layout_constraintBottom_toTopOf="@+id/etHeight"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textName" />
+            app:layout_constraintTop_toBottomOf="@+id/etHeight"
+            tools:layout_editor_absoluteX="64dp" />
 
         <EditText
             android:id="@+id/etHeight"
-            android:layout_width="228dp"
-            android:layout_height="63dp"
-            android:layout_marginBottom="39dp"
+            android:layout_width="240dp"
+            android:layout_height="59dp"
+            android:layout_marginTop="52dp"
             android:background="@color/white"
             android:ems="10"
             android:hint="height"
             android:inputType="number"
-            app:layout_constraintBottom_toTopOf="@+id/etage"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/etWeight" />
+            app:layout_constraintTop_toBottomOf="@+id/textName"
+            tools:layout_editor_absoluteX="64dp" />
 
         <EditText
             android:id="@+id/etage"
             android:layout_width="240dp"
             android:layout_height="59dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginTop="52dp"
             android:background="@color/white"
             android:ems="10"
             android:hint="Age"
             android:inputType="date"
-            app:layout_constraintBottom_toTopOf="@+id/btnStart"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.374"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/etHeight" />
+            app:layout_constraintTop_toBottomOf="@+id/etWeight" />
 
         <TextView
             android:id="@+id/btnStart"
-            android:layout_width="85dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="64dp"
-            android:layout_marginBottom="266dp"
+            android:layout_width="96dp"
+            android:layout_height="34dp"
+            android:layout_marginTop="32dp"
             android:background="@color/BtnColor"
             android:text="        Start"
             android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/etage"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.441"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/etage" />
 
         <EditText
             android:id="@+id/textName"
             android:layout_width="240dp"
             android:layout_height="59dp"
-            android:layout_marginBottom="33dp"
+            android:layout_marginTop="44dp"
             android:background="@color/white"
             android:ems="10"
             android:hint="Name"
             android:inputType="text"
-            app:layout_constraintBottom_toTopOf="@+id/etWeight"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageViewProfile" />
+            app:layout_constraintTop_toBottomOf="@+id/imageViewProfile"
+            tools:layout_editor_absoluteX="69dp" />
 
         <ImageView
             android:id="@+id/imageViewProfile"
             android:layout_width="193dp"
             android:layout_height="96dp"
-            android:layout_marginTop="81dp"
-            android:layout_marginBottom="25dp"
+            android:layout_marginTop="52dp"
             android:src="@drawable/blank_profile_picture_973460_1280"
-            app:layout_constraintBottom_toTopOf="@+id/textName"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.44"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

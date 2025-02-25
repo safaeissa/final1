@@ -1,57 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/BtnColor"
-    android:padding="16dp">
+    tools:context=".MainPages.RecipePage.AddRecipeFragment">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#D3D3D3"
-        android:orientation="vertical">
-
-        <EditText
-            android:id="@+id/titleEditText"
-            android:layout_width="match_parent"
-            android:layout_height="36dp"
-            android:background="#00FFFFFF"
-            android:hint="Recipe Name"
-            android:lineSpacingExtra="8sp" />
-
-        <EditText
-            android:id="@+id/descriptionEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Recipe Description" />
-
-        <EditText
-            android:id="@+id/ingredientsEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Recipe Ingredients" />
+        android:layout_height="match_parent"
+        android:background="@drawable/__2025_02_25_145625">
 
         <ImageView
-            android:id="@+id/recipeImageView"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:layout_gravity="center"
-            android:src="@android:drawable/ic_menu_camera" />
+            android:id="@+id/imageView"
+            android:layout_width="412dp"
+            android:layout_height="137dp"
+            android:layout_marginTop="4dp"
+            android:src="@android:drawable/ic_menu_camera"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_editor_absoluteX="-3dp" />
 
-        <Button
-            android:id="@+id/addRecipeButton"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#433F51B5"
-            android:backgroundTint="@color/black"
-            android:text="Add Recipe" />
-
-        <Button
-            android:id="@+id/chooseImageButton"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/UserNameP"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="#43AD00DB"
-            android:text="chose a photo " />
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="4dp"
+            android:text="By "
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
-    </LinearLayout>
-</ScrollView>
+        <EditText
+            android:id="@+id/editTextText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="text"
+            android:text="Name"
+            tools:layout_editor_absoluteX="84dp"
+            tools:layout_editor_absoluteY="194dp" />
+
+        <EditText
+            android:id="@+id/editTextText2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="text"
+            android:text="Name"
+            tools:layout_editor_absoluteX="88dp"
+            tools:layout_editor_absoluteY="278dp" />
+
+        <EditText
+            android:id="@+id/editTextText3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="text"
+            android:text="Name"
+            tools:layout_editor_absoluteX="88dp"
+            tools:layout_editor_absoluteY="365dp" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>
