@@ -1,5 +1,6 @@
 package com.example.final1.MainPages.RecipePage;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -10,7 +11,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.final1.FirebaseServices;
 import com.example.final1.R;
+import com.example.final1.Users.User;
+import com.example.final1.Users.UserAdapter;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
@@ -23,9 +27,11 @@ import java.util.List;
  * create an instance of this fragment.
  */
 public class RecipeListFragment extends Fragment {
+    Context context;
     private RecyclerView recyclerView;
-    //*private RecipeAdapter adapter;
-    private FirebaseFirestore db;
+    private ArrayList<Recipe> userList;
+    private FirebaseServices firebaseServices;
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -70,29 +76,11 @@ public class RecipeListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_recipe_list, container, false);
-        //*recyclerView = view.findViewById(R.id.recuclerview);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        db = FirebaseFirestore.getInstance();
-        loadRecipes();
-        return view;
+        return inflater.inflate(R.layout.fragment_recipe_list, container, false);
     }
 
     @Override
     public void onStart() {
         super.onStart();
-    }
-    private void loadRecipes() {
-        db.collection("recipes").get().addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                List<Recipe> recipes = new ArrayList<>();
-                for (QueryDocumentSnapshot document : task.getResult()) {
-                    Recipe recipe = document.toObject(Recipe.class);
-                    recipes.add(recipe);
-                }
-               //* adapter = new RecipeAdapter(recipes,getContext());
-               //* recyclerView.setAdapter(adapter);
-            }
-        });
     }
 }
