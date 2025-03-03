@@ -85,22 +85,9 @@ public class FirebaseServices {
         });
     }
 
-    public void uploadRecipe(String title, String description, String ingredients, Uri imageUri, final UploadCallback callback) {
-        String recipeId = databaseReference.push().getKey();
-        StorageReference fileRef = storageReference.child(recipeId + ".jpg");
 
-        fileRef.putFile(imageUri).addOnSuccessListener(taskSnapshot -> fileRef.getDownloadUrl().addOnSuccessListener(uri -> {
-            Recipe recipe = new Recipe(recipeId, title, description, uri.toString(), FirebaseAuth.getInstance().getCurrentUser().getUid(), false, Arrays.asList(ingredients.split("")), "");
-            databaseReference.child(recipeId).setValue(recipe)
-                    .addOnSuccessListener(aVoid -> callback.onSuccess())
-                    .addOnFailureListener(e -> callback.onFailure(e.getMessage()));
-        })).addOnFailureListener(e -> callback.onFailure(e.getMessage()));
-    }
 
-    public interface UploadCallback {
-        void onSuccess();
-        void onFailure(String errorMessage);
-    }
+
 
 
     public interface RecipeCallback {

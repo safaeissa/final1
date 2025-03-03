@@ -38,7 +38,7 @@ public class AddDataFragment extends Fragment {
     private FirebaseServices fbs ;
     private TextView Start;
     private ImageView img;
-    private Utils msg ;
+
 
 
 

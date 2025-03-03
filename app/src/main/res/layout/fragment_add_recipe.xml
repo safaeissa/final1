@@ -13,53 +13,64 @@
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="412dp"
-            android:layout_height="137dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:layout_marginTop="4dp"
+            android:layout_marginBottom="53dp"
             android:src="@android:drawable/ic_menu_camera"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:layout_editor_absoluteX="-3dp" />
+            app:layout_constraintBottom_toTopOf="@+id/recipetitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/UserNameP"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="4dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
             android:text="By "
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
         <EditText
-            android:id="@+id/editTextText"
+            android:id="@+id/recipetitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="33dp"
+            android:layout_marginBottom="315dp"
             android:ems="10"
             android:inputType="text"
             android:text="Name"
-            tools:layout_editor_absoluteX="84dp"
-            tools:layout_editor_absoluteY="194dp" />
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toTopOf="@+id/addRecipe"
+            app:layout_constraintStart_toEndOf="@+id/UserNameP"
+            app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
         <EditText
-            android:id="@+id/editTextText2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="text"
-            android:text="Name"
-            tools:layout_editor_absoluteX="88dp"
-            tools:layout_editor_absoluteY="278dp" />
+            android:id="@+id/editTextTextMultiLine"
+            android:layout_width="406dp"
+            android:layout_height="288dp"
+            android:gravity="start|top"
+            android:inputType="textMultiLine"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_editor_absoluteX="0dp" />
 
-        <EditText
-            android:id="@+id/editTextText3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="text"
-            android:text="Name"
-            tools:layout_editor_absoluteX="88dp"
-            tools:layout_editor_absoluteY="365dp" />
+        <TextView
+            android:id="@+id/addRecipe"
+            android:layout_width="110dp"
+            android:layout_height="34dp"
+            android:layout_marginBottom="158dp"
+            android:background="@color/Blue"
+            android:text="            Add "
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/recipetitle" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

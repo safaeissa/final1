@@ -7,20 +7,20 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import android.content.Context;
-//import com.squareup.picasso.Picasso;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import com.example.final1.FirebaseServices;
 import com.example.final1.R;
-
+import com.squareup.picasso.Picasso;
 
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder>{
       Context context;
    ArrayList<User> userList;
     private OnItemClickListener itemClickListener;
 
+
     public UserAdapter( Context context ,ArrayList<User> userList) {
-this.context = context;
+      this.context = context;
         this.userList = userList;
     }
 
@@ -34,16 +34,18 @@ this.context = context;
 
     @Override
     public void onBindViewHolder(@NonNull UserAdapter.UserViewHolder holder, int position) {
-User user = userList.get(position);
-holder.nameTextView.setText(user.getName());
-holder.ageTextView.setText(user.getAge());
+    User user = userList.get(position);
+    holder.nameTextView.setText(user.getName());
+    holder.ageTextView.setText(user.getAge());
        if (user.getPhoto() == null || user.getPhoto().isEmpty())
           holder.profileImageView.setImageURI(Uri.parse(user.getPhoto()));
+       else Picasso.get().load(user.getPhoto()).into(holder.profileImageView);
         holder.nameTextView.setOnClickListener(v -> {
             if (itemClickListener != null) {
                 itemClickListener.onItemClick(position);
             }
         });
+
 
     }
 

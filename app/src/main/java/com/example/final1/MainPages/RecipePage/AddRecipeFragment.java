@@ -7,7 +7,11 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.example.final1.FirebaseServices;
 import com.example.final1.R;
 
 /**
@@ -16,7 +20,11 @@ import com.example.final1.R;
  * create an instance of this fragment.
  */
 public class AddRecipeFragment extends Fragment {
-
+    private static final int GALLARY_REQUEST_CODE = 123;
+    private EditText nameuser , recipetitle ,recipemethode ;
+    private FirebaseServices fbs ;
+    private TextView addrecipe;
+    private ImageView img;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -62,5 +70,16 @@ public class AddRecipeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_add_recipe, container, false);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+    }
+    public void conect() {
+        fbs = new FirebaseServices().getInstance();
+        img = getView().findViewById(R.id.imageView);
+        recipetitle = getView().findViewById(R.id.recipetitle);
+        addrecipe = getView().findViewById(R.id.addRecipe);
     }
 }

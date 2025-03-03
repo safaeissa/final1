@@ -82,5 +82,10 @@ public class RecipeListFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+        coneect();
+    }
+    public void coneect ()
+    {
+
     }
 }

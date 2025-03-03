@@ -13,8 +13,8 @@
 
         <ImageButton
             android:id="@+id/goToAi"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_width="154dp"
+            android:layout_height="123dp"
             android:layout_marginStart="33dp"
             android:layout_marginEnd="41dp"
             android:layout_marginBottom="110dp"
@@ -58,8 +58,8 @@
 
         <ImageButton
             android:id="@+id/GotoFood"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_width="152dp"
+            android:layout_height="129dp"
             android:layout_marginEnd="68dp"
             android:layout_marginBottom="114dp"
             android:background="@color/white"
@@ -71,8 +71,8 @@
 
         <ImageButton
             android:id="@+id/GotoSport"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_width="156dp"
+            android:layout_height="132dp"
             android:layout_marginStart="31dp"
             android:layout_marginEnd="34dp"
             android:layout_marginBottom="211dp"
@@ -85,8 +85,8 @@
 
         <ImageButton
             android:id="@+id/GoToHealth"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_width="157dp"
+            android:layout_height="122dp"
             android:layout_marginEnd="77dp"
             android:layout_marginBottom="209dp"
             android:background="@color/white"

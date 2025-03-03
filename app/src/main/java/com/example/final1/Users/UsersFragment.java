@@ -101,7 +101,6 @@ private RecyclerView recyclerView;
         userList = new ArrayList<>();
         userAdapter = new UserAdapter( getActivity(),userList);
         recyclerView.setAdapter(userAdapter);
-
         userAdapter.setOnItemClickListener(new UserAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
@@ -118,6 +117,7 @@ private RecyclerView recyclerView;
 
             }
         });
+
         firebaseServices.getFire().collection("Users").get().addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {

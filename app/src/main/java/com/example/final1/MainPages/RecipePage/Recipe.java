@@ -10,21 +10,18 @@ public class Recipe {
     private String method;
     private String imageUrl;
     private String userName;
-    private String ueserImg;
     private boolean isFavorite;
-    private ArrayList<String> ingredients;
 
     public Recipe() {
     }
 
-    public Recipe(String title, String method, String imageUrl, String userName,String  ueserImg, boolean isFavorite, ArrayList<String> ingredients) {
+    public Recipe(String title, String method, String imageUrl, String userName, boolean isFavorite) {
         this.title = title;
         this.method = method;
         this.imageUrl = imageUrl;
         this.userName = userName;
         this.isFavorite = isFavorite;
-        this.ingredients = ingredients;
-        this. ueserImg=  ueserImg;
+
     }
 
     public void setTitle(String title) {
@@ -47,17 +44,9 @@ public class Recipe {
         isFavorite = favorite;
     }
 
-    public void setUeserImg(String ueserImg) {
-        this.ueserImg = ueserImg;
-    }
 
-    public void setIngredients(ArrayList<String> ingredients) {
-        this.ingredients = ingredients;
-    }
 
-    public String getUeserImg() {
-        return ueserImg;
-    }
+
 
     public String getTitle() {
         return title;
@@ -75,9 +64,6 @@ public class Recipe {
         return isFavorite;
     }
 
-    public ArrayList<String> getIngredients() {
-        return ingredients;
-    }
 
     public String getImageUrl() {
         return imageUrl;
@@ -89,9 +75,8 @@ public class Recipe {
                 ", method='" + method + '\'' +
                 ", imageUrl='" + imageUrl + '\'' +
                 ", userName='" + userName + '\'' +
-                ", ueserImg='" + ueserImg + '\'' +
                 ", isFavorite=" + isFavorite +
-                ", ingredients=" + ingredients +
+
                 '}';
     }
 
