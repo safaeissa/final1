@@ -1,18 +1,28 @@
 package com.example.final1.MainPages.RecipePage;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.final1.FirebaseServices;
+import com.example.final1.MainPages.HomeFragment;
 import com.example.final1.R;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentReference;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -21,9 +31,9 @@ import com.example.final1.R;
  */
 public class AddRecipeFragment extends Fragment {
     private static final int GALLARY_REQUEST_CODE = 123;
-    private EditText nameuser , recipetitle ,recipemethode ;
+    private EditText   recipetitle ,recipemethode ;
     private FirebaseServices fbs ;
-    private TextView addrecipe;
+    private TextView addrecipe,userName;
     private ImageView img;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -75,11 +85,56 @@ public class AddRecipeFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+        conect();
+
     }
     public void conect() {
         fbs = new FirebaseServices().getInstance();
         img = getView().findViewById(R.id.imageView);
         recipetitle = getView().findViewById(R.id.recipetitle);
         addrecipe = getView().findViewById(R.id.addRecipe);
+        recipemethode = getView().findViewById(R.id.editTextTextMultiLine);
+        userName = getView().findViewById(R.id.UserNameP);
+        if (fbs.getCurrentUser() != null)
+        userName.setText("By " + fbs.getCurrentUser().getName());
+        img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent gallerIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(gallerIntent, GALLARY_REQUEST_CODE);
+            }
+        });addrecipe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String recipetitle1 = recipetitle.getText().toString();
+                String recipemethode1 = recipemethode.getText().toString();
+               String name = userName.getText().toString();
+                if (recipetitle1.isEmpty() || recipemethode1.isEmpty()) {
+                    Toast.makeText(getActivity(), "Some fields are empty!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                Uri selectedImageUri=fbs.getSelectedImageURL();
+                String imageUri = "";
+                if(selectedImageUri!=null)
+                    imageUri=selectedImageUri.toString();
+                Recipe recipe = new Recipe(recipetitle1, recipemethode1, imageUri.toString(), name, false);
+                fbs.getFire().collection("Recipes").add(recipe).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        Toast.makeText(getActivity(), "thank you", Toast.LENGTH_SHORT).show();
+                        FragmentTransaction transaction= getParentFragmentManager().beginTransaction();
+                        transaction.replace(R.id.main ,new RecipeListFragment());
+                        transaction.commit();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(getActivity(), " faild", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+            }
+        });
+
     }
 }

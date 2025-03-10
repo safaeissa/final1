@@ -129,7 +129,7 @@ public class AddDataFragment extends Fragment {
                 String imageUri = "";
                 if(selectedImageUri!=null)
                     imageUri=selectedImageUri.toString();
-                User user = new User(imageUri.toString(),name1, weight1, height1, age1);
+                User user = new User(imageUri,name1, weight1, height1, age1);
                 fbs.getFire().collection("Users").add(user).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {

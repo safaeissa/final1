@@ -135,9 +135,5 @@ private RecyclerView recyclerView;
             }
         });
 
-
-
-
-
     }
 }

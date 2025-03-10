@@ -13,25 +13,21 @@
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginBottom="53dp"
+            android:layout_width="411dp"
+            android:layout_height="122dp"
             android:src="@android:drawable/ic_menu_camera"
-            app:layout_constraintBottom_toTopOf="@+id/recipetitle"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            tools:layout_editor_absoluteY="4dp" />
 
         <TextView
             android:id="@+id/UserNameP"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="16dp"
+            android:layout_width="28dp"
+            android:layout_height="27dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="20dp"
             android:text="By "
             android:textColor="@color/black"
             android:textSize="20sp"
+            app:layout_constraintBottom_toTopOf="@+id/recipetitle"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
@@ -39,38 +35,37 @@
             android:id="@+id/recipetitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="33dp"
-            android:layout_marginBottom="315dp"
             android:ems="10"
             android:inputType="text"
             android:text="Name"
             android:textColor="@color/black"
-            app:layout_constraintBottom_toTopOf="@+id/addRecipe"
-            app:layout_constraintStart_toEndOf="@+id/UserNameP"
-            app:layout_constraintTop_toBottomOf="@+id/imageView" />
+            tools:layout_editor_absoluteX="81dp"
+            tools:layout_editor_absoluteY="191dp" />
 
         <EditText
             android:id="@+id/editTextTextMultiLine"
-            android:layout_width="406dp"
-            android:layout_height="288dp"
+            android:layout_width="400dp"
+            android:layout_height="55dp"
+            android:layout_marginTop="52dp"
             android:gravity="start|top"
             android:inputType="textMultiLine"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:layout_editor_absoluteX="0dp" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/recipetitle" />
 
         <TextView
             android:id="@+id/addRecipe"
             android:layout_width="110dp"
             android:layout_height="34dp"
-            android:layout_marginBottom="158dp"
+            android:layout_marginTop="256dp"
             android:background="@color/Blue"
             android:text="            Add "
             android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/recipetitle" />
+            app:layout_constraintTop_toBottomOf="@+id/editTextTextMultiLine" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

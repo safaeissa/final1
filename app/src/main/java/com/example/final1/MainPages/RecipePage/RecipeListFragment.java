@@ -29,7 +29,7 @@ import java.util.List;
 public class RecipeListFragment extends Fragment {
     Context context;
     private RecyclerView recyclerView;
-    private ArrayList<Recipe> userList;
+    private ArrayList<Recipe> recipesList;
     private FirebaseServices firebaseServices;
 
     // TODO: Rename parameter arguments, choose names that match
@@ -86,6 +86,16 @@ public class RecipeListFragment extends Fragment {
     }
     public void coneect ()
     {
-
+      recyclerView = getView().findViewById(R.id.recuclerviewUser);
+        firebaseServices =  FirebaseServices.getInstance();
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.setHasFixedSize(true);
+        recipesList=new ArrayList<>();
+        firebaseServices.getFire().collection("Recipes").get().addOnSuccessListener(queryDocumentSnapshots -> {
+            for (QueryDocumentSnapshot snapshot : queryDocumentSnapshots) {
+                Recipe recipe = snapshot.toObject(Recipe.class);
+                recipesList.add(recipe);
+            }
+        });
     }
 }
