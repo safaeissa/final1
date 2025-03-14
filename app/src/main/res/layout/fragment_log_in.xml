@@ -9,7 +9,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="428dp"
         android:layout_height="match_parent"
-        android:background="@drawable/__2025_02_25_145540">
+        android:background="@drawable/__2025_02_25_145625">
 
         <ImageView
             android:id="@+id/imageView7"
@@ -52,7 +52,7 @@
             android:layout_width="77dp"
             android:layout_height="26dp"
             android:text="LogIn"
-            android:textColor="@color/Blue"
+            android:textColor="#F6F4EF"
             android:textSize="20sp"
             app:layout_constraintBottom_toTopOf="@+id/imageView7"
             tools:layout_editor_absoluteX="175dp" />
@@ -63,7 +63,7 @@
             android:layout_height="52dp"
             android:layout_marginBottom="36dp"
             android:text="Health Mate"
-            android:textColor="#0C2D5E"
+            android:textColor="#F6F4EF"
             android:textSize="34sp"
             app:layout_constraintBottom_toTopOf="@+id/et"
             app:layout_constraintEnd_toEndOf="parent"
@@ -86,7 +86,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="63dp"
             android:text="Sign up "
-            android:textColor="@color/white"
+            android:textColor="@color/Blue"
             app:layout_constraintTop_toTopOf="@+id/btnLogin"
             tools:layout_editor_absoluteX="189dp" />
 
@@ -96,7 +96,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="41dp"
             android:text="Forget Password"
-            android:textColor="@color/white"
+            android:textColor="@color/Blue"
             app:layout_constraintTop_toTopOf="@+id/goToSignfromLogin"
             tools:layout_editor_absoluteX="161dp" />
 

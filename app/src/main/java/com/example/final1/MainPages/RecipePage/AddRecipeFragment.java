@@ -95,8 +95,7 @@ public class AddRecipeFragment extends Fragment {
         addrecipe = getView().findViewById(R.id.addRecipe);
         recipemethode = getView().findViewById(R.id.editTextTextMultiLine);
         userName = getView().findViewById(R.id.UserNameP);
-        if (fbs.getCurrentUser() != null)
-        userName.setText("By " + fbs.getCurrentUser().getName());
+        userName.setText("By" + fbs.getCurrentUser().getName());
         img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

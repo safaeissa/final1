@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.main, new UsersFragment());
+        ft.replace(R.id.main, new SignUPFragment());
         ft.commit();
     }
 

@@ -3,20 +3,31 @@ package com.example.final1.MainPages.RecipePage;
 import android.content.Context;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Parcelable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.example.final1.FirebaseServices;
+import com.example.final1.MainPages.HealthFragment;
 import com.example.final1.R;
+import com.example.final1.Users.AddDataFragment;
 import com.example.final1.Users.User;
 import com.example.final1.Users.UserAdapter;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +42,8 @@ public class RecipeListFragment extends Fragment {
     private RecyclerView recyclerView;
     private ArrayList<Recipe> recipesList;
     private FirebaseServices firebaseServices;
+    private RecipeAdapter recipeAdapter;
+    private ImageButton btmadd;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -84,18 +97,55 @@ public class RecipeListFragment extends Fragment {
         super.onStart();
         coneect();
     }
-    public void coneect ()
-    {
-      recyclerView = getView().findViewById(R.id.recuclerviewUser);
-        firebaseServices =  FirebaseServices.getInstance();
+    public void coneect () {
+        recyclerView = getView().findViewById(R.id.recuclerviewUser);
+        firebaseServices = FirebaseServices.getInstance();
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setHasFixedSize(true);
-        recipesList=new ArrayList<>();
-        firebaseServices.getFire().collection("Recipes").get().addOnSuccessListener(queryDocumentSnapshots -> {
-            for (QueryDocumentSnapshot snapshot : queryDocumentSnapshots) {
-                Recipe recipe = snapshot.toObject(Recipe.class);
-                recipesList.add(recipe);
+        recipesList = new ArrayList<>();
+        recipeAdapter = new RecipeAdapter(getActivity(), recipesList);
+        recyclerView.setAdapter(recipeAdapter);
+        btmadd=getView().findViewById(R.id.btnaddd);
+        btmadd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+                transaction.replace(R.id.main, new AddRecipeFragment());
+                transaction.commit();
             }
         });
+        firebaseServices.getFire().collection("Recipes").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                for (QueryDocumentSnapshot snapshot : queryDocumentSnapshots) {
+                    Recipe recipe = snapshot.toObject(Recipe.class);
+                    recipesList.add(recipe);
+                }
+                recipeAdapter.notifyDataSetChanged();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(getActivity(), "erorr " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                Log.e("TAG", "onFailure: " + e.getMessage());
+            }
+        });
+        recipeAdapter.setOnItemClickListener(new RecipeAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                String selectedItem = recipesList.get(position).getTitle();
+                Toast.makeText(getActivity(), "Clicked: " + selectedItem, Toast.LENGTH_SHORT).show();
+                Bundle args = new Bundle();
+                args.putParcelable("Users", (Parcelable) recipesList.get(position)); // or use Parcelable for better performance
+                FragmentTransaction ft=getActivity().getSupportFragmentManager().beginTransaction();
+                Fragment fragment = new AddDataFragment();
+                fragment.setArguments(args);
+                ft.replace(R.id.main, fragment);
+                ft.addToBackStack(null);
+                ft.commit();
+
+            }
+        });
+        }
+
     }
-}

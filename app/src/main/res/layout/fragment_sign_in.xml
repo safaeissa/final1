@@ -10,11 +10,11 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/__2025_02_25_145540">
+        android:background="@drawable/__2025_02_25_145625">
 
         <ImageView
             android:id="@+id/imageView7"
-            android:layout_width="328dp"
+            android:layout_width="321dp"
             android:layout_height="348dp"
             android:src="?android:attr/listDivider"
             app:layout_constraintEnd_toEndOf="parent"
@@ -27,7 +27,7 @@
             android:layout_height="33dp"
             android:layout_marginBottom="20dp"
             android:text="Sign Up"
-            android:textColor="@color/Blue"
+            android:textColor="#F6F4EF"
             android:textSize="20sp"
             app:layout_constraintBottom_toTopOf="@+id/imageView7"
             app:layout_constraintEnd_toEndOf="parent"
@@ -54,7 +54,7 @@
             android:layout_height="46dp"
             android:layout_marginBottom="44dp"
             android:text="Health Mate"
-            android:textColor="@color/Blue"
+            android:textColor="#F6F4EF"
             android:textSize="34sp"
             app:layout_constraintBottom_toTopOf="@+id/et"
             app:layout_constraintEnd_toEndOf="parent"
@@ -91,7 +91,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="36dp"
             android:text="Login "
-            android:textColor="@color/white"
+            android:textColor="@color/Blue"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"

@@ -9,7 +9,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="442dp"
         android:layout_height="match_parent"
-        android:background="@drawable/__2025_02_04_182841">
+        android:background="@drawable/__2025_02_25_145540">
 
         <ImageButton
             android:id="@+id/goToAi"

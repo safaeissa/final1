@@ -1,5 +1,6 @@
 package com.example.final1.MainPages;
 
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -9,9 +10,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.example.final1.FirebaseServices;
 import com.example.final1.MainPages.RecipePage.RecipeListFragment;
 import com.example.final1.R;
+import com.squareup.picasso.Picasso;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -20,7 +25,8 @@ import com.example.final1.R;
  */
 public class HomeFragment extends Fragment {
     private ImageButton btnF,btnA,btnS,btnH;
-
+    private TextView textuser;
+    private ImageView imguser;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -74,46 +80,55 @@ public class HomeFragment extends Fragment {
         connect();
 
     }
-    public void connect ()
-    {
-        btnH=getView().findViewById(R.id.GoToHealth);
-    btnF=getView().findViewById(R.id.GotoFood);
-    btnA=getView().findViewById(R.id.goToAi);
-    btnS=getView().findViewById(R.id.GotoSport);
-    btnH.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            FragmentTransaction transaction= getParentFragmentManager().beginTransaction();
-            transaction.replace(R.id.main ,new HealthFragment());
-            transaction.commit();
-        }
-    });
-    btnF.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            FragmentTransaction transaction= getParentFragmentManager().beginTransaction();
-            transaction.replace(R.id.main ,new RecipeListFragment());
-            transaction.commit();
-        }
-    });
+    public void connect () {
+
+        textuser = getView().findViewById(R.id.textNameUser);
+        textuser.setText(FirebaseServices.getInstance().getCurrentUser().getName());
+        btnH = getView().findViewById(R.id.GoToHealth);
+        imguser = getView().findViewById(R.id.imageView2);
+        imguser.setImageURI(Uri.parse(FirebaseServices.getInstance().getCurrentUser().getPhoto()));
+        if (FirebaseServices.getInstance().getCurrentUser().getPhoto() == null || FirebaseServices.getInstance().getCurrentUser().getPhoto().isEmpty())
+            imguser.setImageResource(R.drawable.blank_profile_picture_973460_1280);
+        else Picasso.get().load(FirebaseServices.getInstance().getCurrentUser().getPhoto()).into(imguser);
+        btnF = getView().findViewById(R.id.GotoFood);
+        btnA = getView().findViewById(R.id.goToAi);
+        btnS = getView().findViewById(R.id.GotoSport);
+        btnH.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+                transaction.replace(R.id.main, new HealthFragment());
+                transaction.commit();
+            }
+        });
+        btnF.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+                transaction.replace(R.id.main, new RecipeListFragment());
+                transaction.commit();
+            }
+        });
         btnA.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentTransaction transaction= getParentFragmentManager().beginTransaction();
-                transaction.replace(R.id.main ,new AIFragment());
+                FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+                transaction.replace(R.id.main, new AIFragment());
                 transaction.commit();
             }
         });
         btnS.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentTransaction transaction= getParentFragmentManager().beginTransaction();
-                transaction.replace(R.id.main ,new SportFragment());
+                FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+                transaction.replace(R.id.main, new SportFragment());
                 transaction.commit();
             }
         });
     }
+
     }
+
 
 
 
