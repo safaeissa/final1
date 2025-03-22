@@ -101,10 +101,11 @@ public class AddDataFragment extends Fragment {
     public void conect() {
         fbs=new FirebaseServices().getInstance();
         img = getView().findViewById(R.id.imageViewProfile);
-        name = getView().findViewById(R.id.textName);
         Weight = getView().findViewById(R.id.etWeight);
         height = getView().findViewById(R.id.etHeight);
         age = getView().findViewById(R.id.etage);
+        String email = fbs.getAuth().getCurrentUser().getEmail();
+
         Start = getView().findViewById(R.id.btnStart);
         img.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -116,7 +117,7 @@ public class AddDataFragment extends Fragment {
         Start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String name1 = name.getText().toString();
+                String name1 = getNameFromEmail(email);
                 String weight1 = Weight.getText().toString();
                 String height1 = height.getText().toString();
                 String age1 = age.getText().toString();
@@ -129,7 +130,7 @@ public class AddDataFragment extends Fragment {
                 String imageUri = "";
                 if(selectedImageUri!=null)
                     imageUri=selectedImageUri.toString();
-                User user = new User(imageUri,name1, weight1, height1, age1);
+                User user = new User(imageUri,name1, weight1, height1, age1, fbs.getAuth().getCurrentUser().getEmail());
                 fbs.getFire().collection("Users").add(user).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
@@ -146,6 +147,12 @@ public class AddDataFragment extends Fragment {
                 });
             }
         });
+    }
+    public static String getNameFromEmail(String email) {
+        if (email == null || !email.contains("@"))
+            return "Invalid email";
+        String namePart = email.split("@")[0];
+        return namePart;
     }
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

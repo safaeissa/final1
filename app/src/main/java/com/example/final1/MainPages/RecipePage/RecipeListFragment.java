@@ -95,10 +95,10 @@ public class RecipeListFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        coneect();
+     coneect();
     }
     public void coneect () {
-        recyclerView = getView().findViewById(R.id.recuclerviewUser);
+        recyclerView = getView().findViewById(R.id.RecyclerViewRecipe);
         firebaseServices = FirebaseServices.getInstance();
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setHasFixedSize(true);
@@ -136,9 +136,9 @@ public class RecipeListFragment extends Fragment {
                 String selectedItem = recipesList.get(position).getTitle();
                 Toast.makeText(getActivity(), "Clicked: " + selectedItem, Toast.LENGTH_SHORT).show();
                 Bundle args = new Bundle();
-                args.putParcelable("Users", (Parcelable) recipesList.get(position)); // or use Parcelable for better performance
+                args.putParcelable("Recipes", (Parcelable) recipesList.get(position)); // or use Parcelable for better performance
                 FragmentTransaction ft=getActivity().getSupportFragmentManager().beginTransaction();
-                Fragment fragment = new AddDataFragment();
+                Fragment fragment = new AddRecipeFragment();
                 fragment.setArguments(args);
                 ft.replace(R.id.main, fragment);
                 ft.addToBackStack(null);

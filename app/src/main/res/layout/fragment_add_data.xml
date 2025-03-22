@@ -27,12 +27,12 @@
             android:id="@+id/etHeight"
             android:layout_width="240dp"
             android:layout_height="59dp"
-            android:layout_marginTop="52dp"
+            android:layout_marginTop="60dp"
             android:background="@color/white"
             android:ems="10"
             android:hint="height"
             android:inputType="number"
-            app:layout_constraintTop_toBottomOf="@+id/textName"
+            app:layout_constraintTop_toBottomOf="@+id/imageViewProfile"
             tools:layout_editor_absoluteX="64dp" />
 
         <EditText
@@ -61,18 +61,6 @@
             app:layout_constraintHorizontal_bias="0.441"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/etage" />
-
-        <EditText
-            android:id="@+id/textName"
-            android:layout_width="240dp"
-            android:layout_height="59dp"
-            android:layout_marginTop="44dp"
-            android:background="@color/white"
-            android:ems="10"
-            android:hint="Name"
-            android:inputType="text"
-            app:layout_constraintTop_toBottomOf="@+id/imageViewProfile"
-            tools:layout_editor_absoluteX="69dp" />
 
         <ImageView
             android:id="@+id/imageViewProfile"

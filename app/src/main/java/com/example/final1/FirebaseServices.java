@@ -11,6 +11,7 @@ import com.example.final1.Users.UserCallback;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -47,6 +48,17 @@ public class FirebaseServices {
         auth = FirebaseAuth.getInstance();
         fire = FirebaseFirestore.getInstance();
         storage = FirebaseStorage.getInstance();
+        getCurrentObjectUser(new UserCallback() {
+            @Override
+            public void onUserLoaded(User user) {
+                // Access the currentUser here
+                if (user != null) {
+                    setCurrentUser(user);
+                }
+            }
+        });
+
+        userChangeFlag = false;
 
     }
     public void getUsersList(final DataStatus dataStatus) {
@@ -84,11 +96,6 @@ public class FirebaseServices {
             public void onCancelled(@NonNull DatabaseError error) {}
         });
     }
-
-
-
-
-
 
     public interface RecipeCallback {
         void onRecipesLoaded(List<Recipe> recipes);
@@ -158,10 +165,19 @@ public class FirebaseServices {
             }
         });
     }
+    // دالة لجلب بيانات المستخدم من Firestore باستخدام email
+    public void getUserDataByEmail(String email,
+                                   final OnSuccessListener<QueryDocumentSnapshot> onSuccessListener,
+                                   final OnFailureListener onFailureListener) {
+        fire.collection("Users")
+                .whereEqualTo("email", email)  // البحث باستخدام البريد الإلكتروني
+                .limit(1)  // تحديد نتيجة واحدة فقط
+                .get();
+    }
 
-    public User getCurrentUser()
+    public FirebaseUser getCurrentUser()
     {
-        return this.currentUser;
+        return auth.getCurrentUser();
     }
 
     public void setCurrentUser(User currentUser) {

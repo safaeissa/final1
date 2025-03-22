@@ -84,11 +84,12 @@
             android:id="@+id/goToSignfromLogin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="63dp"
+            android:layout_marginTop="152dp"
             android:text="Sign up "
             android:textColor="@color/Blue"
-            app:layout_constraintTop_toTopOf="@+id/btnLogin"
-            tools:layout_editor_absoluteX="189dp" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/btnLogin" />
 
         <TextView
             android:id="@+id/goToForgetfromLogin"

@@ -22,7 +22,7 @@
     <TextView
         android:id="@+id/TextR"
         android:layout_width="match_parent"
-        android:layout_height="575dp"
+        android:layout_height="129dp"
         android:text="TextView"
         android:textColor="@color/black" />
 

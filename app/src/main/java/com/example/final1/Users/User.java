@@ -8,6 +8,7 @@ public class User {
    private String Name ;
     private String Weight ;
   private  String  Length ;
+  private String email;
   private String Age ;
 
 
@@ -15,13 +16,34 @@ public class User {
 {
 
 }
-    public User(String photo, String name, String weight, String length, String age) {
+    public User(String photo, String name, String weight, String length, String age, String email) {
         this.photo = photo;
        this.Name = name;
         this.Weight = weight;
         this.Length = length;
         this.Age = age;
+        this.email = email;
 
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "photo='" + photo + '\'' +
+                ", Name='" + Name + '\'' +
+                ", Weight='" + Weight + '\'' +
+                ", Length='" + Length + '\'' +
+                ", email='" + email + '\'' +
+                ", Age='" + Age + '\'' +
+                '}';
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPhoto() {
@@ -64,14 +86,4 @@ public class User {
         Age = age;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "photo=" + photo +
-                ", Name='" + Name + '\'' +
-                ", Weight='" + Weight + '\'' +
-                ", Length='" + Length + '\'' +
-                ", Age='" + Age + '\'' +
-                '}';
-    }
 }

@@ -3,6 +3,7 @@ package com.example.final1.MainPages;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -16,6 +17,13 @@ import android.widget.TextView;
 import com.example.final1.FirebaseServices;
 import com.example.final1.MainPages.RecipePage.RecipeListFragment;
 import com.example.final1.R;
+import com.example.final1.Users.User;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.squareup.picasso.Picasso;
 
 /**
@@ -26,7 +34,9 @@ import com.squareup.picasso.Picasso;
 public class HomeFragment extends Fragment {
     private ImageButton btnF,btnA,btnS,btnH;
     private TextView textuser;
-    private ImageView imguser;
+    private ImageView imguser,RecipeBtn,HealthBtn,SportBtn,SettingBtn;
+    private FirebaseAuth auth = FirebaseAuth.getInstance();
+   private FirebaseFirestore db = FirebaseFirestore.getInstance();
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -78,55 +88,75 @@ public class HomeFragment extends Fragment {
     public void onStart() {
         super.onStart();
         connect();
-
     }
     public void connect () {
-
-        textuser = getView().findViewById(R.id.textNameUser);
-        textuser.setText(FirebaseServices.getInstance().getCurrentUser().getName());
-        btnH = getView().findViewById(R.id.GoToHealth);
+        RecipeBtn=getView().findViewById(R.id.RecipeBtn);
+        SettingBtn=getView().findViewById(R.id.SettingBtn);
+        HealthBtn=getView().findViewById(R.id.HealthBtn);
+        SportBtn=getView().findViewById(R.id.SportBtn);
+        RecipeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction transaction= getParentFragmentManager().beginTransaction();
+                transaction.replace(R.id.main ,new RecipeListFragment());
+                transaction.commit();
+            }
+        });
+        SettingBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction transaction= getParentFragmentManager().beginTransaction();
+                transaction.replace(R.id.main ,new SettingsFragment());
+                transaction.commit();
+            }
+        });
+        HealthBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction transaction= getParentFragmentManager().beginTransaction();
+                transaction.replace(R.id.main ,new HealthFragment());
+                transaction.commit();
+            }
+        });
+        SportBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction transaction= getParentFragmentManager().beginTransaction();
+                transaction.replace(R.id.main ,new SportFragment());
+                transaction.commit();
+            }
+        });
+  textuser=getView().findViewById(R.id.textNameUser);
+FirebaseServices fbs=new FirebaseServices().getInstance();
         imguser = getView().findViewById(R.id.imageView2);
-        imguser.setImageURI(Uri.parse(FirebaseServices.getInstance().getCurrentUser().getPhoto()));
-        if (FirebaseServices.getInstance().getCurrentUser().getPhoto() == null || FirebaseServices.getInstance().getCurrentUser().getPhoto().isEmpty())
-            imguser.setImageResource(R.drawable.blank_profile_picture_973460_1280);
-        else Picasso.get().load(FirebaseServices.getInstance().getCurrentUser().getPhoto()).into(imguser);
-        btnF = getView().findViewById(R.id.GotoFood);
-        btnA = getView().findViewById(R.id.goToAi);
-        btnS = getView().findViewById(R.id.GotoSport);
-        btnH.setOnClickListener(new View.OnClickListener() {
+FirebaseUser user =fbs.getCurrentUser();
+    if (user != null) {
+        String email = user.getEmail();
+        String name = getNameFromEmail(email);
+        textuser.setText(name);
+        fbs.getUserDataByEmail(email, new OnSuccessListener<QueryDocumentSnapshot>() {
             @Override
-            public void onClick(View v) {
-                FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-                transaction.replace(R.id.main, new HealthFragment());
-                transaction.commit();
+            public void onSuccess(QueryDocumentSnapshot queryDocumentSnapshot) {
+                String photo = queryDocumentSnapshot.getString("photo");
+                if (photo == null || photo.isEmpty())
+                    imguser.setImageResource(R.drawable.blank_profile_picture_973460_1280);
+                else  Picasso.get().load(photo).into(imguser);
             }
-        });
-        btnF.setOnClickListener(new View.OnClickListener() {
+        }, new OnFailureListener() {
             @Override
-            public void onClick(View v) {
-                FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-                transaction.replace(R.id.main, new RecipeListFragment());
-                transaction.commit();
-            }
-        });
-        btnA.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-                transaction.replace(R.id.main, new AIFragment());
-                transaction.commit();
-            }
-        });
-        btnS.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-                transaction.replace(R.id.main, new SportFragment());
-                transaction.commit();
+            public void onFailure(@NonNull Exception e) {
+
             }
         });
     }
 
+    }
+    public static String getNameFromEmail(String email) {
+        if (email == null || !email.contains("@"))
+            return "Invalid email";
+        String namePart = email.split("@")[0];
+        return namePart;
+    }
     }
 
 

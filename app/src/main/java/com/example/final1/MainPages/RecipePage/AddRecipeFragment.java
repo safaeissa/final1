@@ -1,9 +1,12 @@
 package com.example.final1.MainPages.RecipePage;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -20,9 +23,11 @@ import android.widget.Toast;
 import com.example.final1.FirebaseServices;
 import com.example.final1.MainPages.HomeFragment;
 import com.example.final1.R;
+import com.example.final1.Utils.Utils;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
+import com.squareup.picasso.Picasso;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -31,10 +36,12 @@ import com.google.firebase.firestore.DocumentReference;
  */
 public class AddRecipeFragment extends Fragment {
     private static final int GALLARY_REQUEST_CODE = 123;
+    private ActivityResultLauncher<Intent> galleryLauncher;
     private EditText   recipetitle ,recipemethode ;
     private FirebaseServices fbs ;
     private TextView addrecipe,userName;
     private ImageView img;
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -80,13 +87,13 @@ public class AddRecipeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_add_recipe, container, false);
+
     }
 
     @Override
     public void onStart() {
         super.onStart();
         conect();
-
     }
     public void conect() {
         fbs = new FirebaseServices().getInstance();
@@ -94,8 +101,9 @@ public class AddRecipeFragment extends Fragment {
         recipetitle = getView().findViewById(R.id.recipetitle);
         addrecipe = getView().findViewById(R.id.addRecipe);
         recipemethode = getView().findViewById(R.id.editTextTextMultiLine);
+        String email = fbs.getAuth().getCurrentUser().getEmail();
         userName = getView().findViewById(R.id.UserNameP);
-        userName.setText("By" + fbs.getCurrentUser().getName());
+        userName.setText(getNameFromEmail(email));
         img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -107,16 +115,17 @@ public class AddRecipeFragment extends Fragment {
             public void onClick(View v) {
                 String recipetitle1 = recipetitle.getText().toString();
                 String recipemethode1 = recipemethode.getText().toString();
-               String name = userName.getText().toString();
+               String email = fbs.getAuth().getCurrentUser().getEmail();
+                String name = getNameFromEmail(email);
                 if (recipetitle1.isEmpty() || recipemethode1.isEmpty()) {
                     Toast.makeText(getActivity(), "Some fields are empty!", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 Uri selectedImageUri=fbs.getSelectedImageURL();
-                String imageUri = "";
+                String imageUri ="";
                 if(selectedImageUri!=null)
                     imageUri=selectedImageUri.toString();
-                Recipe recipe = new Recipe(recipetitle1, recipemethode1, imageUri.toString(), name, false);
+                Recipe recipe = new Recipe(recipetitle1, recipemethode1, imageUri, name, false);
                 fbs.getFire().collection("Recipes").add(recipe).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
@@ -135,5 +144,21 @@ public class AddRecipeFragment extends Fragment {
             }
         });
 
+    }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode ==  GALLARY_REQUEST_CODE && resultCode == getActivity().RESULT_OK && data != null) {
+            Uri selectedImageUri = data.getData();
+            img.setImageURI(selectedImageUri);
+            Utils.getInstance().uploadImage(getActivity(), selectedImageUri);
+        }
+    }
+    public static String getNameFromEmail(String email) {
+        if (email == null || !email.contains("@"))
+            return "Invalid email";
+        String namePart = email.split("@")[0];
+        return namePart;
     }
 }

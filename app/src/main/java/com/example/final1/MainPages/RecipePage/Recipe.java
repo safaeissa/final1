@@ -44,10 +44,6 @@ public class Recipe {
         isFavorite = favorite;
     }
 
-
-
-
-
     public String getTitle() {
         return title;
     }

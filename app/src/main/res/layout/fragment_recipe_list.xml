@@ -41,8 +41,9 @@
                 app:backgroundTint="#0C2D5E" />
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/RecyclerViewRecipe"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="627dp" />
 
         </LinearLayout>
 

@@ -2,6 +2,7 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="baige">#F6F4EFFF</color>
     <color name="Blue">#0C2D5E</color>
     <color name="BtnColor">#06162C</color>
 </resources>
