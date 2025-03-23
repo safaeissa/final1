@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.example.final1.FirebaseServices;
 import com.example.final1.MainPages.HealthFragment;
+import com.example.final1.MainPages.HomeFragment;
 import com.example.final1.R;
 import com.example.final1.Users.AddDataFragment;
 import com.example.final1.Users.User;
@@ -39,6 +40,7 @@ import java.util.List;
  */
 public class RecipeListFragment extends Fragment {
     Context context;
+    private ImageButton b;
     private RecyclerView recyclerView;
     private ArrayList<Recipe> recipesList;
     private FirebaseServices firebaseServices;
@@ -99,13 +101,22 @@ public class RecipeListFragment extends Fragment {
     }
     public void coneect () {
         recyclerView = getView().findViewById(R.id.RecyclerViewRecipe);
+        b=getView().findViewById(R.id.BackList);
         firebaseServices = FirebaseServices.getInstance();
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setHasFixedSize(true);
         recipesList = new ArrayList<>();
         recipeAdapter = new RecipeAdapter(getActivity(), recipesList);
         recyclerView.setAdapter(recipeAdapter);
-        btmadd=getView().findViewById(R.id.btnaddd);
+        btmadd=getView().findViewById(R.id.btnAddRecipe);
+        b.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+                transaction.replace(R.id.main, new HomeFragment());
+                transaction.commit();
+            }
+        });
         btmadd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

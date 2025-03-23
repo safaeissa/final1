@@ -7,49 +7,79 @@
     android:background="@drawable/__2025_02_25_145540"
     tools:context=".MainPages.RecipePage.RecipeListFragment">
 
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:padding="16dp">
 
-        <ImageButton
-            android:id="@+id/btnaddd"
-            android:layout_width="63dp"
-            android:layout_height="63dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="4dp"
-            android:background="#0006162C"
-            android:src="@android:drawable/ic_menu_add"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
-            app:layout_constraintVertical_bias="0.888" />
+        <!-- مربع البحث والوصفات -->
+
+        <!-- زر إضافة وصفة -->
 
         <LinearLayout
             android:id="@+id/linearLayout2"
-            android:layout_width="417dp"
-            android:layout_height="655dp"
+            android:layout_width="386dp"
+            android:layout_height="632dp"
+            android:layout_marginBottom="16dp"
             android:background="#0006162C"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/btnAddRecipe"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0">
+
+
+            <ImageButton
+                android:id="@+id/BackList"
+                android:layout_width="38dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
+                android:backgroundTint="#00FFFFFF"
+                android:src="@drawable/icons8_back_26"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.appcompat.widget.SearchView
                 android:id="@+id/searchView"
-                android:layout_width="419dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#000C2D5E"
-                android:queryHint="ابحث عن وصفة..."
-                app:backgroundTint="#0C2D5E" />
+                android:background="#00FFFFFF"
+                android:elevation="4dp"
+                android:padding="8dp"
+                android:queryHint="Search Recipe"
+                app:iconifiedByDefault="false">
+
+            </androidx.appcompat.widget.SearchView>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/RecyclerViewRecipe"
                 android:layout_width="match_parent"
-                android:layout_height="627dp" />
+                android:layout_height="565dp"
+                android:padding="4dp" />
+
+            <!-- قائمة الوصفات -->
 
         </LinearLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <ImageButton
+            android:id="@+id/btnAddRecipe"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:background="@android:color/transparent"
+            android:src="@android:drawable/ic_menu_add"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:elevation="8dp"
+            android:scaleType="centerInside"
+            android:layout_margin="16dp"
+            android:contentDescription="Add Recipe" />
 
-    <!-- قائمة الوصفات -->
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>
 

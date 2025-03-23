@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,6 +42,7 @@ public class AddRecipeFragment extends Fragment {
     private FirebaseServices fbs ;
     private TextView addrecipe,userName;
     private ImageView img;
+    private ImageButton b;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -103,6 +105,15 @@ public class AddRecipeFragment extends Fragment {
         recipemethode = getView().findViewById(R.id.editTextTextMultiLine);
         String email = fbs.getAuth().getCurrentUser().getEmail();
         userName = getView().findViewById(R.id.UserNameP);
+        b=getView().findViewById(R.id.Back);
+        b.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+                transaction.replace(R.id.main, new RecipeListFragment());
+                transaction.commit();
+            }
+        });
         userName.setText(getNameFromEmail(email));
         img.setOnClickListener(new View.OnClickListener() {
             @Override

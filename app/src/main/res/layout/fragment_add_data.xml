@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#01112A"
     tools:context=".Users.AddDataFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -11,67 +12,79 @@
         android:layout_height="match_parent"
         android:background="@drawable/__2025_02_25_145540">
 
-        <EditText
-            android:id="@+id/etWeight"
-            android:layout_width="240dp"
-            android:layout_height="59dp"
-            android:layout_marginTop="52dp"
-            android:background="@color/white"
-            android:ems="10"
-            android:hint="weight"
-            android:inputType="number"
-            app:layout_constraintTop_toBottomOf="@+id/etHeight"
-            tools:layout_editor_absoluteX="64dp" />
-
-        <EditText
-            android:id="@+id/etHeight"
-            android:layout_width="240dp"
-            android:layout_height="59dp"
-            android:layout_marginTop="60dp"
-            android:background="@color/white"
-            android:ems="10"
-            android:hint="height"
-            android:inputType="number"
-            app:layout_constraintTop_toBottomOf="@+id/imageViewProfile"
-            tools:layout_editor_absoluteX="64dp" />
-
-        <EditText
-            android:id="@+id/etage"
-            android:layout_width="240dp"
-            android:layout_height="59dp"
-            android:layout_marginTop="52dp"
-            android:background="@color/white"
-            android:ems="10"
-            android:hint="Age"
-            android:inputType="date"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.374"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/etWeight" />
-
-        <TextView
-            android:id="@+id/btnStart"
-            android:layout_width="96dp"
-            android:layout_height="34dp"
-            android:layout_marginTop="32dp"
-            android:background="@color/BtnColor"
-            android:text="        Start"
-            android:textColor="@color/white"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.441"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/etage" />
 
         <ImageView
             android:id="@+id/imageViewProfile"
-            android:layout_width="193dp"
-            android:layout_height="96dp"
-            android:layout_marginTop="52dp"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_marginTop="40dp"
+            android:scaleType="centerCrop"
             android:src="@drawable/blank_profile_picture_973460_1280"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.44"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+
+        <EditText
+            android:id="@+id/etHeight"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="30dp"
+
+            android:hint="Height (cm)"
+            android:inputType="numberDecimal"
+            android:padding="10dp"
+            android:textColorHint="@color/BtnColor"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/imageViewProfile"
+            app:layout_constraintWidth_percent="0.8" />
+        <EditText
+            android:id="@+id/etWeight"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+
+            android:hint="Weight (kg)"
+            android:inputType="numberDecimal"
+            android:padding="10dp"
+            android:textColorHint="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/etHeight"
+            app:layout_constraintWidth_percent="0.8" />
+
+        <!-- إدخال العمر -->
+        <EditText
+            android:id="@+id/etAge"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+
+            android:hint="Age"
+            android:inputType="number"
+            android:padding="10dp"
+            android:textColorHint="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/etWeight"
+            app:layout_constraintWidth_percent="0.8" />
+
+
+        <Button
+            android:id="@+id/btnStart"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="30dp"
+            android:backgroundTint="@color/BtnColor"
+            android:text="Start"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/etAge"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintWidth_percent="0.6"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

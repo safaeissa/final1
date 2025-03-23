@@ -9,6 +9,7 @@ import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -36,7 +37,7 @@ public class AddDataFragment extends Fragment {
     private static final int GALLARY_REQUEST_CODE = 123;
     private EditText name,age, Weight ,height ;
     private FirebaseServices fbs ;
-    private TextView Start;
+    private Button Start;
     private ImageView img;
 
 
@@ -97,15 +98,13 @@ public class AddDataFragment extends Fragment {
         conect();
 
     }
-
     public void conect() {
         fbs=new FirebaseServices().getInstance();
         img = getView().findViewById(R.id.imageViewProfile);
         Weight = getView().findViewById(R.id.etWeight);
         height = getView().findViewById(R.id.etHeight);
-        age = getView().findViewById(R.id.etage);
+        age = getView().findViewById(R.id.etAge);
         String email = fbs.getAuth().getCurrentUser().getEmail();
-
         Start = getView().findViewById(R.id.btnStart);
         img.setOnClickListener(new View.OnClickListener() {
             @Override
