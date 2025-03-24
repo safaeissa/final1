@@ -13,6 +13,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.example.final1.MainPages.HomeFragment;
 import com.example.final1.MainPages.RecipePage.AddRecipeFragment;
 import com.example.final1.MainPages.RecipePage.RecipeListFragment;
+import com.example.final1.MainPages.SportFragment;
 import com.example.final1.SignInLogInForget.LogInFragment;
 import com.example.final1.SignInLogInForget.SignUPFragment;
 import com.example.final1.Users.AddDataFragment;
@@ -44,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.main, new LogInFragment());
+        ft.replace(R.id.main, new SportFragment());
         ft.commit();
     }
 
