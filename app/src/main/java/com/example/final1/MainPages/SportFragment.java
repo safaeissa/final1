@@ -5,15 +5,17 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 
-import com.example.final1.MainPages.RecipePage.RecipeListFragment;
 import com.example.final1.R;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -22,11 +24,12 @@ import com.example.final1.R;
  */
 public class SportFragment extends Fragment {
     private ImageView BackToHome;
-    private WebView webUpper;
-    private WebView webCoreAbs;
-    private WebView webLower;
-    private WebView webCARDIO;
-    private WebView WEBLOWER2;
+    private YouTubePlayerView youTubePlayerView1;
+    private YouTubePlayerView youTubePlayerView2;
+    private YouTubePlayerView youTubePlayerView3;
+    private YouTubePlayerView youTubePlayerView4;
+    private YouTubePlayerView youTubePlayerView5;
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -83,33 +86,59 @@ public class SportFragment extends Fragment {
     public void connect ()
     {
         BackToHome= getView().findViewById(R.id.BackToHomeFromSport);
-        webUpper= getView().findViewById(R.id.webUpper);
-        webCoreAbs= getView().findViewById(R.id.webCoreAbs);
-        webLower= getView().findViewById(R.id.webLower);
-        WEBLOWER2= getView().findViewById(R.id.webLower2);
-        webCARDIO= getView().findViewById(R.id.webCARDIO);
         BackToHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentTransaction transaction= getParentFragmentManager().beginTransaction();
-                transaction.replace(R.id.main ,new HomeFragment());
+                FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+                transaction.replace(R.id.main, new HomeFragment());
                 transaction.commit();
             }
         });
-String videoUpper="<iframe width=\"100%\" height=\"100%\" src=\"https://www.youtube.com/embed/GViX8riaHX4?si=Mwln8A0z4c0C4_vp\" title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen></iframe>";
-webUpper.loadData(videoUpper, "text/html", "utf-8");
-String videoCoreAbs="<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/1919eTCoESo?si=dIGAkapl4gkkOBKd\" title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen></iframe>";
-webCoreAbs.loadData(videoCoreAbs, "text/html", "utf-8");
-String videoLower="<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/7I-c-yw5ZrQ?si=xK-NOjlP87n-9M28\" title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen></iframe>";
-webLower.loadData(videoLower, "text/html", "utf-8");
-String videoLower2="<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/CacfEBsSL1Y?si=ffRUGWBxgoTslQqU\" title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen></iframe>";
-WEBLOWER2.loadData(videoLower2, "text/html", "utf-8");
-String videoCARDIO="<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/ml6cT4AZdqI?si=Ok7RTAhbAjnnHQw-\" title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen></iframe>";
-webCARDIO.loadData(videoCARDIO, "text/html", "utf-8");
+        youTubePlayerView1 = getView().findViewById(R.id.youtube_player_Lower);
+        getLifecycle().addObserver(youTubePlayerView1);
 
+        youTubePlayerView1.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
+            @Override
+            public void onReady(@NonNull YouTubePlayer youTubePlayer) {
+                youTubePlayer.loadVideo("7I-c-yw5ZrQ", 0);
+            }
+        });
+        youTubePlayerView2= getView().findViewById(R.id.youtube_player_Upper);
+        getLifecycle().addObserver(youTubePlayerView2);
 
+        youTubePlayerView2.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
+            @Override
+            public void onReady(@NonNull YouTubePlayer youTubePlayer) {
+                youTubePlayer.loadVideo("1919eTCoESo", 0);
+            }
+        });
+        youTubePlayerView3= getView().findViewById(R.id.youtube_player_ABS);
+        getLifecycle().addObserver(youTubePlayerView3);
 
+        youTubePlayerView3.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
+            @Override
+            public void onReady(@NonNull YouTubePlayer youTubePlayer) {
+                youTubePlayer.loadVideo("CacfEBsSL1Y", 0);
+            }
+        });
+        youTubePlayerView4= getView().findViewById(R.id.youtube_player_Cardio);
+        getLifecycle().addObserver(youTubePlayerView4);
 
+        youTubePlayerView4.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
+            @Override
+            public void onReady(@NonNull YouTubePlayer youTubePlayer) {
+                youTubePlayer.loadVideo("ml6cT4AZdqI", 0);
+            }
+        });
+        youTubePlayerView5= getView().findViewById(R.id.youtube_player_Full);
+        getLifecycle().addObserver(youTubePlayerView5);
+
+        youTubePlayerView5.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
+            @Override
+            public void onReady(@NonNull YouTubePlayer youTubePlayer) {
+                youTubePlayer.loadVideo("GViX8riaHX4", 0);
+            }
+        });
 
     }
 }
