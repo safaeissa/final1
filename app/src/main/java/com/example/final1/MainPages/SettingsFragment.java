@@ -1,14 +1,25 @@
 package com.example.final1.MainPages;
 
+import android.media.Image;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageView;
 
+import com.example.final1.FirebaseServices;
 import com.example.final1.R;
+import com.example.final1.Users.User;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.squareup.picasso.Picasso;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -17,6 +28,9 @@ import com.example.final1.R;
  */
 public class SettingsFragment extends Fragment {
 
+    private EditText name,age, Weight ,height ;
+    private ImageView imgpr;
+    private FirebaseServices fbs ;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -63,4 +77,52 @@ public class SettingsFragment extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_settings, container, false);
     }
-}
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        coneect();
+    }
+    public void coneect ()
+    {
+        name=getView().findViewById(R.id.etNamePr);
+        age=getView().findViewById(R.id.etAge);
+        Weight=getView().findViewById(R.id.weightPr);
+        height=getView().findViewById(R.id.hightPr);
+        imgpr=getView().findViewById(R.id.imgPr);
+        fbs=new FirebaseServices();
+        FirebaseUser user =fbs.getCurrentUser();
+        if (user != null) {
+            String email = user.getEmail();
+            String name1 = getNameFromEmail(email);
+            name.setText(name1);
+            fbs.getUserDataByEmail(email, new OnSuccessListener<QueryDocumentSnapshot>() {
+                @Override
+                public void onSuccess(QueryDocumentSnapshot queryDocumentSnapshot) {
+                    String photo = queryDocumentSnapshot.getString("photo");
+                    if (photo == null || photo.isEmpty())
+                        imgpr.setImageResource(R.drawable.blank_profile_picture_973460_1280);
+                    else Picasso.get().load(photo).into(imgpr);
+                    age.setText(queryDocumentSnapshot.getString("age"));
+                    Weight.setText(queryDocumentSnapshot.getString("weight"));
+                    height.setText(queryDocumentSnapshot.getString("length"));
+                }
+            }, new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+
+                }
+            });
+        };
+
+
+    }
+    public static String getNameFromEmail(String email) {
+        if (email == null || !email.contains("@"))
+            return "Invalid email";
+        String namePart = email.split("@")[0];
+        return namePart;
+    }
+
+
+    }
