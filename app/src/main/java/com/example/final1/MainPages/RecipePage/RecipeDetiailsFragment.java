@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.final1.FirebaseServices;
 import com.example.final1.MainPages.HomeFragment;
@@ -27,6 +28,7 @@ private FirebaseServices fbs;
 private     Recipe recipe;
 private ImageView imageView3;
 private ImageButton imgb;
+private ImageButton fav;
 private TextView DetiailsNsmeRecipe,DatiailsMethod, DetilsUserName;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -64,6 +66,7 @@ private TextView DetiailsNsmeRecipe,DatiailsMethod, DetilsUserName;
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
+            recipe = (Recipe) getArguments().getSerializable("recipe");
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
@@ -83,11 +86,24 @@ private TextView DetiailsNsmeRecipe,DatiailsMethod, DetilsUserName;
 
     }
     public void coneect() {
+        fbs = new FirebaseServices();
         imageView3 = getView().findViewById(R.id.imageView3);
         DetiailsNsmeRecipe = getView().findViewById(R.id.DetiailsNsmeRecipe);
         DatiailsMethod = getView().findViewById(R.id.DatiailsMethod);
         DetilsUserName = getView().findViewById(R.id.DetilsUserName);
         imgb=getView().findViewById(R.id.imageButtonDetiails);
+        fav=getView().findViewById(R.id.btnIsfav);
+        fav.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fbs.addRecipeToFavorites(recipe.getIdRecipe(),
+                        unused -> Toast.makeText(getContext(), "success", Toast.LENGTH_SHORT).show(),
+                        e -> Toast.makeText(getContext(), "failure " + e.getMessage(), Toast.LENGTH_SHORT).show()
+                );
+
+                Picasso.get().load(R.drawable.__2025_04_16_150949).into(fav);
+            }
+        });
         imgb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -96,17 +112,15 @@ private TextView DetiailsNsmeRecipe,DatiailsMethod, DetilsUserName;
                 transaction.commit();
             }
         });
-        Bundle args = getArguments();
-        if (args != null) {
-            recipe = args.getParcelable("recipe");
-            if (recipe != null) {
+        if (recipe != null) {
                 DetiailsNsmeRecipe.setText(recipe.getTitle());
+               DetilsUserName.setText(recipe.getUserName());
                 DatiailsMethod.setText(recipe.getMethod());
                 if (recipe.getImageUrl() == null || recipe.getImageUrl().isEmpty())
                     Picasso.get().load(R.drawable.food).into(imageView3);
                 else
                     Picasso.get().load(recipe.getImageUrl()).into(imageView3);
-            }
+
         }
     }
 

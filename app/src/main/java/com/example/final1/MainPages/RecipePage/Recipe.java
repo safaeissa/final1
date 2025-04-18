@@ -1,27 +1,37 @@
 package com.example.final1.MainPages.RecipePage;
 
 import com.example.final1.Users.User;
-
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Recipe {
+public class Recipe implements Serializable {
     private String title;
     private String method;
     private String imageUrl;
     private String userName;
     private boolean isFavorite;
+    private String idRecipe;
 
     public Recipe() {
     }
 
-    public Recipe(String title, String method, String imageUrl, String userName, boolean isFavorite) {
+    public Recipe(String title, String method, String imageUrl, String userName, boolean isFavorite, String idRecipe) {
         this.title = title;
         this.method = method;
         this.imageUrl = imageUrl;
         this.userName = userName;
         this.isFavorite = isFavorite;
+        this.idRecipe = idRecipe;
 
+    }
+
+    public String getIdRecipe() {
+        return idRecipe;
+    }
+
+    public void setIdRecipe(String idRecipe) {
+        this.idRecipe = idRecipe;
     }
 
     public void setTitle(String title) {
@@ -64,6 +74,7 @@ public class Recipe {
     public String getImageUrl() {
         return imageUrl;
     }
+
     @Override
     public String toString() {
         return "Recipe{" +
@@ -72,10 +83,8 @@ public class Recipe {
                 ", imageUrl='" + imageUrl + '\'' +
                 ", userName='" + userName + '\'' +
                 ", isFavorite=" + isFavorite +
-
+                ", idRecipe='" + idRecipe + '\'' +
                 '}';
     }
-
-
 }
 

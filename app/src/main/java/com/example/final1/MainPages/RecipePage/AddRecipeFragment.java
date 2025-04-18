@@ -98,6 +98,7 @@ public class AddRecipeFragment extends Fragment {
         conect();
     }
     public void conect() {
+
         fbs = new FirebaseServices().getInstance();
         img = getView().findViewById(R.id.imageView);
         recipetitle = getView().findViewById(R.id.recipetitle);
@@ -136,7 +137,8 @@ public class AddRecipeFragment extends Fragment {
                 String imageUri ="";
                 if(selectedImageUri!=null)
                     imageUri=selectedImageUri.toString();
-                Recipe recipe = new Recipe(recipetitle1, recipemethode1, imageUri, name, false);
+                String recipeId = fbs.getFire().collection("Recipes").document().getId();
+                Recipe recipe = new Recipe(recipetitle1, recipemethode1, imageUri, name, false, recipeId);
                 fbs.getFire().collection("Recipes").add(recipe).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {

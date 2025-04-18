@@ -1,6 +1,7 @@
 package com.example.final1;
 
 import android.net.Uri;
+import android.util.Log;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
@@ -19,6 +20,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -222,7 +224,34 @@ public class FirebaseServices {
 
         return flag[0];
     }
+    public void addRecipeToFavorites(String recipeId,
+                                     OnSuccessListener<Void> onSuccess,
+                                     OnFailureListener onFailure) {
+        FirebaseUser user = getAuth().getCurrentUser();
+        if (user == null) {
+            onFailure.onFailure(new Exception("No user logged in"));
+            return;
+        }
 
+        String email = user.getEmail();
+
+
+        fire.collection("users")
+                .whereEqualTo("email", email)
+                .limit(1)
+                .get()
+                .addOnSuccessListener(querySnapshot -> {
+                    if (!querySnapshot.isEmpty()) {
+                        DocumentReference userDoc = querySnapshot.getDocuments().get(0).getReference();
+                        userDoc.update("recipes", FieldValue.arrayUnion(recipeId))
+                                .addOnSuccessListener(onSuccess)
+                                .addOnFailureListener(onFailure);
+                    } else {
+                        Log.d("TAG", "No user found with email: " + email);
+                    }
+                })
+                .addOnFailureListener(onFailure);
+    }
 
 }
 

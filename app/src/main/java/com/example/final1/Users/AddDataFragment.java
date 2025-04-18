@@ -21,11 +21,14 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.final1.FirebaseServices;
 import com.example.final1.MainPages.HomeFragment;
+import com.example.final1.MainPages.RecipePage.Recipe;
 import com.example.final1.R;
 import com.example.final1.Utils.Utils;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
+
+import java.util.ArrayList;
 
 
 /**
@@ -39,7 +42,7 @@ public class AddDataFragment extends Fragment {
     private FirebaseServices fbs ;
     private Button Start;
     private ImageView img;
-
+private ArrayList<String> Recipes=new ArrayList<>();
 
 
 
@@ -99,6 +102,7 @@ public class AddDataFragment extends Fragment {
 
     }
     public void conect() {
+        Recipes=new ArrayList<String>();
         fbs=new FirebaseServices().getInstance();
         img = getView().findViewById(R.id.imageViewProfile);
         Weight = getView().findViewById(R.id.etWeight);
@@ -129,7 +133,7 @@ public class AddDataFragment extends Fragment {
                 String imageUri = "";
                 if(selectedImageUri!=null)
                     imageUri=selectedImageUri.toString();
-                User user = new User(imageUri,name1, weight1, height1, age1, fbs.getAuth().getCurrentUser().getEmail());
+                User user = new User(imageUri,name1, weight1, height1, age1, fbs.getAuth().getCurrentUser().getEmail(),Recipes);
                 fbs.getFire().collection("Users").add(user).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {

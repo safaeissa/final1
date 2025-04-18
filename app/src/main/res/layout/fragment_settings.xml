@@ -1,14 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainPages.SettingsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:padding="16dp"
+        android:background="@drawable/__2025_02_25_145540">
 
+        <ImageView
+            android:id="@+id/imgPr"
+            android:layout_width="0dp"
+            android:layout_height="122dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/_522516"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <EditText
+            android:id="@+id/etNamePr"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Name"
+            android:inputType="textPersonName"
+            app:layout_constraintTop_toBottomOf="@id/imgPr"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="16dp" />
+
+        <EditText
+            android:id="@+id/weightPr"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Weight (kg)"
+            android:inputType="number"
+            app:layout_constraintTop_toBottomOf="@id/etNamePr"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="8dp" />
+
+        <EditText
+            android:id="@+id/hightPr"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Height (cm)"
+            android:inputType="number"
+            app:layout_constraintTop_toBottomOf="@id/weightPr"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="8dp" />
+
+        <Button
+            android:id="@+id/btnUpdate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Update"
+            android:textColor="#FFFFFF"
+            android:backgroundTint="#06162F"
+            app:layout_constraintTop_toBottomOf="@id/hightPr"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="16dp" />
+
+        <Button
+            android:id="@+id/DeleteAccount"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="120dp"
+            android:backgroundTint="#06162F"
+            android:text="Delet Account "
+            android:textColor="#FFFFFF"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/hightPr" />
+
+        <Button
+            android:id="@+id/btnLogout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Logout"
+            android:textColor="#FFFFFF"
+            android:backgroundTint="#06162F"
+            app:layout_constraintTop_toBottomOf="@id/btnUpdate"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="8dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

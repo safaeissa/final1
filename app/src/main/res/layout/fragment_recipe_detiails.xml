@@ -54,5 +54,12 @@
             android:text="method"
             android:textColor="#333"
             android:textSize="16sp" />
+
+        <ImageButton
+            android:id="@+id/btnIsfav"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/__2025_04_16_151159" />
+
     </LinearLayout>
 </ScrollView>

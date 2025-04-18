@@ -3,6 +3,10 @@ package com.example.final1.Users;
 import android.net.Uri;
 import android.widget.ImageView;
 
+import com.example.final1.MainPages.RecipePage.Recipe;
+
+import java.util.ArrayList;
+
 public class User {
    private String photo;
    private String Name ;
@@ -10,19 +14,21 @@ public class User {
   private  String  Length ;
   private String email;
   private String Age ;
+  private ArrayList<String> recipes = new ArrayList<String>();
 
 
     public User()
 {
 
 }
-    public User(String photo, String name, String weight, String length, String age, String email) {
+    public User(String photo, String name, String weight, String length, String age, String email, ArrayList<String> recipes) {
         this.photo = photo;
        this.Name = name;
         this.Weight = weight;
         this.Length = length;
         this.Age = age;
         this.email = email;
+        this.recipes = recipes;
 
     }
 
@@ -41,6 +47,10 @@ public class User {
     public String getEmail() {
         return email;
     }
+    public ArrayList<String> getRecipes() {
+        return recipes;
+    }
+
 
     public void setEmail(String email) {
         this.email = email;
