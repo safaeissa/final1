@@ -63,6 +63,7 @@ public class FirebaseServices {
         userChangeFlag = false;
 
     }
+
     public void getUsersList(final DataStatus dataStatus) {
         fire.collection("users").get()
                 .addOnSuccessListener(queryDocumentSnapshots -> {
@@ -78,6 +79,7 @@ public class FirebaseServices {
 
     public interface DataStatus {
         void onSuccess(List<User> users);
+
         void onFailure(String error);
     }
 
@@ -95,16 +97,19 @@ public class FirebaseServices {
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError error) {}
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
         });
     }
 
     public interface RecipeCallback {
         void onRecipesLoaded(List<Recipe> recipes);
     }
+
     public Uri getSelectedImageURL() {
         return selectedImageURL;
     }
+
     public void setSelectedImageURL(Uri selectedImageURL) {
         this.selectedImageURL = selectedImageURL;
     }
@@ -130,12 +135,12 @@ public class FirebaseServices {
     }
 
 
-    public static FirebaseServices reloadInstance(){
-        instance=new FirebaseServices();
+    public static FirebaseServices reloadInstance() {
+        instance = new FirebaseServices();
         return instance;
     }
 
-   public boolean isUserChangeFlag() {
+    public boolean isUserChangeFlag() {
         return userChangeFlag;
     }
 
@@ -143,11 +148,12 @@ public class FirebaseServices {
         this.userChangeFlag = userChangeFlag;
     }
 
-    public void getCurrentObjectUser(UserCallback callback) {        ArrayList<User> usersInternal = new ArrayList<>();
+    public void getCurrentObjectUser(UserCallback callback) {
+        ArrayList<User> usersInternal = new ArrayList<>();
         fire.collection("users").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                for (DocumentSnapshot dataSnapshot: queryDocumentSnapshots.getDocuments()){
+                for (DocumentSnapshot dataSnapshot : queryDocumentSnapshots.getDocuments()) {
                     User user = dataSnapshot.toObject(User.class);
                     if (auth.getCurrentUser() != null && auth.getCurrentUser().getEmail().equals(user.getName())) {
                         usersInternal.add(user);
@@ -167,7 +173,17 @@ public class FirebaseServices {
             }
         });
     }
-    // دالة لجلب بيانات المستخدم من Firestore باستخدام email
+
+
+    public FirebaseUser getCurrentUser()
+    {
+       return auth.getCurrentUser();
+    }
+
+    public User getCurrentUserObject() {
+        return currentUser;
+    }
+
     public void getUserDataByEmail(String email,
                                    final OnSuccessListener<QueryDocumentSnapshot> onSuccessListener,
                                    final OnFailureListener onFailureListener) {
@@ -177,10 +193,7 @@ public class FirebaseServices {
                 .get();
     }
 
-    public FirebaseUser getCurrentUser()
-    {
-        return auth.getCurrentUser();
-    }
+
 
     public void setCurrentUser(User currentUser) {
         this.currentUser = currentUser;
@@ -189,7 +202,7 @@ public class FirebaseServices {
     {
         final boolean[] flag = {false};
         // Reference to the collection
-        String collectionName = "users";
+        String collectionName = "Users";
         String usernameFieldName = "username";
         String usernameValue = user.getName();
         // Create a query for documents based on a specific field
