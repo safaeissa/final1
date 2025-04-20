@@ -151,16 +151,13 @@ public class HomeFragment extends Fragment {
             });
         }
     }
-
-
-
-
     public static String getNameFromEmail(String email) {
         if (email == null || !email.contains("@"))
             return "Invalid email";
         String namePart = email.split("@")[0];
         return namePart;
     }
+
     }
 
 

@@ -30,7 +30,9 @@ import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class FirebaseServices {
     private StorageReference storageReference;
@@ -198,44 +200,38 @@ public class FirebaseServices {
     public void setCurrentUser(User currentUser) {
         this.currentUser = currentUser;
     }
-    public boolean updateUser(User user)
-    {
-        final boolean[] flag = {false};
-        // Reference to the collection
-        String collectionName = "Users";
-        String usernameFieldName = "username";
-        String usernameValue = user.getName();
-        // Create a query for documents based on a specific field
-        Query query = fire.collection(collectionName).
-                whereEqualTo(usernameFieldName, usernameValue);
+    public void updateUserByEmail(String email, String imageUrl, String age, String weight, String length) {
+        Map<String, Object> updatedData = new HashMap<>();
+        updatedData.put("imageUrl", imageUrl);
+        updatedData.put("age", age);
+        updatedData.put("weight", weight);
+        updatedData.put("length", length);
 
-        // Execute the query
-        query.get()
-                .addOnSuccessListener((QuerySnapshot querySnapshot) -> {
-                    for (QueryDocumentSnapshot document : querySnapshot) {
-                        // Get a reference to the document
-                        DocumentReference documentRef = document.getReference();
-
-                        // Update specific fields of the document
-                        documentRef.update(
-
-                                        usernameFieldName, usernameValue
-
-                                )
-                                .addOnSuccessListener(aVoid -> {
-
-                                    flag[0] = true;
-                                })
-                                .addOnFailureListener(e -> {
-                                    System.err.println("Error updating document: " + e);
-                                });
+        fire.collection("Users")
+                .whereEqualTo("email", email)
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    if (!queryDocumentSnapshots.isEmpty()) {
+                        for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
+                            String docId = document.getId();
+                            fire.collection("Users")
+                                    .document(docId)
+                                    .update(updatedData)
+                                    .addOnSuccessListener(aVoid -> {
+                                        Log.d("UpdateUser", "successfully updated");
+                                    })
+                                    .addOnFailureListener(e -> {
+                                        Log.e("UpdateUser", "failed to update", e);
+                                    });
+                            break;
+                        }
                     }
-                })
-                .addOnFailureListener(e -> {
-                    System.err.println("Error getting documents: " + e);
                 });
+    }
 
-        return flag[0];
+    public interface DeletAccountCallback {
+        void onSuccess();
+        void onFailure(Exception e);
     }
     public void addRecipeToFavorites(String recipeId,
                                      OnSuccessListener<Void> onSuccess,
@@ -266,5 +262,36 @@ public class FirebaseServices {
                 .addOnFailureListener(onFailure);
     }
 
-}
+    public void deleteCurrentUserAccount(DeletAccountCallback callback) {
+        FirebaseUser currentUser = auth.getCurrentUser();
+        if (currentUser == null) {
+            callback.onFailure(new Exception("No user logged in"));
+            return;
+        }
+        String userEmail = currentUser.getEmail();
+        fire.collection("Users")
+                .whereEqualTo("email", userEmail)
+                .get()
+                .addOnSuccessListener(querySnapshot -> {
+                    for (DocumentSnapshot document : querySnapshot.getDocuments()) {
+                        // حذف من Firestore
+                        fire.collection("Users").document(document.getId()).delete();
+                    }
+                    // 2. حذف من Storage (مثلاً صورة البروفايل)
+                    StorageReference profileImageRef = storage.getReference().child("profile_images/" + currentUser.getUid());
+                    profileImageRef.delete().addOnCompleteListener(task -> {
+                        // 3. حذف من Authentication
+                        currentUser.delete()
+                                .addOnSuccessListener(unused -> callback.onSuccess())
+                                .addOnFailureListener(callback::onFailure);
+                    });
+                })
+                .addOnFailureListener(callback::onFailure);
+    }
+
+    }
+
+
+
+
 

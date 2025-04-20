@@ -5,10 +5,12 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -17,13 +19,18 @@ import android.widget.Toast;
 
 import com.example.final1.FirebaseServices;
 import com.example.final1.R;
+import com.example.final1.SignInLogInForget.LogInFragment;
+import com.example.final1.SignInLogInForget.SignUPFragment;
 import com.example.final1.Users.User;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -32,10 +39,12 @@ import com.squareup.picasso.Picasso;
  */
 public class SettingsFragment extends Fragment {
 
-    private TextView name,age, Weight ,height ;
-    private ImageView imgpr;
-    private FirebaseServices fbs ;
-    private ImageButton btnOut , btnUpDate,btnDelet;
+    private EditText  age, Weight, height;
+    private TextView name;
+    private ImageView imgp;
+    private FirebaseServices fbs;
+    private Button btnOut, btnUpDate, btnDelet;
+    private ImageButton imgba;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -88,12 +97,26 @@ public class SettingsFragment extends Fragment {
         super.onStart();
         coneect();
     }
+
     public void coneect() {
         name = getView().findViewById(R.id.etNamePr);
         age = getView().findViewById(R.id.etAgePr);
         Weight = getView().findViewById(R.id.weightPr);
         height = getView().findViewById(R.id.hightPr);
-        imgpr = getView().findViewById(R.id.imgPr);
+        imgp = getView().findViewById(R.id.imgPr);
+        btnUpDate = getView().findViewById(R.id.btnUpdate);
+        btnOut = getView().findViewById(R.id.btnLogout);
+        btnDelet = getView().findViewById(R.id.DeleteAccount);
+        btnOut=getView().findViewById(R.id.btnLogout);
+        imgba=getView().findViewById(R.id.imgbutnSitting);
+        imgba.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+                transaction.replace(R.id.main, new HomeFragment());
+                transaction.commit();
+            }
+        });
         fbs = new FirebaseServices();
         String email = "";
         FirebaseUser user = fbs.getCurrentUser();
@@ -101,20 +124,57 @@ public class SettingsFragment extends Fragment {
             email = user.getEmail();
             String name1 = getNameFromEmail(email);
             name.setText(name1);
-            fbs.getUserDataByEmail(email, new OnSuccessListener<QueryDocumentSnapshot>() {
-                @Override
-                public void onSuccess(QueryDocumentSnapshot queryDocumentSnapshot) {
-                    String age1 = queryDocumentSnapshot.getString("age");
-                    String weight1 = queryDocumentSnapshot.getString("weight");
-                    String length = queryDocumentSnapshot.getString("length");
-                    age.setText("age1");
-                    Weight.setText("weight1");
-                    height.setText("length");
-                }
-            }, onFailureListener -> {
-                Toast.makeText(getContext(), "Failed to retrieve user data", Toast.LENGTH_SHORT).show();
-            });
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+            db.collection("Users")
+                    .whereEqualTo("email", email)
+                    .get()
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful() && !task.getResult().isEmpty()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                String age1 = document.getString("age").toString();
+                                String weight1 = document.getString("weight").toString();
+                                String length1 = document.getString("length").toString();
+                                if (age1 != "" && weight1 != "" && length1 != "")
+                                    age.setText("age= " + age1.toString());
+                                Weight.setText("weight(kg)= " + weight1.toString());
+                                height.setText("height(cm)= " + length1.toString());
+                                ;
+                                String imageUrl = document.getString("photo");
+                                if (imageUrl != null && !imageUrl.isEmpty())
+                                    Picasso.get().load(imageUrl).into(imgp);
+                                else
+                                    imgp.setImageResource(R.drawable.blank_profile_picture_973460_1280);
+                            }
+                        }
+                    });
+
         }
+        btnOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+                transaction.replace(R.id.main, new LogInFragment());
+                transaction.commit();
+            }
+        });
+        btnUpDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String email2 = user.getEmail();
+                String age2 = extractNumbersFromText(age.getText().toString());
+                String weight2 = extractNumbersFromText(Weight.getText().toString());
+                String length3 = extractNumbersFromText(height.getText().toString());
+                String imageUrl = imgp.toString();
+                fbs.updateUserByEmail(email2, imageUrl, age2, weight2, length3);
+                Toast.makeText(getContext(), "Updated Successfully", Toast.LENGTH_SHORT).show();
+            }
+        });
+        btnDelet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deletac();
+            }
+        });
 
     }
 
@@ -125,5 +185,26 @@ public class SettingsFragment extends Fragment {
         return namePart;
     }
 
+    public String extractNumbersFromText(String text) {
+        return text.replaceAll("[^0-9]", "");
+    }
+
+    public void deletac() {
+        fbs.deleteCurrentUserAccount(new FirebaseServices.DeletAccountCallback() {
+            @Override
+            public void onSuccess() {
+                Toast.makeText(getContext(), "Account deleted successfully", Toast.LENGTH_SHORT).show();
+                FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+                transaction.replace(R.id.main, new SignUPFragment());
+                transaction.commit();
+            }
+
+            @Override
+            public void onFailure(Exception e) {
+                Toast.makeText(getContext(), "Failed to delete account: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
 
     }
+}
