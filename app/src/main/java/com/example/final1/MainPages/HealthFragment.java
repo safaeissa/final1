@@ -9,8 +9,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
+import com.example.final1.FirebaseServices;
 import com.example.final1.R;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -18,8 +23,9 @@ import com.example.final1.R;
  * create an instance of this fragment.
  */
 public class HealthFragment extends Fragment {
-    private ImageButton btnHt,btnF,btnA,btnS,btnH;
-
+    private ImageButton b;
+    private TextView t1,t2,t3,t4,t5,t6;
+    private FirebaseServices fbs;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -73,5 +79,94 @@ public class HealthFragment extends Fragment {
         coneect();
     }
     public void coneect() {
+        fbs = new FirebaseServices();
+        b=getView().findViewById(R.id.btnBackHealth);
+        b.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+                transaction.replace(R.id.main, new HomeFragment());
+                transaction.commit();
+            }
+        });
+        t1=getView().findViewById(R.id.BMI);
+        t2=getView().findViewById(R.id.CalToGainWeight);
+        t3=getView().findViewById(R.id.CalToLoseWeight);
+        t4=getView().findViewById(R.id.PerfectWeight);
+        t5=getView().findViewById(R.id.Decide);
+        t6=getView().findViewById(R.id.days);
+        String email = "";
+        FirebaseUser user = fbs.getCurrentUser();
+        if (user != null) {
+            email = user.getEmail();
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+            db.collection("Users")
+                    .whereEqualTo("email", email)
+                    .get()
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful() && !task.getResult().isEmpty()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                String weight1 = document.getString("weight").toString();
+                                String length1 = document.getString("length").toString();
+                                String age1 = document.getString("age").toString();
+                            t1.setText("Your BMI is "+BmiCount(weight1,length1));
+                            t2.setText("To gain weight, you have to eat "+(BMR(weight1,length1,age1)-500)+"calories");
+                            t3.setText("To lose weight, you have to eat "+(BMR(weight1,length1,age1)+500+"calories"));
+                            t4.setText("Your perfect weight is "+(22*((extractNumbersFromText(length1)/100)*(extractNumbersFromText(length1)/100))));
+                            if (BmiCount(weight1,length1)>25) {
+                                t5.setText("To get perfect you need to lose weight");
+                                t6.setText("To reach your goal, you need to eat" + (BMR(weight1, length1, age1) - 500) + "calories within " + perfectDay(weight1, length1, age1) + " days");
+                            }
+                            else if(BmiCount(weight1,length1)<18.5) {
+                                t5.setText("To get perfect you need to gain weight");
+                                t6.setText("To reach your goal, you need to eat" + (BMR(weight1, length1, age1) + 500) + "calories within " + perfectDay(weight1, length1, age1) + " days");
+                            }
+                            else {
+                                t5.setText("You are perfect");
+                                t6.setText("To save your Weight you need to eat"+BMR(weight1, length1, age1));
+                            }
+                            }
+                        }
+                    });
+        }
+
+
     }
-}
+    public Integer perfectDay(String w,String h,String a)
+    {
+        Integer PW= (22*((extractNumbersFromText(h)/100)*(extractNumbersFromText(h)/100)));
+        return (int) ((Math.abs(PW-extractNumbersFromText(w))*7700)/500);
+
+    }
+
+
+    public double BmiCount(String w,String h)
+    {
+        Integer weight=extractNumbersFromText(w);
+        Integer height=extractNumbersFromText(h);
+        double bmi=weight/((height*height)/10000);
+        return +bmi;
+    }
+    public Double BMR (String w,String h,String a)
+    {
+        Integer weight=extractNumbersFromText(w);
+        Integer height=extractNumbersFromText(h);
+        Integer age=extractNumbersFromText(a);
+        Double BMR=(weight*10)+(height*6.25)-(age*5)+200;
+        return  BMR;
+    }
+    public Integer extractNumbersFromText(String text) {
+        StringBuilder result = new StringBuilder();
+        String digits = text.replaceAll("[^0-9]", "");
+        for (int i = 0; i < digits.length(); i++) {
+            result.append(digits.charAt(i));
+        }
+        // تحويل النتيجة إلى رقم من نوع Integer
+        try {
+            return Integer.parseInt(result.toString());
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+            return -1; // إرجاع قيمة افتراضية في حال حدوث خطأ
+        }
+    }
+    }
