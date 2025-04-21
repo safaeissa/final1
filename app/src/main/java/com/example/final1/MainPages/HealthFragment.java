@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.example.final1.FirebaseServices;
@@ -26,6 +27,7 @@ public class HealthFragment extends Fragment {
     private ImageButton b;
     private TextView t1,t2,t3,t4,t5,t6;
     private FirebaseServices fbs;
+    private Switch sw;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -81,6 +83,8 @@ public class HealthFragment extends Fragment {
     public void coneect() {
         fbs = new FirebaseServices();
         b=getView().findViewById(R.id.btnBackHealth);
+        sw=getView().findViewById(R.id.Female);
+        Boolean Famele=sw.isChecked();
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -95,6 +99,18 @@ public class HealthFragment extends Fragment {
         t4=getView().findViewById(R.id.PerfectWeight);
         t5=getView().findViewById(R.id.Decide);
         t6=getView().findViewById(R.id.days);
+        UpDate(false);
+        sw.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked)
+           UpDate(true);
+            else
+                UpDate(false);
+        });
+
+
+    }
+    public  void UpDate (Boolean isFamele)
+    {
         String email = "";
         FirebaseUser user = fbs.getCurrentUser();
         if (user != null) {
@@ -109,52 +125,62 @@ public class HealthFragment extends Fragment {
                                 String weight1 = document.getString("weight").toString();
                                 String length1 = document.getString("length").toString();
                                 String age1 = document.getString("age").toString();
-                            t1.setText("Your BMI is "+BmiCount(weight1,length1));
-                            t2.setText("To gain weight, you have to eat "+(BMR(weight1,length1,age1)-500)+"calories");
-                            t3.setText("To lose weight, you have to eat "+(BMR(weight1,length1,age1)+500+"calories"));
-                            t4.setText("Your perfect weight is "+(22*((extractNumbersFromText(length1)/100)*(extractNumbersFromText(length1)/100))));
-                            if (BmiCount(weight1,length1)>25) {
-                                t5.setText("To get perfect you need to lose weight");
-                                t6.setText("To reach your goal, you need to eat" + (BMR(weight1, length1, age1) - 500) + "calories within " + perfectDay(weight1, length1, age1) + " days");
-                            }
-                            else if(BmiCount(weight1,length1)<18.5) {
-                                t5.setText("To get perfect you need to gain weight");
-                                t6.setText("To reach your goal, you need to eat" + (BMR(weight1, length1, age1) + 500) + "calories within " + perfectDay(weight1, length1, age1) + " days");
-                            }
-                            else {
-                                t5.setText("You are perfect");
-                                t6.setText("To save your Weight you need to eat"+BMR(weight1, length1, age1));
-                            }
+                                Double BMR = BMR(weight1, length1, age1, isFamele);
+                                t1.setText("Your BMI is " + BmiCount(weight1, length1));
+                                t2.setText("To gain weight, you have to eat " + (BMR + 500) + "calories");
+                                t3.setText("To lose weight, you have to eat " + (BMR - 500) + "calories");
+                                double perfectWeight = perfectWeight(length1,weight1,isFamele);
+                                t4.setText("Your perfect weight is " + perfectWeight);
+                                if (BmiCount(weight1, length1) > 25) {
+                                    t5.setText("To get perfect you need to lose weight");
+                                    t6.setText("To reach your goal, you need to eat" + (BMR - 500) + "calories within " + perfectDay(weight1, length1, isFamele) + " days");
+                                } else if (BmiCount(weight1, length1) < 18.5) {
+                                    t5.setText("To get perfect you need to gain weight");
+                                    t6.setText("To reach your goal, you need to eat" + (BMR + 500) + "calories within " + perfectDay(weight1, length1, isFamele) + " days");
+                                } else {
+                                    t5.setText("You are perfect");
+                                    t6.setText("To save your Weight you need to eat  " + BMR + "calories");
+                                }
                             }
                         }
                     });
         }
-
-
     }
-    public Integer perfectDay(String w,String h,String a)
-    {
-        Integer PW= (22*((extractNumbersFromText(h)/100)*(extractNumbersFromText(h)/100)));
-        return (int) ((Math.abs(PW-extractNumbersFromText(w))*7700)/500);
-
+    public double perfectWeight(String h, String w, Boolean isFemale) {
+        double height = extractNumbersFromText(h) / 100.0;
+        double idealBMI = isFemale ? 21.0 : 22.0;
+        return idealBMI * height * height;
     }
 
+    public Integer perfectDay(String w, String h, Boolean isfamele) {
+        double height = extractNumbersFromText(h) / 100.0;
+        double perfectWeight = perfectWeight(h, w, isfamele);
+        double currentWeight = extractNumbersFromText(w);
+        return (int) ((Math.abs(perfectWeight - currentWeight) * 7700) / 500);
+    }
 
-    public double BmiCount(String w,String h)
-    {
-        Integer weight=extractNumbersFromText(w);
-        Integer height=extractNumbersFromText(h);
-        double bmi=weight/((height*height)/10000);
-        return +bmi;
+
+
+    public double BmiCount(String w, String h) {
+        double weight = extractNumbersFromText(w);
+        double height = extractNumbersFromText(h);
+        double bmi = weight / Math.pow(height / 100.0, 2);
+        return bmi;
     }
-    public Double BMR (String w,String h,String a)
-    {
-        Integer weight=extractNumbersFromText(w);
-        Integer height=extractNumbersFromText(h);
-        Integer age=extractNumbersFromText(a);
-        Double BMR=(weight*10)+(height*6.25)-(age*5)+200;
-        return  BMR;
+
+
+    public double BMR(String w, String h, String a, Boolean isFemale) {
+        double weight = extractNumbersFromText(w);
+        double height = extractNumbersFromText(h);
+        double age = extractNumbersFromText(a);
+        if (!isFemale)
+            return 66 + (13.7 * weight) + (5 * height) - (6.8 * age);
+        else
+            return 665 + (9.6 * weight) + (1.8 * height) - (4.7 * age);
     }
+
+
+
     public Integer extractNumbersFromText(String text) {
         StringBuilder result = new StringBuilder();
         String digits = text.replaceAll("[^0-9]", "");
