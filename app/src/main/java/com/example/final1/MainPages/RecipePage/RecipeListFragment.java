@@ -1,5 +1,6 @@
 package com.example.final1.MainPages.RecipePage;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.os.Bundle;
 
@@ -15,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.example.final1.FirebaseServices;
@@ -42,11 +44,11 @@ public class RecipeListFragment extends Fragment {
     Context context;
     private ImageButton b;
     private RecyclerView recyclerView;
-    private ArrayList<Recipe> recipesList;
+    private ArrayList<Recipe> recipesList, filteredList;
     private FirebaseServices firebaseServices;
     private RecipeAdapter recipeAdapter;
     private ImageButton btmadd;
-
+    private SearchView searchView1;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -100,12 +102,14 @@ public class RecipeListFragment extends Fragment {
      coneect();
     }
     public void coneect () {
+
         recyclerView = getView().findViewById(R.id.RecyclerViewRecipe);
         b=getView().findViewById(R.id.BackList);
         firebaseServices = FirebaseServices.getInstance();
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setHasFixedSize(true);
         recipesList = new ArrayList<>();
+        filteredList = new ArrayList<>();
         recipeAdapter = new RecipeAdapter(getActivity(), recipesList);
         recyclerView.setAdapter(recipeAdapter);
         btmadd=getView().findViewById(R.id.btnAddRecipe);
@@ -157,6 +161,63 @@ public class RecipeListFragment extends Fragment {
 
             }
         });
+    searchView1=getView().findViewById(R.id.searchView);
+         searchView1.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                filterRecipes(query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+
+    }
+    private void filterRecipes(String text ) {
+        if (text.trim().isEmpty()) {
+         recipeAdapter=new RecipeAdapter(getActivity(),recipesList);
+         recyclerView.setAdapter(recipeAdapter);
+         return;
         }
+        filteredList.clear();
+            for (Recipe recipe : recipesList) {
+                if (recipe.getTitle().toLowerCase().contains(text.toLowerCase())||recipe.getUserName().toLowerCase().contains(text.toLowerCase())) {
+                    filteredList.add(recipe);
+                }
+            }
+            if (filteredList.isEmpty()) {
+                showNoDataDialogue();
+                return;}
+        recipeAdapter=new RecipeAdapter(getActivity(),filteredList);
+        recyclerView.setAdapter(recipeAdapter);
+        recipeAdapter.setOnItemClickListener(new RecipeAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                String selectedItem = filteredList.get(position).getTitle();
+                Toast.makeText(getActivity(), "Clicked: " + selectedItem, Toast.LENGTH_SHORT).show();
+                Bundle args = new Bundle();
+                args.putParcelable("Recipes", (Parcelable) filteredList.get(position)); // or use Parcelable for better performance
+                FragmentTransaction ft=getActivity().getSupportFragmentManager().beginTransaction();
+                Fragment fragment = new AddRecipeFragment();
+                fragment.setArguments(args);
+                ft.replace(R.id.main, fragment);
+                ft.addToBackStack(null);
+                ft.commit();
+
+            }
+        });
+
+
+    }
+    private void showNoDataDialogue() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle("No Results");
+        builder.setMessage("Try again!");
+        builder.show();
+    }
+
 
     }

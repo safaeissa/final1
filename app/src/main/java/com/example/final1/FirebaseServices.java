@@ -1,8 +1,11 @@
 package com.example.final1;
 
+import static java.security.AccessController.getContext;
+
 import android.net.Uri;
 import android.util.Log;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -233,9 +236,10 @@ public class FirebaseServices {
         void onSuccess();
         void onFailure(Exception e);
     }
-    public void addRecipeToFavorites(String recipeId,
-                                     OnSuccessListener<Void> onSuccess,
-                                     OnFailureListener onFailure) {
+
+    public void isRecipeInFavorites(String recipeId,
+                                    OnSuccessListener<Boolean> onSuccess,
+                                    OnFailureListener onFailure) {
         FirebaseUser user = getAuth().getCurrentUser();
         if (user == null) {
             onFailure.onFailure(new Exception("No user logged in"));
@@ -244,23 +248,66 @@ public class FirebaseServices {
 
         String email = user.getEmail();
 
-
-        fire.collection("users")
+        fire.collection("Users") // تأكدي أن الاسم متطابق في Firestore (صغير/كبير)
                 .whereEqualTo("email", email)
                 .limit(1)
                 .get()
                 .addOnSuccessListener(querySnapshot -> {
                     if (!querySnapshot.isEmpty()) {
-                        DocumentReference userDoc = querySnapshot.getDocuments().get(0).getReference();
-                        userDoc.update("recipes", FieldValue.arrayUnion(recipeId))
-                                .addOnSuccessListener(onSuccess)
-                                .addOnFailureListener(onFailure);
+                        DocumentSnapshot userDoc = querySnapshot.getDocuments().get(0);
+                        List<String> recipes = (List<String>) userDoc.get("recipes");
+
+                        boolean isInFavorites = recipes != null && recipes.contains(recipeId);
+                        onSuccess.onSuccess(isInFavorites);
                     } else {
-                        Log.d("TAG", "No user found with email: " + email);
+                        onSuccess.onSuccess(false); // لم يتم العثور على المستخدم
                     }
                 })
                 .addOnFailureListener(onFailure);
     }
+    public void toggleRecipeInFavorites(String recipeId,
+                                        OnSuccessListener<Boolean> onSuccess,
+                                        OnFailureListener onFailure) {
+        FirebaseUser user = getAuth().getCurrentUser();
+        if (user == null) {
+            onFailure.onFailure(new Exception("No user logged in"));
+            return;
+        }
+
+        String email = user.getEmail();
+
+        fire.collection("Users")
+                .whereEqualTo("email", email)
+                .limit(1)
+                .get()
+                .addOnSuccessListener(querySnapshot -> {
+                    if (!querySnapshot.isEmpty()) {
+                        DocumentSnapshot userDocSnapshot = querySnapshot.getDocuments().get(0);
+                        DocumentReference userDoc = userDocSnapshot.getReference();
+                        List<String> recipes = (List<String>) userDocSnapshot.get("recipes");
+
+                        boolean isFavorite = recipes != null && recipes.contains(recipeId);
+
+                        if (isFavorite) {
+                            // إزالة من المفضلة
+                            userDoc.update("recipes", FieldValue.arrayRemove(recipeId))
+                                    .addOnSuccessListener(unused -> onSuccess.onSuccess(false)) // false = تم الإزالة
+                                    .addOnFailureListener(onFailure);
+                        } else {
+                            // إضافة إلى المفضلة
+                            userDoc.update("recipes", FieldValue.arrayUnion(recipeId))
+                                    .addOnSuccessListener(unused -> onSuccess.onSuccess(true)) // true = تم الإضافة
+                                    .addOnFailureListener(onFailure);
+                        }
+                    } else {
+                        onFailure.onFailure(new Exception("User document not found"));
+                    }
+                })
+                .addOnFailureListener(onFailure);
+    }
+
+
+
 
     public void deleteCurrentUserAccount(DeletAccountCallback callback) {
         FirebaseUser currentUser = auth.getCurrentUser();

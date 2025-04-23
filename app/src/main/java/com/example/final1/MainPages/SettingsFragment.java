@@ -1,6 +1,24 @@
 package com.example.final1.MainPages;
+import android.net.Uri;
+import android.os.Bundle;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+
+import com.example.final1.FirebaseServices;
+import com.example.final1.R;
+import com.example.final1.SignInLogInForget.SignUPFragment;
+
 
 import android.media.Image;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -41,8 +59,9 @@ public class SettingsFragment extends Fragment {
 
     private EditText  age, Weight, height;
     private TextView name;
-    private ImageView imgp;
+    private ImageView  imgprofile;
     private FirebaseServices fbs;
+    private Uri imageUri;
     private Button btnOut, btnUpDate, btnDelet;
     private ImageButton imgba;
     // TODO: Rename parameter arguments, choose names that match
@@ -103,7 +122,7 @@ public class SettingsFragment extends Fragment {
         age = getView().findViewById(R.id.etAgePr);
         Weight = getView().findViewById(R.id.weightPr);
         height = getView().findViewById(R.id.hightPr);
-        imgp = getView().findViewById(R.id.imgPr);
+        imgprofile = getView().findViewById(R.id.imgPr);
         btnUpDate = getView().findViewById(R.id.btnUpdate);
         btnOut = getView().findViewById(R.id.btnLogout);
         btnDelet = getView().findViewById(R.id.DeleteAccount);
@@ -138,12 +157,11 @@ public class SettingsFragment extends Fragment {
                                     age.setText("age= " + age1.toString());
                                 Weight.setText("weight(kg)= " + weight1.toString());
                                 height.setText("height(cm)= " + length1.toString());
-                                ;
                                 String imageUrl = document.getString("photo");
                                 if (imageUrl != null && !imageUrl.isEmpty())
-                                    Picasso.get().load(imageUrl).into(imgp);
+                                    Picasso.get().load(imageUrl).into(imgprofile);
                                 else
-                                    imgp.setImageResource(R.drawable.blank_profile_picture_973460_1280);
+                                    imgprofile.setImageResource(R.drawable.blank_profile_picture_973460_1280);
                             }
                         }
                     });
@@ -164,7 +182,7 @@ public class SettingsFragment extends Fragment {
                 String age2 = extractNumbersFromText(age.getText().toString());
                 String weight2 = extractNumbersFromText(Weight.getText().toString());
                 String length3 = extractNumbersFromText(height.getText().toString());
-                String imageUrl = imgp.toString();
+                String imageUrl = imgprofile.toString();
                 fbs.updateUserByEmail(email2, imageUrl, age2, weight2, length3);
                 Toast.makeText(getContext(), "Updated Successfully", Toast.LENGTH_SHORT).show();
             }

@@ -2,6 +2,7 @@ package com.example.final1.MainPages.RecipePage;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -16,6 +17,8 @@ import android.widget.Toast;
 import com.example.final1.FirebaseServices;
 import com.example.final1.MainPages.HomeFragment;
 import com.example.final1.R;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.squareup.picasso.Picasso;
 
 /**
@@ -80,31 +83,57 @@ private TextView DetiailsNsmeRecipe,DatiailsMethod, DetilsUserName;
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-        coneect();
+        public void onStart() {
+            super.onStart();
+            coneect();
 
-    }
-    public void coneect() {
-        fbs = new FirebaseServices();
+        }
+        public void coneect() {
+            fbs = new FirebaseServices();
         imageView3 = getView().findViewById(R.id.imageView3);
         DetiailsNsmeRecipe = getView().findViewById(R.id.DetiailsNsmeRecipe);
         DatiailsMethod = getView().findViewById(R.id.DatiailsMethod);
         DetilsUserName = getView().findViewById(R.id.DetilsUserName);
         imgb=getView().findViewById(R.id.imageButtonDetiails);
         fav=getView().findViewById(R.id.btnIsfav);
-        fav.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                fbs.addRecipeToFavorites(recipe.getIdRecipe(),
-                        unused -> Toast.makeText(getContext(), "success", Toast.LENGTH_SHORT).show(),
-                        e -> Toast.makeText(getContext(), "failure " + e.getMessage(), Toast.LENGTH_SHORT).show()
-                );
+            fbs.isRecipeInFavorites(recipe.getIdRecipe(), new OnSuccessListener<Boolean>() {
+                @Override
+                public void onSuccess(Boolean isInFavorites) {
+                    if (!isInFavorites) {
+                        Picasso.get().load(R.drawable.__2025_04_16_151159).into(fav);
+                    } else {
+                        Picasso.get().load(R.drawable.__2025_04_16_150949).into(fav);
+                    }
+                }
+            }, new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(getContext(), "There was an error checking favorites", Toast.LENGTH_SHORT).show();
+                }
+            });
 
-                Picasso.get().load(R.drawable.__2025_04_16_150949).into(fav);
-            }
-        });
-        imgb.setOnClickListener(new View.OnClickListener() {
+            fav.setOnClickListener(v -> {
+                fav.setEnabled(false);
+                fbs.toggleRecipeInFavorites(recipe.getIdRecipe(),
+                        isNowFavorite -> {
+                            if (isNowFavorite) {
+                                Picasso.get().load(R.drawable.__2025_04_16_150949).into(fav);
+                                Toast.makeText(getContext(), "Recipe added to favorites", Toast.LENGTH_SHORT).show();
+                            } else {
+
+                                Picasso.get().load(R.drawable.__2025_04_16_151159).into(fav);
+                                Toast.makeText(getContext(), "Recipe removed from favorites", Toast.LENGTH_SHORT).show();
+                            }
+                            fav.setEnabled(true);
+                        },
+                        e -> {
+                            Toast.makeText(getContext(), "Error toggling favorite: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                            fav.setEnabled(true);
+                        }
+                );
+            });
+
+            imgb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FragmentTransaction transaction= getParentFragmentManager().beginTransaction();
