@@ -12,10 +12,6 @@
         android:layout_height="match_parent"
         android:padding="16dp">
 
-        <!-- مربع البحث والوصفات -->
-
-        <!-- زر إضافة وصفة -->
-
         <LinearLayout
             android:id="@+id/linearLayout2"
             android:layout_width="386dp"
@@ -44,17 +40,22 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <androidx.appcompat.widget.SearchView
-                android:id="@+id/searchView"
+            <EditText
+                android:id="@+id/RcipeSearch"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#00FFFFFF"
-                android:elevation="4dp"
+                android:hint="search for recipe or recipe writter..."
+                android:drawableStart="@android:drawable/ic_menu_search"
                 android:padding="8dp"
-                android:queryHint="Search Recipe"
-                app:iconifiedByDefault="false">
+                android:inputType="text"
+                />
 
-            </androidx.appcompat.widget.SearchView>
+            <ImageButton
+                android:id="@+id/btnShowFavorites"
+                android:layout_width="41dp"
+                android:layout_height="wrap_content"
+                android:contentDescription="Show Favorites"
+                android:src="@drawable/__2025_04_16_150949" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/RecyclerViewRecipe"
