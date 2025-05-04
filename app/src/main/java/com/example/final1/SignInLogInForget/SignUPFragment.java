@@ -28,7 +28,6 @@ import com.google.firebase.auth.AuthResult;
 public class SignUPFragment extends Fragment {
     public EditText etEmail;
     public EditText etPassword;
-    private EditText etId;
     private TextView btnSignUp;
     private FirebaseServices fbs;
 

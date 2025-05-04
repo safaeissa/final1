@@ -37,7 +37,6 @@ import com.squareup.picasso.Picasso;
  */
 public class AddRecipeFragment extends Fragment {
     private static final int GALLARY_REQUEST_CODE = 123;
-    private ActivityResultLauncher<Intent> galleryLauncher;
     private EditText   recipetitle ,recipemethode ;
     private FirebaseServices fbs ;
     private TextView addrecipe,userName;
