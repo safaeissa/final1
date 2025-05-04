@@ -14,6 +14,8 @@ import com.example.final1.Users.User;
 import com.example.final1.Users.UserCallback;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -248,7 +250,7 @@ public class FirebaseServices {
 
         String email = user.getEmail();
 
-        fire.collection("Users") // تأكدي أن الاسم متطابق في Firestore (صغير/كبير)
+        fire.collection("Users")
                 .whereEqualTo("email", email)
                 .limit(1)
                 .get()
@@ -335,8 +337,56 @@ public class FirebaseServices {
                 })
                 .addOnFailureListener(callback::onFailure);
     }
+    public void getFavoriteRecipes(OnSuccessListener<ArrayList<Recipe>> onSuccess,
+                                   OnFailureListener onFailure) {
+        FirebaseUser user = getAuth().getCurrentUser();
+        if (user == null) {
+            onFailure.onFailure(new Exception("No user logged in"));
+            return;
+        }
 
+        String email = user.getEmail();
+
+        fire.collection("Users")
+                .whereEqualTo("email", email)
+                .limit(1)
+                .get()
+                .addOnSuccessListener(querySnapshot -> {
+                    if (!querySnapshot.isEmpty()) {
+                        DocumentSnapshot userDoc = querySnapshot.getDocuments().get(0);
+                        ArrayList<String> favoriteRecipeIds = (ArrayList<String>) userDoc.get("recipes");
+
+                        if (favoriteRecipeIds == null || favoriteRecipeIds.isEmpty()) {
+                            onSuccess.onSuccess(new ArrayList<>()); // لا توجد وصفات مفضلة
+                            return;
+                        }
+
+                        fire.collection("Recipes")
+                                .get()
+                                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                                    @Override
+                                    public void onSuccess(QuerySnapshot recipesSnapshot) {
+                                        ArrayList<Recipe> favoriteRecipes = new ArrayList<>();
+                                        for (QueryDocumentSnapshot doc : recipesSnapshot) {
+                                            Recipe recipe = doc.toObject(Recipe.class);
+                                            if (recipe != null && recipe.getIdRecipe() != null &&
+                                                    favoriteRecipeIds.contains(recipe.getIdRecipe())) {
+                                                favoriteRecipes.add(recipe);
+                                            }
+                                        }
+                                        onSuccess.onSuccess(favoriteRecipes);
+                                    }
+                                })
+                                .addOnFailureListener(onFailure);
+
+                    } else {
+                        onFailure.onFailure(new Exception("User document not found"));
+                    }
+                })
+                .addOnFailureListener(onFailure);
     }
+
+}
 
 
 

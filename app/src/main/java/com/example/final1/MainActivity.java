@@ -49,8 +49,4 @@ public class MainActivity extends AppCompatActivity {
         ft.replace(R.id.main, new SignUPFragment());
         ft.commit();
     }
-
-    public void pushFragment(Fragment fragment) {
-       fragmentStack.push(fragment);
-    }
 }

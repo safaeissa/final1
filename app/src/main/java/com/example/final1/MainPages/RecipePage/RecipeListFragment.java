@@ -128,54 +128,11 @@ private EditText recipeSearch;
         btnShowFavorites.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String currentUserEmail = firebaseServices.getAuth().getCurrentUser().getEmail();
-
-                firebaseServices.getFire().collection("Users").document(currentUserEmail)
-                        .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                            @Override
-                            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                List<String> favoriteIds = (List<String>) documentSnapshot.get("recipes");
-
-                                if (favoriteIds == null || favoriteIds.isEmpty()) {
-                                    Toast.makeText(getContext(), "there no favorite recipes", Toast.LENGTH_SHORT).show();
-                                    return;
-                                }
-
-                                ArrayList<Recipe> favList = new ArrayList<>();
-                                for (Recipe recipe : recipesList) {
-                                    if (favoriteIds.contains(recipe.getIdRecipe())) {
-                                        favList.add(recipe);
-                                    }
-                                }
-
-                                if (favList.isEmpty()) {
-                                    Toast.makeText(getContext(), "there no favorite recipes", Toast.LENGTH_SHORT).show();
-                                } else {
-                                    Toast.makeText(getContext(), "favorite recipes loaded", Toast.LENGTH_SHORT).show();
-                                    recipeAdapter=new RecipeAdapter(getContext(),favList);
-                                    recyclerView.setAdapter(recipeAdapter);
-                                    recipeAdapter.setOnItemClickListener(new RecipeAdapter.OnItemClickListener() {
-                                        @Override
-                                        public void onItemClick(int position) {
-                                            String selectedItem = favList.get(position).getTitle();
-                                            Toast.makeText(getActivity(), "Clicked: " + selectedItem, Toast.LENGTH_SHORT).show();
-                                            Bundle args = new Bundle();
-                                            args.putParcelable("Recipes", (Parcelable) favList.get(position)); // or use Parcelable for better performance
-                                            FragmentTransaction ft=getActivity().getSupportFragmentManager().beginTransaction();
-                                            Fragment fragment = new RecipeDetiailsFragment();
-                                            fragment.setArguments(args);
-                                            ft.replace(R.id.main, fragment);
-                                            ft.addToBackStack(null);
-                                            ft.commit();
-
-                                        }
-                                    });
-                                }
-                            }
-                        }).addOnFailureListener(e -> {
-                            Toast.makeText(getContext(), "فشل في جلب المفضلة", Toast.LENGTH_SHORT).show();
-                        });
+                FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+                transaction.replace(R.id.main, new FavRecipeFragment());
+                transaction.commit();
             }
+
         });
         recipeAdapter = new RecipeAdapter(getActivity(), recipesList);
         btmadd=getView().findViewById(R.id.btnAddRecipe);

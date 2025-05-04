@@ -71,6 +71,7 @@ public class Recipe implements Serializable {
     }
 
 
+
     public String getImageUrl() {
         return imageUrl;
     }
