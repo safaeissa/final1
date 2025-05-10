@@ -23,12 +23,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import java.util.Stack;
 
 public class MainActivity extends AppCompatActivity {
-    private Stack<Fragment> fragmentStack = new Stack<>();
-    private BottomNavigationView bottomNavigationView;
-    public BottomNavigationView getBottomNavigationView() {
-        return bottomNavigationView;
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -38,7 +38,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 public class FirebaseServices {
     private StorageReference storageReference;
     private DatabaseReference databaseReference;
@@ -48,9 +47,6 @@ public class FirebaseServices {
     private FirebaseStorage storage;
     private Uri selectedImageURL;
     private User currentUser;
-    private boolean userChangeFlag;
-
-
     public FirebaseServices() {
         storageReference = FirebaseStorage.getInstance().getReference("recipe_images");
         databaseReference = FirebaseDatabase.getInstance().getReference("recipes");
@@ -66,51 +62,6 @@ public class FirebaseServices {
                 }
             }
         });
-
-        userChangeFlag = false;
-
-    }
-
-    public void getUsersList(final DataStatus dataStatus) {
-        fire.collection("users").get()
-                .addOnSuccessListener(queryDocumentSnapshots -> {
-                    List<User> users = new ArrayList<>();
-                    for (DocumentSnapshot document : queryDocumentSnapshots) {
-                        User user = document.toObject(User.class);
-                        users.add(user);
-                    }
-                    dataStatus.onSuccess(users);
-                })
-                .addOnFailureListener(e -> dataStatus.onFailure(e.getMessage()));
-    }
-
-    public interface DataStatus {
-        void onSuccess(List<User> users);
-
-        void onFailure(String error);
-    }
-
-
-    public void getRecipes(final RecipeCallback callback) {
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                List<Recipe> recipes = new ArrayList<>();
-                for (DataSnapshot data : snapshot.getChildren()) {
-                    Recipe recipe = data.getValue(Recipe.class);
-                    recipes.add(recipe);
-                }
-                callback.onRecipesLoaded(recipes);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-            }
-        });
-    }
-
-    public interface RecipeCallback {
-        void onRecipesLoaded(List<Recipe> recipes);
     }
 
     public Uri getSelectedImageURL() {
@@ -147,13 +98,6 @@ public class FirebaseServices {
         return instance;
     }
 
-    public boolean isUserChangeFlag() {
-        return userChangeFlag;
-    }
-
-    public void setUserChangeFlag(boolean userChangeFlag) {
-        this.userChangeFlag = userChangeFlag;
-    }
 
     public void getCurrentObjectUser(UserCallback callback) {
         ArrayList<User> usersInternal = new ArrayList<>();
@@ -307,10 +251,6 @@ public class FirebaseServices {
                 })
                 .addOnFailureListener(onFailure);
     }
-
-
-
-
     public void deleteCurrentUserAccount(DeletAccountCallback callback) {
         FirebaseUser currentUser = auth.getCurrentUser();
         if (currentUser == null) {
@@ -346,7 +286,6 @@ public class FirebaseServices {
         }
 
         String email = user.getEmail();
-
         fire.collection("Users")
                 .whereEqualTo("email", email)
                 .limit(1)
@@ -360,7 +299,6 @@ public class FirebaseServices {
                             onSuccess.onSuccess(new ArrayList<>()); // لا توجد وصفات مفضلة
                             return;
                         }
-
                         fire.collection("Recipes")
                                 .get()
                                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
@@ -378,7 +316,6 @@ public class FirebaseServices {
                                     }
                                 })
                                 .addOnFailureListener(onFailure);
-
                     } else {
                         onFailure.onFailure(new Exception("User document not found"));
                     }

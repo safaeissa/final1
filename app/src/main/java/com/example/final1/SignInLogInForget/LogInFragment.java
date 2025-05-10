@@ -27,7 +27,6 @@ import com.google.firebase.auth.AuthResult;
  */
 public class LogInFragment extends Fragment {
     private EditText etEmail, etPassword;
-
     private TextView btnlogin;
     private FirebaseServices fbs;
     private TextView signup;

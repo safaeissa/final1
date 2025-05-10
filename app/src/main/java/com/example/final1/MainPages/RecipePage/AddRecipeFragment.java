@@ -137,7 +137,7 @@ public class AddRecipeFragment extends Fragment {
                 if(selectedImageUri!=null)
                     imageUri=selectedImageUri.toString();
                 String recipeId = fbs.getFire().collection("Recipes").document().getId();
-                Recipe recipe = new Recipe(recipetitle1, recipemethode1, imageUri, name, false, recipeId);
+                Recipe recipe = new Recipe(recipetitle1, recipemethode1, imageUri, name, recipeId);
                 fbs.getFire().collection("Recipes").add(recipe).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {

@@ -2,6 +2,7 @@ package com.example.final1.Users;
 
 import static android.app.ProgressDialog.show;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -30,64 +32,13 @@ import com.google.firebase.firestore.DocumentReference;
 
 import java.util.ArrayList;
 
-
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link AddDataFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class AddDataFragment extends Fragment {
-    private static final int GALLARY_REQUEST_CODE = 123;
+    private static final int GALLARY_REQUEST_CODE = 1;
     private EditText name,age, Weight ,height ;
     private FirebaseServices fbs ;
     private Button Start;
     private ImageView img;
 private ArrayList<String> Recipes=new ArrayList<>();
-
-
-
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public AddDataFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment AddDataFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static AddDataFragment newInstance(String param1, String param2) {
-        AddDataFragment fragment = new AddDataFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -110,13 +61,7 @@ private ArrayList<String> Recipes=new ArrayList<>();
         age = getView().findViewById(R.id.etAge);
         String email = fbs.getAuth().getCurrentUser().getEmail();
         Start = getView().findViewById(R.id.btnStart);
-        img.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent gallerIntent =new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(gallerIntent,GALLARY_REQUEST_CODE);
-            }
-                               });
+        img.setOnClickListener(v -> openGallery());
         Start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -129,7 +74,7 @@ private ArrayList<String> Recipes=new ArrayList<>();
                     Toast.makeText(getActivity(), "Some fields are empty!", Toast.LENGTH_SHORT).show();
                     return;
                 }
-               Uri selectedImageUri=fbs.getSelectedImageURL();
+               Uri selectedImageUri=img.getTag() instanceof Uri ? (Uri) img.getTag() : null;
                 String imageUri = "";
                 if(selectedImageUri!=null)
                     imageUri=selectedImageUri.toString();
@@ -157,14 +102,20 @@ private ArrayList<String> Recipes=new ArrayList<>();
         String namePart = email.split("@")[0];
         return namePart;
     }
+
+    private void openGallery() {
+        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        intent.setType("image/*");
+        startActivityForResult(intent, GALLARY_REQUEST_CODE);
+    }
+
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode ==  GALLARY_REQUEST_CODE && resultCode == getActivity().RESULT_OK && data != null) {
-            Uri selectedImageUri = data.getData();
-            img.setImageURI(selectedImageUri);
-            Utils.getInstance().uploadImage(getActivity(), selectedImageUri);
+        if (requestCode == GALLARY_REQUEST_CODE && resultCode == Activity.RESULT_OK && data != null && data.getData() != null) {
+            Uri imageUri = data.getData();
+            img.setImageURI(imageUri);
         }
     }
 }

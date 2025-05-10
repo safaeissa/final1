@@ -10,18 +10,16 @@ public class Recipe implements Serializable {
     private String method;
     private String imageUrl;
     private String userName;
-    private boolean isFavorite;
     private String idRecipe;
 
     public Recipe() {
     }
 
-    public Recipe(String title, String method, String imageUrl, String userName, boolean isFavorite, String idRecipe) {
+    public Recipe(String title, String method, String imageUrl, String userName, String idRecipe) {
         this.title = title;
         this.method = method;
         this.imageUrl = imageUrl;
         this.userName = userName;
-        this.isFavorite = isFavorite;
         this.idRecipe = idRecipe;
 
     }
@@ -50,10 +48,6 @@ public class Recipe implements Serializable {
         this.userName = userName;
     }
 
-    public void setFavorite(boolean favorite) {
-        isFavorite = favorite;
-    }
-
     public String getTitle() {
         return title;
     }
@@ -66,9 +60,6 @@ public class Recipe implements Serializable {
         return userName;
     }
 
-    public boolean isFavorite() {
-        return isFavorite;
-    }
 
 
 
@@ -83,7 +74,6 @@ public class Recipe implements Serializable {
                 ", method='" + method + '\'' +
                 ", imageUrl='" + imageUrl + '\'' +
                 ", userName='" + userName + '\'' +
-                ", isFavorite=" + isFavorite +
                 ", idRecipe='" + idRecipe + '\'' +
                 '}';
     }
