@@ -24,31 +24,21 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="256dp"
-            android:layout_height="155dp"
-            android:scaleType="centerCrop"
-            android:src="@android:drawable/ic_menu_camera"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintWidth_percent="1.0" />
-
         <!-- اسم المستخدم -->
+
+        <!-- إدخال اسم الوصفة -->
+
         <TextView
             android:id="@+id/UserNameP"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginStart="36dp"
             android:text="By: UserName"
             android:textColor="#F6F4EF"
             android:textSize="18sp"
-            app:layout_constraintTop_toBottomOf="@id/imageView"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="16dp" />
+            tools:layout_editor_absoluteY="135dp" />
 
-        <!-- إدخال اسم الوصفة -->
         <EditText
             android:id="@+id/recipetitle"
             android:layout_width="0dp"
@@ -86,13 +76,13 @@
             android:layout_height="50dp"
             android:layout_marginTop="24dp"
             android:backgroundTint="@color/Blue"
-            android:text="Add Recipe"
+            android:text="Next"
             android:textColor="@color/white"
             android:textSize="18sp"
             android:textStyle="bold"
-            app:layout_constraintTop_toBottomOf="@id/editTextTextMultiLine"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/editTextTextMultiLine"
             app:layout_constraintWidth_percent="0.6" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

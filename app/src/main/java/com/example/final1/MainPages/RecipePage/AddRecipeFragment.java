@@ -45,8 +45,8 @@ public class AddRecipeFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    static final String ARG_PARAM1 = "param1";
+    static final String ARG_PARAM2 = "param2";
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -99,7 +99,6 @@ public class AddRecipeFragment extends Fragment {
     public void conect() {
 
         fbs = new FirebaseServices().getInstance();
-        img = getView().findViewById(R.id.imageView);
         recipetitle = getView().findViewById(R.id.recipetitle);
         addrecipe = getView().findViewById(R.id.addRecipe);
         recipemethode = getView().findViewById(R.id.editTextTextMultiLine);
@@ -173,4 +172,5 @@ public class AddRecipeFragment extends Fragment {
         String namePart = email.split("@")[0];
         return namePart;
     }
+
 }
