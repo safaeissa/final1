@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.final1.FirebaseServices;
 import com.example.final1.MainPages.RecipePage.RecipeListFragment;
@@ -128,10 +129,10 @@ public class HomeFragment extends Fragment {
         if (user != null) {
             String email = user.getEmail();
             String name = getNameFromEmail(email);
-            textuser.setText(name);
             fbs.getUserDataByEmail(email, new OnSuccessListener<QueryDocumentSnapshot>() {
                 @Override
                 public void onSuccess(QueryDocumentSnapshot queryDocumentSnapshot) {
+                    textuser.setText(name);
                     String photo = queryDocumentSnapshot.getString("photo");
                     if (photo == null || photo.isEmpty())
                         imguser.setImageResource(R.drawable.blank_profile_picture_973460_1280);

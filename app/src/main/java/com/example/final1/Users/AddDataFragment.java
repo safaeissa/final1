@@ -16,6 +16,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -33,69 +36,78 @@ import com.google.firebase.firestore.DocumentReference;
 import java.util.ArrayList;
 
 public class AddDataFragment extends Fragment {
-    private static final int GALLARY_REQUEST_CODE = 1;
-    private EditText name,age, Weight ,height ;
+    private EditText age, Weight ,height ;
     private FirebaseServices fbs ;
     private Button Start;
+    private Uri selectedImageUri;
     private ImageView img;
 private ArrayList<String> Recipes=new ArrayList<>();
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_add_data, container, false);
-    }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        conect();
+    private ActivityResultLauncher<String> imagePickerLauncher;
 
-    }
-    public void conect() {
-        Recipes=new ArrayList<String>();
-        fbs=new FirebaseServices().getInstance();
-        img = getView().findViewById(R.id.imageViewProfile);
-        Weight = getView().findViewById(R.id.etWeight);
-        height = getView().findViewById(R.id.etHeight);
-        age = getView().findViewById(R.id.etAge);
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_add_data, container, false);
+
+        Recipes = new ArrayList<>();
+        fbs = FirebaseServices.getInstance();
+
+        img = view.findViewById(R.id.imageViewProfile);
+        Weight = view.findViewById(R.id.etWeight);
+        height = view.findViewById(R.id.etHeight);
+        age = view.findViewById(R.id.etAge);
+        Start = view.findViewById(R.id.btnStart);
+
         String email = fbs.getAuth().getCurrentUser().getEmail();
-        Start = getView().findViewById(R.id.btnStart);
+
         img.setOnClickListener(v -> openGallery());
-        Start.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String name1 = getNameFromEmail(email);
-                String weight1 = Weight.getText().toString();
-                String height1 = height.getText().toString();
-                String age1 = age.getText().toString();
-                if (name1.isEmpty() || weight1.isEmpty() || height1.isEmpty() || age1.isEmpty())
-                {
-                    Toast.makeText(getActivity(), "Some fields are empty!", Toast.LENGTH_SHORT).show();
-                    return;
+
+        imagePickerLauncher = registerForActivityResult(
+                new ActivityResultContracts.GetContent(),
+                uri -> {
+                    if (uri != null) {
+                        selectedImageUri = uri;
+                        img.setImageURI(uri);
+                        Utils.getInstance().uploadImage(getContext(), selectedImageUri);
+                    } else {
+                        Toast.makeText(getContext(), "Image not selected", Toast.LENGTH_SHORT).show();
+                    }
                 }
-               Uri selectedImageUri=img.getTag() instanceof Uri ? (Uri) img.getTag() : null;
-                String imageUri = "";
-                if(selectedImageUri!=null)
-                    imageUri=selectedImageUri.toString();
-                User user = new User(imageUri,name1, weight1, height1, age1, fbs.getAuth().getCurrentUser().getEmail(),Recipes);
-                fbs.getFire().collection("Users").add(user).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                    @Override
-                    public void onSuccess(DocumentReference documentReference) {
-                        Toast.makeText(getActivity(), "welcome", Toast.LENGTH_SHORT).show();
-                        FragmentTransaction transaction= getParentFragmentManager().beginTransaction();
-                        transaction.replace(R.id.main ,new HomeFragment());
-                        transaction.commit();
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(getActivity(), "faild ", Toast.LENGTH_SHORT).show();
-                    }
-                });
+        );
+
+        Start.setOnClickListener(v -> {
+            String name1 = getNameFromEmail(email);
+            String weight1 = Weight.getText().toString();
+            String height1 = height.getText().toString();
+            String age1 = age.getText().toString();
+
+            if (name1.isEmpty() || weight1.isEmpty() || height1.isEmpty() || age1.isEmpty()) {
+                Toast.makeText(getActivity(), "Some fields are empty!", Toast.LENGTH_SHORT).show();
+                return;
             }
+
+            Uri imageUrl = fbs.getSelectedImageURL();
+            if (imageUrl == null) {
+                Toast.makeText(getContext(), "Please select an image!", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            User user = new User(imageUrl.toString(), name1, weight1, height1, age1, email, Recipes);
+            fbs.getFire().collection("Users").add(user)
+                    .addOnSuccessListener(documentReference -> {
+                        Toast.makeText(getActivity(), "Welcome", Toast.LENGTH_SHORT).show();
+                        getParentFragmentManager().beginTransaction()
+                                .replace(R.id.main, new HomeFragment())
+                                .commit();
+                    })
+                    .addOnFailureListener(e -> {
+                        Toast.makeText(getActivity(), "Failed to save data", Toast.LENGTH_SHORT).show();
+                    });
         });
+        return view;
     }
+
     public static String getNameFromEmail(String email) {
         if (email == null || !email.contains("@"))
             return "Invalid email";
@@ -104,19 +116,7 @@ private ArrayList<String> Recipes=new ArrayList<>();
     }
 
     private void openGallery() {
-        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        intent.setType("image/*");
-        startActivityForResult(intent, GALLARY_REQUEST_CODE);
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == GALLARY_REQUEST_CODE && resultCode == Activity.RESULT_OK && data != null && data.getData() != null) {
-            Uri imageUri = data.getData();
-            img.setImageURI(imageUri);
-        }
+        imagePickerLauncher.launch("image/*");
     }
 }
 

@@ -8,6 +8,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -40,6 +44,7 @@ import com.example.final1.R;
 import com.example.final1.SignInLogInForget.LogInFragment;
 import com.example.final1.SignInLogInForget.SignUPFragment;
 import com.example.final1.Users.User;
+import com.example.final1.Utils.Utils;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseUser;
@@ -50,84 +55,34 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link SettingsFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
+
 public class SettingsFragment extends Fragment {
 
     private EditText  age, Weight, height;
+    private Uri selectedImageUri;
     private TextView name;
     private ImageView  imgprofile;
     private FirebaseServices fbs;
-    private Uri imageUri;
     private Button btnOut, btnUpDate, btnDelet;
     private ImageButton imgba;
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private ActivityResultLauncher<String> imagePickerLauncher;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public SettingsFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment SettingsFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static SettingsFragment newInstance(String param1, String param2) {
-        SettingsFragment fragment = new SettingsFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
-
+    @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_settings, container, false);
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        coneect();
-    }
-
-    public void coneect() {
-        name = getView().findViewById(R.id.etNamePr);
-        age = getView().findViewById(R.id.etAgePr);
-        Weight = getView().findViewById(R.id.weightPr);
-        height = getView().findViewById(R.id.hightPr);
-        imgprofile = getView().findViewById(R.id.imgPr);
-        btnUpDate = getView().findViewById(R.id.btnUpdate);
-        btnOut = getView().findViewById(R.id.btnLogout);
-        btnDelet = getView().findViewById(R.id.DeleteAccount);
-        btnOut=getView().findViewById(R.id.btnLogout);
-        imgba=getView().findViewById(R.id.imgbutnSitting);
+        View view= inflater.inflate(R.layout.fragment_settings, container, false);
+        name = view.findViewById(R.id.etNamePr);
+        age = view.findViewById(R.id.etAgePr);
+        Weight = view.findViewById(R.id.weightPr);
+        height = view.findViewById(R.id.hightPr);
+        imgprofile = view.findViewById(R.id.imgPr);
+        btnUpDate = view.findViewById(R.id.btnUpdate);
+        btnOut = view.findViewById(R.id.btnLogout);
+        btnDelet = view.findViewById(R.id.DeleteAccount);
+        imgba = view.findViewById(R.id.imgbutnSitting);
         imgba.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -175,6 +130,22 @@ public class SettingsFragment extends Fragment {
                 transaction.commit();
             }
         });
+        imgprofile.setOnClickListener(new View.OnClickListener() {@Override public void onClick(View v) {openGallery();}});
+        imagePickerLauncher = registerForActivityResult(
+                new ActivityResultContracts.GetContent(),
+                new ActivityResultCallback<Uri>() {
+                    @Override
+                    public void onActivityResult(Uri uri) {
+                        if (uri != null) {
+                            selectedImageUri = uri;
+                            imgprofile.setImageURI(uri);
+                            Utils.getInstance().uploadImage(getContext(), selectedImageUri);
+                        } else {
+                            Toast.makeText(getContext(), "not done", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }
+        );
         btnUpDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -182,8 +153,7 @@ public class SettingsFragment extends Fragment {
                 String age2 = extractNumbersFromText(age.getText().toString());
                 String weight2 = extractNumbersFromText(Weight.getText().toString());
                 String length3 = extractNumbersFromText(height.getText().toString());
-                String imageUrl = imgprofile.toString();
-                fbs.updateUserByEmail(email2, imageUrl, age2, weight2, length3);
+                fbs.updateUserByEmail(email2, selectedImageUri.toString(), age2, weight2, length3);
                 Toast.makeText(getContext(), "Updated Successfully", Toast.LENGTH_SHORT).show();
             }
         });
@@ -193,8 +163,9 @@ public class SettingsFragment extends Fragment {
                 deletac();
             }
         });
-
+        return view;
     }
+
 
     public static String getNameFromEmail(String email) {
         if (email == null || !email.contains("@"))
@@ -222,7 +193,8 @@ public class SettingsFragment extends Fragment {
                 Toast.makeText(getContext(), "Failed to delete account: " + e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-
-
+    }
+    private void openGallery() {
+        imagePickerLauncher.launch("image/*");
     }
 }

@@ -139,9 +139,21 @@ public class FirebaseServices {
                                    final OnSuccessListener<QueryDocumentSnapshot> onSuccessListener,
                                    final OnFailureListener onFailureListener) {
         fire.collection("Users")
-                .whereEqualTo("email", email)  // البحث باستخدام البريد الإلكتروني
-                .limit(1)  // تحديد نتيجة واحدة فقط
-                .get();
+                .whereEqualTo("email", email)
+                .limit(1)
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        if (!queryDocumentSnapshots.isEmpty()) {
+                            QueryDocumentSnapshot document = (QueryDocumentSnapshot) queryDocumentSnapshots.getDocuments().get(0);
+                            onSuccessListener.onSuccess(document);
+                        } else {
+                            onFailureListener.onFailure(new Exception("No user found with email: " + email));
+                        }
+                    }
+                })
+                .addOnFailureListener(onFailureListener);
     }
 
 
@@ -155,7 +167,7 @@ public class FirebaseServices {
         updatedData.put("age", age);
         updatedData.put("weight", weight);
         updatedData.put("length", length);
-
+        updatedData.put("photo", imageUrl);
         fire.collection("Users")
                 .whereEqualTo("email", email)
                 .get()
