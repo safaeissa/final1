@@ -128,10 +128,10 @@ public class HomeFragment extends Fragment {
         FirebaseUser user = fbs.getCurrentUser();
         if (user != null) {
             String email = user.getEmail();
-            String name = getNameFromEmail(email);
             fbs.getUserDataByEmail(email, new OnSuccessListener<QueryDocumentSnapshot>() {
                 @Override
                 public void onSuccess(QueryDocumentSnapshot queryDocumentSnapshot) {
+                    String name = queryDocumentSnapshot.getString("name");
                     textuser.setText(name);
                     String photo = queryDocumentSnapshot.getString("photo");
                     if (photo == null || photo.isEmpty())
